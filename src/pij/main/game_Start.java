@@ -11,12 +11,11 @@ public class game_Start {
         System.out.println("============                   ============");
     }
 
-    public String board_Config(){
+    public String board_Config() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n" +
                 "Please enter your choice (l/d): ");
-        String boardTyoe = String.valueOf(scanner.nextLine().toLowerCase().toString().charAt(0));
-//        if (!boardType equals '')
+        String boardType = scanner.nextLine().toLowerCase().substring(0, 1);
         System.out.println("your option is: " + boardType);
         return boardType;
 
