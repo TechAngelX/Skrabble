@@ -1,10 +1,22 @@
+
+/**
+ * The GameInit class is responsible for initializing and configuring the SkraBBKle game.
+ * It provides methods for displaying the game's intro header, configuring the game board
+ * (prompting user to load a board file, or select the default file), and opening the game
+ * with the computer's tiles.
+ *
+ * To initiate the game, create an instance of this class and call the appropriate methods.
+ * Usage Example for the Main.java class:
+ * GameInit gameInit = new GameInit();
+ * gameInit.intro_Header();
+ * gameInit.board_Config();
+ * */
+
 package pij.main;
 
-import java.sql.SQLOutput;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class game_Start {
+public class GameInit {
     private String boardType;
 
     public void intro_Header() {
@@ -41,13 +53,20 @@ public class game_Start {
         }
     }
 
-    public void loadBoard(){
+    public void loadBoard() {
         System.out.println("loadboard");
+        System.out.print("Please enter the filename of the board: ");
+        // TODO - input validation
     }
 
-    public void defBoard(){
+    public void defBoard() {
         System.out.println("defBoard");
     }
+
+    public void openGame() {
+        System.out.println("OPEN GAME: The computer's tiles:");
+    }
+
 }
 
 
