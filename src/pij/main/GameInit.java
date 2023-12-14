@@ -14,6 +14,9 @@
 
 package pij.main;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GameInit {
@@ -67,6 +70,26 @@ public class GameInit {
         System.out.println("OPEN GAME: The computer's tiles:");
     }
 
+    public void fileReader(String fileName) {
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (fileReader != null) {
+                try (
+                        fileReader.close();
+                ) catch(IOException e){
+                    e.PrintStackTrace();
+                }
+
+            }
+        }
+        {
+
+        }
+    }
 }
 
 
