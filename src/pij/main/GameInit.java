@@ -49,7 +49,6 @@ public class GameInit {
                     System.out.print("Invalid Entry. Please enter your choice (only 'l' or 'd'): ");
                 }
             }
-            System.out.println("your option is: " + boardType);
 
         } catch (Exception e) {
             System.out.println("Invalid entry.");
@@ -63,32 +62,20 @@ public class GameInit {
     }
 
     public void defBoard() {
-        System.out.println("defBoard");
+        String absolutePath = "/Users/xeon2035/Library/Mobile Documents/com~apple~CloudDocs/UniWerk/PROJECT-PIJ/resources/defaultBoard.txt";
+
+        try (FileReader fileReader = new FileReader(absolutePath)) {
+            int data;
+            while ((data = fileReader.read()) != -1) {
+                System.out.print((char) data);
+            }
+        } catch (IOException e) {
+            System.out.println("File not found or IO Exception: " + e.getMessage());
+        }
     }
 
     public void openGame() {
         System.out.println("OPEN GAME: The computer's tiles:");
-    }
-
-    public void fileReader(String fileName) {
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(fileName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (fileReader != null) {
-                try (
-                        fileReader.close();
-                ) catch(IOException e){
-                    e.PrintStackTrace();
-                }
-
-            }
-        }
-        {
-
-        }
     }
 }
 
