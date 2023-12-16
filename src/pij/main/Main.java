@@ -9,9 +9,14 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
-        GameInit newGame = new GameInit();
-        newGame.intro_Header();
-        newGame.board_Config();
+//        GameInit newGame = new GameInit();
+//        newGame.intro_Header();
+//        newGame.board_Config();
+
+        GamePlay inGame = new GamePlay();
+        inGame.initialTileBag();
+        System.out.println(inGame.get('A'));
+        //        inGame.initialTileBag();
 
     }
 

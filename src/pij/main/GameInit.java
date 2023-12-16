@@ -58,6 +58,7 @@ public class GameInit {
     public void loadBoard() {
         System.out.println("loadboard");
         System.out.print("Please enter the filename of the board: ");
+
         // TODO - input validation
     }
 
