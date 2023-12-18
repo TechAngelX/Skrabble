@@ -13,10 +13,15 @@ public class Main {
 //        newGame.intro_Header();
 //        newGame.board_Config();
 
-        GamePlay inGame = new GamePlay();
-        inGame.initialTileBag();
-        System.out.println(inGame.get('A'));
-        //        inGame.initialTileBag();
+//        GamePlay inGame = new GamePlay();
+//        inGame.initialTileBag();
+//
+//        System.out.println(inGame.getTile('B'));
+        // This will print the value associated with the letter 'A'
+
+SimpleAddJUnitTest add = new SimpleAddJUnitTest();
+add.simpleAdderJUnitTest(2,3);
+
 
     }
 
