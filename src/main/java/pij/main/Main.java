@@ -8,6 +8,7 @@ public class Main {
         GameInit newGame = new GameInit();
         newGame.intro_Header();
         newGame.board_Config();
+        System.out.println("dsfeds");
 //        GamePlay inGame = new GamePlay();
 //        inGame.initialTileBag();
 //

@@ -63,9 +63,10 @@ public class GameInit {
     }
 
     public void defBoard() {
-        String absolutePath = "/resources/defaultBoard.txt";
 
-        try (FileReader fileReader = new FileReader(absolutePath)) {
+        String relativePathDir = "resources/defaultBoard.txt";
+
+        try (FileReader fileReader = new FileReader(relativePathDir)) {
             int data;
             while ((data = fileReader.read()) != -1) {
                 System.out.print((char) data);
