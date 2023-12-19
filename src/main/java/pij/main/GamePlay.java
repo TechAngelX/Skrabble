@@ -2,10 +2,12 @@
  * wordListChecker() Reads and prints the contents of a word list file.
  * The file path is specified as an absolute path in the method.
  * Uses a try-with-resources statement to automatically close the FileReader. *
+ *
  * @throws IOException If an IO Exception occurs during file reading.
  */
 
 package pij.main;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class GamePlay {
-private HashMap<Character, Integer> humanTiles;
+    private HashMap<Character, Integer> humanTiles;
 
     public void wordListChecker() {
         String absolutePath = "/Users/xeon2035/Library/Mobile Documents/com~apple~CloudDocs/UniWerk/PROJECT-PIJ/resources/wordlist.txt";
@@ -77,18 +79,18 @@ private HashMap<Character, Integer> humanTiles;
 
     }
 
-    public void tileRackHuman(){
+    public void tileRackHuman() {
 //        Set <int>
 
     }
 
-    public void tileRackComputer(){
+    public void tileRackComputer() {
 
     }
+
     public Integer getTile(Character tileLetter) {
         return humanTiles.get(tileLetter);
     }
-
 
 
 //    public static int computeScore(String word) {
@@ -100,7 +102,6 @@ private HashMap<Character, Integer> humanTiles;
 //        return sum;
 //
 //    }
-
 
 
 }

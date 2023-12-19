@@ -4,13 +4,13 @@
  * It provides methods for displaying the game's intro header, configuring the game board
  * (prompting user to load a board file, or select the default file), and opening the game
  * with the computer's tiles.
- *
+ * <p>
  * To initiate the game, create an instance of this class and call the appropriate methods.
  * Usage Example for the Main.java class:
  * GameInit gameInit = new GameInit();
  * gameInit.intro_Header();
  * gameInit.board_Config();
- * */
+ */
 
 package pij.main;
 
@@ -63,7 +63,7 @@ public class GameInit {
     }
 
     public void defBoard() {
-        String absolutePath = "/Users/xeon2035/Library/Mobile Documents/com~apple~CloudDocs/UniWerk/PROJECT-PIJ/resources/defaultBoard.txt";
+        String absolutePath = "/resources/defaultBoard.txt";
 
         try (FileReader fileReader = new FileReader(absolutePath)) {
             int data;
