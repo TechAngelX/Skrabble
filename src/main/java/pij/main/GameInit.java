@@ -14,7 +14,6 @@
 
 package pij.main;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -28,18 +27,18 @@ public class GameInit {
         System.out.println("============                   ============");
     }
 
-    public void board_Config() {
+    public void boardConfig() {
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
         try (Scanner scanner = new Scanner(System.in)) {
-
             String boardType;
             while (true) {
 
-                //formats the string to lowercase and first character:
+                //Converts the inputted string to lowercase, and takes the first character:
                 boardType = scanner.nextLine().toLowerCase().substring(0, 1);
-                if (boardType.equals("l") || (boardType.equals("d"))) {
-                    if (boardType.equals("l")) {
+
+                    if (boardType.equals("l") || (boardType.equals("d"))) {
+                        if (boardType.equals("l")) {
                         loadBoard();
                     } else {
                         defBoard();
@@ -56,15 +55,17 @@ public class GameInit {
     }
 
     public void loadBoard() {
-        System.out.println("loadboard");
         System.out.print("Please enter the filename of the board: ");
+        Scanner scanner = new Scanner(System.in);
+        String loadBoardFileName = scanner.nextLine();
+
 
         // TODO - input validation
     }
 
     public void defBoard() {
 
-        String relPathDirectory = "resources/defaultBoard.txt";
+        String relPathDirectory = "src/main/java/pij/resources/defaultBoard.txt";
 
         try (FileReader fileReader = new FileReader(relPathDirectory)) {
             int data;

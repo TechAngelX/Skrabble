@@ -36,7 +36,15 @@ public class GameTiles {
         tileBagSort.put("X9", 1);
         tileBagSort.put("Y5", 2);
         tileBagSort.put("Z11", 1);
-
+        tileBagSort.put("_5", 2);
 
     }
+    public void humanBag (){
+
+            }
+
+    public void computerBag() {
+
+}
+
 }

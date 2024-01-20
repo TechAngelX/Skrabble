@@ -33,48 +33,45 @@ public class GamePlay {
 
     public void initialTileBag() {
         /**
-         * Initializes the tile bag for the human player.
-         * Populates a HashMap with key-value pairs representing letters and their associated values.
-         * The key represents a letter, and the associated value represents the point value (score) of that letter in the game.
-         * We should call typically call this method  at the beginning of a game to set up the initial tiles.
-         *
-         * The initialized tile bag will contain key-value pairs for letters 'A' to 'Z' with their corresponding point values (scores:
-         * - 'A': 1, 'B': 3, 'C': 3, ..., 'Z': 10.
-         *
-         * It also contains the wildcard tile '_', which i guess is the same as the 'blank' tile in the real scrabble game.
-         * Rhe '_' tile has a value of 5.
-         *
+         * This method initializes the tile bag for the human player.
+         * Populates a HashMap with key-value pairs representing letters and their
+         * associated values. The key represents a letter, and the associated value
+         * represents the number of letters of that tile. i.e, A, 8 means there are
+         * eight tiles of letter A in the bag.
+         * initialTileBag also contains the wildcard two '_',  tiles, which i guess
+         * is the same as the two 'blank' tile in the real scrabble game.
+
          */
 
         humanTiles = new HashMap<>();
 
-        humanTiles.put('A', 1);
-        humanTiles.put('B', 3);
-        humanTiles.put('C', 3);
-        humanTiles.put('D', 2);
-        humanTiles.put('E', 1);
-        humanTiles.put('F', 4);
-        humanTiles.put('G', 2);
-        humanTiles.put('H', 4);
-        humanTiles.put('I', 1);
-        humanTiles.put('J', 9);
-        humanTiles.put('K', 6);
-        humanTiles.put('L', 1);
-        humanTiles.put('M', 3);
-        humanTiles.put('N', 1);
-        humanTiles.put('O', 1);
-        humanTiles.put('P', 3);
-        humanTiles.put('Q', 12);
-        humanTiles.put('R', 1);
-        humanTiles.put('S', 1);
-        humanTiles.put('T', 1);
-        humanTiles.put('U', 1);
-        humanTiles.put('V', 4);
-        humanTiles.put('W', 4);
-        humanTiles.put('X', 9);
-        humanTiles.put('Y', 5);
-        humanTiles.put('Z', 11);
-        humanTiles.put('_', 5);
+        humanTiles.put('A', 8);  // value is worth 1 point
+        humanTiles.put('B', 2);  // value is worth 3 points
+        humanTiles.put('C', 2);  // value is worth 3 points
+        humanTiles.put('D', 4);  // value is worth 2 points
+        humanTiles.put('E', 10); // value is worth 1 point
+        humanTiles.put('F', 3);  // value is worth 4 points
+        humanTiles.put('G', 4);  // value is worth 2 points
+        humanTiles.put('H', 3);  // value is worth 4 points
+        humanTiles.put('I', 8);  // value is worth 1 point
+        humanTiles.put('J', 1);  // value is worth 9 points
+        humanTiles.put('K', 1);  // value is worth 6 points
+        humanTiles.put('L', 4);  // value is worth 4 points
+        humanTiles.put('M', 2);  // value is worth 3 points
+        humanTiles.put('N', 7);  // value is worth 1 point
+        humanTiles.put('O', 7);  // value is worth 1 point
+        humanTiles.put('P', 2);  // value is worth 3 points
+        humanTiles.put('Q', 1);  // value is worth 12 points
+        humanTiles.put('R', 6);  // value is worth 1 point
+        humanTiles.put('S', 4);  // value is worth 1 point
+        humanTiles.put('T', 6);  // value is worth 1 point
+        humanTiles.put('U', 5);  // value is worth 1 point
+        humanTiles.put('V', 2);  // value is worth 4 points
+        humanTiles.put('W', 1);  // value is worth 4 points
+        humanTiles.put('X', 1);  // value is worth 9 points
+        humanTiles.put('Y', 2);  // value is worth 5 points
+        humanTiles.put('Z', 1);  // value is worth 11 points
+        humanTiles.put('_', 2);  // value is worth 5 points
 
 
     }
