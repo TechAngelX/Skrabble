@@ -8,5 +8,6 @@ public class Main {
 
         newGame.intro_Header();
         newGame.boardConfig();
+        newGame.openGame();
 
     }}

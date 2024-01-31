@@ -17,9 +17,14 @@ package pij.main;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-public class BoardInit {
+public class BoardInit implements userChoice {
     private String boardType;
 
     public void intro_Header() {
@@ -68,23 +73,59 @@ public class BoardInit {
 
     }
 
-    public void defBoard() {
 
-        String relPathDirectory = "src/main/java/pij/resources/defaultBoard.txt";
 
-        try (FileReader fileReader = new FileReader(relPathDirectory)) {
-            int data;
-            while ((data = fileReader.read()) != -1) {
-                System.out.print((char) data);
+    public void defBoard() throws IOException {
+        // Read the data on the board from the defaultBoard file
+        List<String> lines = Files.readAllLines(Paths.get("src/main/java/pij/resources/defaultBoard.txt"));
+
+        // Create a data structure to store the board
+        List<List<String>> board = new ArrayList<>();
+        for (String line : lines) {
+            board.add(Arrays.asList(line.split("")));
+        }
+
+        // Print the board
+        for (List<String> row : board) {
+            for (String col : row) {
+                System.out.print(col + "");
             }
-        } catch (IOException e) {
-            System.out.println("File not found or IO Exception: " + e.getMessage());
+            System.out.println();
         }
     }
 
+
     public void openGame() {
-        System.out.println("OPEN GAME: The computer's tiles:");
+        System.out.println("You can play an _o_pen or _c_losed game.");
+        System.out.println("Please enter your choice (o/c): ");
+
+        try (Scanner scanner = new Scanner(System.in)) {
+
+            String gameType;
+            while (true) {
+
+                //formats the string to lowercase and first character:
+                gameType = scanner.nextLine().toLowerCase().substring(0, 1);
+                if (gameType.equals("o") || (gameType.equals("c"))) {
+                    if (gameType.equals("o")) {
+                        System.out.println("openGame");;
+                    } else {
+                        System.out.println("closedGame");;
+                    }
+                    break;
+                } else {
+                    System.out.print("Invalid Entry. Please enter your choice (only 'o' or 'd'): ");
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Invalid entry.");
+        }
     }
+
 }
+
+
+
 
 
