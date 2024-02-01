@@ -18,6 +18,7 @@ package pij.main;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GamePlay {
@@ -80,7 +81,9 @@ public class GamePlay {
         tileBag.put('_', 2);  // value is worth 5 points
 
     }
-   public void tileRackHuman() {
+
+        public List<Character> tileRackHiman(){
+        List<Character> tileRackHuman
     }
 
     public void tileRackComputer() {
