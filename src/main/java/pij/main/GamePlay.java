@@ -87,7 +87,21 @@ public class GamePlay {
     }
 
     public void printNumberInTileBag() {
-        System.out.println("Tiles in the bag: "+tileBag);
+        System.out.println("Tiles remaining in the bag:");
+        // TODO - refine !!!
+        int count = 0;
+        for (Map.Entry<Character, Integer> entry : tileBag.entrySet()) {
+            char tile = entry.getKey();
+            int tileCount = entry.getValue();
+            for (int i = 0; i < tileCount; i++) {
+                System.out.print(tile + ": " + tileCount + "\t");
+                count++;
+                if (count == 7) {
+                    System.out.println();
+                    count = 0;
+                }
+            }
+        }
     }
 
 
