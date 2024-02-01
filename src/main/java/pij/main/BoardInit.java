@@ -15,7 +15,6 @@
 
 package pij.main;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoardInit implements userChoice {
+public class BoardInit {
     private String boardType;
 
     public void intro_Header() {
@@ -43,8 +42,8 @@ public class BoardInit implements userChoice {
                 //Converts the inputted string to lowercase, and takes the first character:
                 boardType = scanner.nextLine().toLowerCase().substring(0, 1);
 
-                    if (boardType.equals("l") || (boardType.equals("d"))) {
-                        if (boardType.equals("l")) {
+                if (boardType.equals("l") || (boardType.equals("d"))) {
+                    if (boardType.equals("l")) {
                         loadBoard();
                     } else {
                         defBoard();
@@ -96,36 +95,28 @@ public class BoardInit implements userChoice {
 
 
     public void openGame() {
-        System.out.println("You can play an _o_pen or _c_losed game.");
+        System.out.println("Do you want to play an _o_pen or _c_losed game?");
         System.out.println("Please enter your choice (o/c): ");
 
         try (Scanner scanner = new Scanner(System.in)) {
-
             String gameType;
             while (true) {
-
-                //formats the string to lowercase and first character:
-                gameType = scanner.nextLine().toLowerCase().substring(0, 1);
-                if (gameType.equals("o") || (gameType.equals("c"))) {
+                gameType = scanner.nextLine().toLowerCase().substring(0, 1);                if (gameType.equals("o") || gameType.equals("c")) {
                     if (gameType.equals("o")) {
-                        System.out.println("openGame");;
+                        System.out.println("Starting an open game...");
                     } else {
-                        System.out.println("closedGame");;
+                        System.out.println("Starting a closed game...");
                     }
                     break;
                 } else {
-                    System.out.print("Invalid Entry. Please enter your choice (only 'o' or 'd'): ");
+                    System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
                 }
             }
-
         } catch (Exception e) {
-            System.out.println("Invalid entry.");
         }
     }
 
+
+
+
 }
-
-
-
-
-
