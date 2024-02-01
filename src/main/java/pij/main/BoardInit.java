@@ -94,22 +94,23 @@ public class BoardInit {
     }
 
 
-    public void openGame() {
+    public void gameType() {
         System.out.println("Do you want to play an _o_pen or _c_losed game?");
         System.out.println("Please enter your choice (o/c): ");
 
         try (Scanner scanner = new Scanner(System.in)) {
-            String gameType;
+            String openClosedOption;
             while (true) {
-                gameType = scanner.nextLine().toLowerCase().substring(0, 1);                if (gameType.equals("o") || gameType.equals("c")) {
-                    if (gameType.equals("o")) {
+                openClosedOption = scanner.nextLine().toLowerCase().substring(0, 1);
+                if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
+                    if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
                     } else {
                         System.out.println("Starting a closed game...");
                     }
                     break;
                 } else {
-                    System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
+                    System.out.print("Invalid entry.\nPlease enter 'o' for open or 'c' for closed game: ");
                 }
             }
         } catch (Exception e) {
