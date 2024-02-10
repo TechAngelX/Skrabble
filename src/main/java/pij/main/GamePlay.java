@@ -95,7 +95,7 @@ public class GamePlay {
      * */
     public void printNumberInTileBag() {
 
-        System.out.println("\nTiles remaining in the bag:  (Letter / Number Count of that letter)");
+        System.out.println("\nTiles remaining in the bag: (Letter / Number Count of that letter)");
 
 
         // Sort tiles alphabetically

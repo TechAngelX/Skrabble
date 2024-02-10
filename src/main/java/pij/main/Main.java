@@ -6,7 +6,7 @@ public class Main {
         GamePlay readyPlayer1 = new GamePlay();
 //
 //      newGame.intro_Header();
-//      newGame.boardConfig();
+      newGame.boardConfig();
         newGame.gameType();
         readyPlayer1.tileBagInit();
 
