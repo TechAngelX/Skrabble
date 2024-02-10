@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GamePlay {
+public class tileControl {
     private Map<Character, Integer> tileBag;
 
     public void wordListChecker() {
