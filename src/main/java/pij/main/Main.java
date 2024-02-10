@@ -7,7 +7,7 @@ public class Main {
 //
 //      newGame.intro_Header();
       newGame.boardConfig();
-        newGame.gameType();
+        newGame.gameTypeOpenCLosed();
         readyPlayer1.tileBagInit();
 
         readyPlayer1.printNumberInTileBag();

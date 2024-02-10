@@ -94,8 +94,8 @@ public class BoardInit {
     }
 
 
-    public void gameType() {
-        System.out.println("Do you want to play an _o_pen or _c_losed game?");
+    public void gameTypeOpenCLosed() {
+        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.println("Please enter your choice (o/c): ");
 
         try (Scanner scanner = new Scanner(System.in)) {
