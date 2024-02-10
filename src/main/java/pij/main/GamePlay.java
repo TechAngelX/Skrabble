@@ -17,6 +17,7 @@ package pij.main;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,39 +83,53 @@ public class GamePlay {
 
     }
 
-        public List<Character> tileRackHiman(){
-        List<Character> tileRackHuman
-    }
+//        public List<Character> tileRackHiman(){
+//        List<Character> tileRackHuman;
+//    }
 
     public void tileRackComputer() {
     }
-
+    /**
+     * This method retrieves the current count of tiles in the SkraBBKle game
+     * and prints it to the console.
+     * */
     public void printNumberInTileBag() {
-        System.out.println("Tiles remaining in the bag:");
-        // TODO - refine !!!
+
+        System.out.println("\nTiles remaining in the bag:  (Letter / Number Count of that letter)");
+
+
+        // Sort tiles alphabetically
+        List<Map.Entry<Character, Integer>> tilesSorted = new ArrayList<>(tileBag.entrySet());
+        tilesSorted.sort((entry1, entry2) -> Character.compare(entry1.getKey(), entry2.getKey()));
+
+        // Print tiles in groups of 5 with aligned columns
         int count = 0;
-        for (Map.Entry<Character, Integer> entry : tileBag.entrySet()) {
+        for (Map.Entry<Character, Integer> entry : tilesSorted) {
             char tile = entry.getKey();
             int tileCount = entry.getValue();
-            for (int i = 0; i < tileCount; i++) {
-                System.out.print(tile + ": " + tileCount + "\t");
-                count++;
-                if (count == 7) {
-                    System.out.println();
-                    count = 0;
-                }
+            System.out.printf("%c: %-2d\t", tile, tileCount);
+            count++;
+            if (count == 5) {
+                System.out.println();
+                count = 0;
             }
+        }
+        // Just adds a newline after the last tile if not printed in a group of 5, to neaten things up.
+        if (count > 0) {
+            System.out.println();
         }
     }
 
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
 
 
