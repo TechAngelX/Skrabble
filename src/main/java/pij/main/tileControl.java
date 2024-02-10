@@ -79,8 +79,19 @@ public class tileControl {
         tileBag.put('_', 2);  // value is worth 5 points
 
     }
-
-
+    /**
+     * The getRandomTile method grabs a random tile from the tileBag, which can tthen be
+     * assigned to tileBagHuman or tileBagComputer.
+     *
+     * The TileRackHuman method keeps track of human (seven) tiles via an arrayList.
+     * Upon calling this function, it can add a new tile from the tileBag.
+     *
+     * TODO - Create similar tileRackComputer
+     *
+     *a removeOneTile method does exactly that - removes one tile from the tileBag. used in conjuction with
+     * tileRackHuman and tileRachComputer.
+     *
+     */
     public ArrayList<Character> tileRackHuman() {
         //generates a rack of 7 random tiles (from the tileBag) for the human player
         // by repeatedly calling a method called getRandomTile.
@@ -98,7 +109,31 @@ public class tileControl {
         // TODO - need to create logic to take a randome tile from the tile bag.
         // This would be assigned either to the human player or computer.
         // The tile bag would then be decremented by one.
+        ArrayList<Character> availableTiles = new ArrayList<>();
+        for (char tile : tileBag.keySet()) {
+            int count = tileBag.get(tile);
+            for (int i = 0; i < count; i++) {
+                availableTiles.add(tile);
+            }
+        }
+        Random random = new Random();
+        int index = random.nextInt(availableTiles.size());
+        char selectedTile = availableTiles.get(index);
+        removeOneTile(selectedTile);
+        return selectedTile;
 
+    }
+
+    private void removeOneTile(char tile) {
+        //Removes a selected tile from the tileBag, AFTER it has been chosen.
+        if (tileBag.containsKey(tile)) {
+            int count = tileBag.get(tile);
+            if (count > 1) {
+                tileBag.put(tile, count - 1);
+            } else {
+                tileBag.remove(tile);
+            }
+        }
     }
 
 
