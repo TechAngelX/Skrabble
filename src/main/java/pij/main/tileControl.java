@@ -97,7 +97,9 @@ public class tileControl {
     private char getRandomTile() {
         // TODO - need to create logic to take a randome tile from the tile bag.
         // This would be assigned either to the human player or computer.
-       }
+        // The tile bag would then be decremented by one.
+
+    }
 
 
 
