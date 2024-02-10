@@ -60,6 +60,9 @@ public class BoardInit {
     }
 
     public void loadBoard() {
+        // Read the data on a player's advance board from the loadBoard file.
+        // NOTE for Ricki: This method is called once in the game, then goes to gameTypeOpenClosed method.
+
         String relPathDirectory = "src/main/java/pij/resources/userLoadBoard.txt";
 
 
@@ -68,29 +71,34 @@ public class BoardInit {
         String tmp = scanner.nextLine();
         String loadBoardFileName = ("src/main/java/pij/resources/"+tmp+".txt");
 
-        System.out.println(loadBoardFileName);
-
+        System.out.println(loadBoardFileName); // just test printout to confirm path of user's loadBoard.txt file.
+        // Move control flow onto next part - ask whether open or closed game
+        gameTypeOpenCLosed();
     }
 
 
 
     public void defBoard() throws IOException {
-        // Read the data on the board from the defaultBoard file
+        // Read the data on the board from the defaultBoard file.
+        // NOTE for Ricki: This method is called once in the game, then goes to gameTypeOpenClosed method.
         List<String> lines = Files.readAllLines(Paths.get("src/main/java/pij/resources/defaultBoard.txt"));
 
         // Create a data structure to store the board
         List<List<String>> board = new ArrayList<>();
         for (String line : lines) {
-            board.add(Arrays.asList(line.split("")));
+            board.add(Arrays.asList(line.split(" ")));
         }
 
         // Print the board
         for (List<String> row : board) {
             for (String col : row) {
-                System.out.print(col + "");
+                System.out.print(col + " ");
             }
             System.out.println();
+
         }
+        // Move control flow onto next part - ask whether open or closed game
+        gameTypeOpenCLosed();
     }
 
 
