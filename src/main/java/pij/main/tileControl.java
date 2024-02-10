@@ -17,10 +17,7 @@ package pij.main;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class tileControl {
     private Map<Character, Integer> tileBag;
@@ -83,9 +80,26 @@ public class tileControl {
 
     }
 
-//        public List<Character> tileRackHiman(){
-//        List<Character> tileRackHuman;
-//    }
+
+    public ArrayList<Character> tileRackHuman() {
+        //generates a rack of 7 random tiles (from the tileBag) for the human player
+        // by repeatedly calling a method called getRandomTile.
+
+        ArrayList<Character> rack = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 7; i++) {
+            char tile = getRandomTile();
+            rack.add(tile);
+        }
+        return rack;
+    }
+
+    private char getRandomTile() {
+        // TODO - need to create logic to take a randome tile from the tile bag.
+        // This would be assigned either to the human player or computer.
+       }
+
+
 
     public void tileRackComputer() {
     }
