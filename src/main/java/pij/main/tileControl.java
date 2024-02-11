@@ -106,26 +106,37 @@ public class tileControl {
     }
 
     private char getRandomTile() {
-        // TODO - need to create logic to take a randome tile from the tile bag.
-        // This would be assigned either to the human player or computer.
-        // The tile bag would then be decremented by one.
-        ArrayList<Character> availableTiles = new ArrayList<>();
-        for (char tile : tileBag.keySet()) {
-            int count = tileBag.get(tile);
+        // Create a list to store available tiles
+        List<Character> availableTiles = new ArrayList<>();
+
+        // Firstly, we populate the list with tiles from the tileBag
+        for (Map.Entry<Character, Integer> entry : tileBag.entrySet()) {
+            char tile = entry.getKey();
+            int count = entry.getValue();
             for (int i = 0; i < count; i++) {
                 availableTiles.add(tile);
             }
         }
+
+        // Check if there are available tiles
+        if (availableTiles.isEmpty()) {
+         // Return a default value or throw an exception ?
+            return ' ';
+        }
+
+        // This part now selects a random tile from the available tiles
         Random random = new Random();
         int index = random.nextInt(availableTiles.size());
         char selectedTile = availableTiles.get(index);
-        removeOneTile(selectedTile);
-        return selectedTile;
 
+        //Call method to remove ONE selected tile from the tileBag
+        removeOneTile(selectedTile);
+
+        return selectedTile;
     }
 
     private void removeOneTile(char tile) {
-        //Removes a selected tile from the tileBag, AFTER it has been chosen.
+        //Removes a selected tile from the tileBag, AFTER it has been chosen (getRandomTile).
         if (tileBag.containsKey(tile)) {
             int count = tileBag.get(tile);
             if (count > 1) {
