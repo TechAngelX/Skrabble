@@ -10,10 +10,10 @@ public class Main {
         BoardInit newGame = new BoardInit();
         tileControl readyPlayer1 = new tileControl();
 
-        // Initialize the tile bag
+        // Initialize the tile bag for this game's instance.
         readyPlayer1.tileBagInit();
 
-        // Call other methods
+
         newGame.boardConfig();
         readyPlayer1.printNumberInTileBag();
 
@@ -22,6 +22,7 @@ public class Main {
         for (char tile : tiles) {
             System.out.print(tile + " ");
         }
+
 
 
 

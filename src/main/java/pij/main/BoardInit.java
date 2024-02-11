@@ -33,43 +33,40 @@ public class BoardInit {
     }
 
     public void boardConfig() {
+        Scanner scanner = new Scanner (System.in);
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
-        try (Scanner scanner = new Scanner(System.in)) {
-            String boardType;
-            while (true) {
 
-                //Converts the inputted string to lowercase, and takes the first character:
-                boardType = scanner.nextLine().toLowerCase().substring(0, 1);
-
-                if (boardType.equals("l") || (boardType.equals("d"))) {
-                    if (boardType.equals("l")) {
-                        loadBoard();
-                    } else {
-                        defBoard();
-                    }
-                    break;
-                } else {
-                    System.out.print("Invalid Entry. Please enter your choice (only 'l' or 'd'): ");
-                }
+        String userChoice;
+        while (true) {
+            userChoice = scanner.nextLine().toLowerCase();
+            if (userChoice.equals("l") || userChoice.equals("d")) {
+                break;
+            } else {
+                System.out.print("Invalid entry. Please enter your choice (l/d): ");
             }
+        }
 
-        } catch (Exception e) {
-            System.out.println("Invalid entry.");
+        if (userChoice.equals("l")) {
+            loadBoard(scanner);
+        } else {
+            try {
+                defBoard();
+            } catch (IOException e) {
+                System.out.println("Error reading default board file: " + e.getMessage());
+            }
         }
     }
-
-    public void loadBoard() {
+    public void loadBoard(Scanner scanner) {
         // Read the data on a player's advance board from the loadBoard file.
         // NOTE for Ricki: This method is called once in the game, then goes to gameTypeOpenClosed method.
+        System.out.print("Please enter the filename of the board: ");
+        String loadBoardFileName = "src/main/java/pij/resources/" + scanner.nextLine();
 
         String relPathDirectory = "src/main/java/pij/resources/userLoadBoard.txt";
 
 
-        System.out.print("Please enter the filename of the board: ");
-        Scanner scanner = new Scanner(System.in);
-        String tmp = scanner.nextLine();
-        String loadBoardFileName = ("src/main/java/pij/resources/"+tmp+".txt");
+
 
         System.out.println(loadBoardFileName); // just test printout to confirm path of user's loadBoard.txt file.
         // Move control flow onto next part - ask whether open or closed game
@@ -94,7 +91,7 @@ public class BoardInit {
             for (String col : row) {
                 System.out.print(col + " ");
             }
-            System.out.println();
+
 
         }
         // Move control flow onto next part - ask whether open or closed game

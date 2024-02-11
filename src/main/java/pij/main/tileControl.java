@@ -105,6 +105,8 @@ public class tileControl {
         return rack;
     }
 
+
+
     private char getRandomTile() {
         // Create a list to store available tiles
         List<Character> availableTiles = new ArrayList<>();
@@ -135,7 +137,7 @@ public class tileControl {
         return selectedTile;
     }
 
-    private void removeOneTile(char tile) {
+    public void removeOneTile(char tile) {
         //Removes a selected tile from the tileBag, AFTER it has been chosen (getRandomTile).
         if (tileBag.containsKey(tile)) {
             int count = tileBag.get(tile);
