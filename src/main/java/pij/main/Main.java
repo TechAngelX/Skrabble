@@ -8,6 +8,7 @@ public class Main {
 
 //      newGame.intro_Header();
         BoardInit newGame = new BoardInit();
+
         tileControl readyPlayer1 = new tileControl();
 
         // Initialize the tile bag for this game's instance.
@@ -15,13 +16,13 @@ public class Main {
 
 
         newGame.boardConfig();
-        readyPlayer1.printNumberInTileBag();
-
-        ArrayList<Character> tiles = readyPlayer1.tileRackHuman();
-        System.out.println("Your tiles on the Rack:");
-        for (char tile : tiles) {
-            System.out.print(tile + " ");
-        }
+//        readyPlayer1.printNumberInTileBag();
+//
+//        ArrayList<Character> tiles = readyPlayer1.tileRackHuman();
+//        System.out.print("Your tiles on the Rack: ");
+//        for (char tile : tiles) {
+//            System.out.print(tile + " ");
+//        }
 
 
 

@@ -15,8 +15,10 @@
 
 package pij.main;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,9 +66,7 @@ public class BoardInit {
         String loadBoardFileName = "src/main/java/pij/resources/" + scanner.nextLine();
 
         String relPathDirectory = "src/main/java/pij/resources/userLoadBoard.txt";
-
-
-
+        //TODO Logic
 
         System.out.println(loadBoardFileName); // just test printout to confirm path of user's loadBoard.txt file.
         // Move control flow onto next part - ask whether open or closed game
@@ -75,28 +75,27 @@ public class BoardInit {
 
 
 
+    // Assuming this method is within the BoardInit class in src/main/java/pij/main
     public void defBoard() throws IOException {
-        // Read the data on the board from the defaultBoard file.
-        // NOTE for Ricki: This method is called once in the game, then goes to gameTypeOpenClosed method.
-        List<String> lines = Files.readAllLines(Paths.get("src/main/java/pij/resources/defaultBoard.txt"));
+        String defBoardFilePath = "src/resources/defaultBoard.txt";
 
-        // Create a data structure to store the board
-        List<List<String>> board = new ArrayList<>();
-        for (String line : lines) {
-            board.add(Arrays.asList(line.split(" ")));
-        }
-
-        // Print the board
-        for (List<String> row : board) {
-            for (String col : row) {
-                System.out.print(col + " ");
+        try (FileReader fileReader = new FileReader(defBoardFilePath)) {
+            int data;
+            while ((data = fileReader.read()) != -1) {
+                System.out.print((char) data);
             }
-
-
+        } catch (IOException e) {
+            System.out.println("File not found or IO Exception: " + e.getMessage());
         }
-        // Move control flow onto next part - ask whether open or closed game
+        // This calls my method to control flow onto next part - ask whether open or closed game
         gameTypeOpenCLosed();
     }
+
+    public void openGame() {
+        System.out.println("OPEN GAME: The computer's tiles:");
+    }
+
+
 
 
     public void gameTypeOpenCLosed() {
