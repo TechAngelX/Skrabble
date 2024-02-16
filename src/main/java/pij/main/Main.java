@@ -6,8 +6,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-//      newGame.intro_Header();
         BoardInit newGame = new BoardInit();
+        newGame.intro_Header();
+        newGame.setPlayerName();;
+
+
 
         tileControl readyPlayer1 = new tileControl();
 

@@ -28,15 +28,26 @@ import java.util.Scanner;
 public class BoardInit {
     private String boardType;
 
+
+    public String setPlayerName (){
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Please Enter your name: ");
+    return scanner.nextLine().trim();
+    }
+
+
+
     public void intro_Header() {
         System.out.println("============                   ============");
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
 
+
     public void boardConfig() {
         Scanner scanner = new Scanner (System.in);
-        System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
+        String playerName = setPlayerName();
+        System.out.print("Hello "+ playerName+". Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
 
         String userChoice;
