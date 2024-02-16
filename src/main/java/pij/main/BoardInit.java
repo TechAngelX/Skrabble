@@ -39,7 +39,7 @@ public class BoardInit {
         System.out.print("Please Enter your name: ");
         String userInputName = scanner.next().trim(); // Trim in case enters multiple names, i.e Carl Gustavus Theodore von Holst !
 
-        // Convert the first character to uppercase and the rest to lowercase
+        // Converts the first character to uppercase and the rest to lowercase
         String playerName = userInputName.substring(0, 1).toUpperCase() + userInputName.substring(1).toLowerCase();
         return playerName;
     }
