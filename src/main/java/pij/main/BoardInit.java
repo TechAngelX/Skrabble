@@ -34,18 +34,31 @@ public class BoardInit {
         System.out.println("============                   ============");
     }
 
-    private String setPlayerName (){
+    private String setPlayerName() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please Enter your name: ");
-        String userInputName = scanner.next().trim(); // Trim in case enters multiple names, i.e Carl Gustavus Theodore von Holst !
+        String userInputName = scanner.nextLine().trim(); // Trim input (anything after first string)
 
-        // Convertss the first character to uppercase and the rest to lowercase
-        String playerName = userInputName.substring(0, 1).toUpperCase() + userInputName.substring(1).toLowerCase();
-        return playerName;
+        // If user input is empty, (if user just presses Enter, return "Human Player"
+        if (userInputName.isEmpty()) {
+            return "Human Player";
+        }
+        // If he input contains a whitespace character, extract the first word
+        int whiteSpaceIndex = userInputName.indexOf(" ");
+        if (whiteSpaceIndex != -1) {
+            userInputName = userInputName.substring(0, whiteSpaceIndex);
+        }
+
+        // Now Convert the first word to sentence case
+        String firstWordSentnceCase = userInputName.substring(0, 1).toUpperCase() + userInputName.substring(1).toLowerCase();
+
+        return firstWordSentnceCase;
     }
+
     public void boardConfig() {
         Scanner scanner = new Scanner (System.in);
-        String playerName = setPlayerName();
+        String playerName = setPlayerName(); // sets playerName as a string from the setPlayerName method
+
         System.out.print("Hello "+ playerName+". Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
 
