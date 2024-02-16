@@ -28,22 +28,21 @@ import java.util.Scanner;
 public class BoardInit {
     private String boardType;
 
-
-    public String setPlayerName (){
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Please Enter your name: ");
-    return scanner.nextLine().trim();
-    }
-
-
-
     public void intro_Header() {
         System.out.println("============                   ============");
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
 
+    private String setPlayerName (){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please Enter your name: ");
+        String userInputName = scanner.nextLine().trim(); // Trim in case enters multiple names, i.e Carl Gustavus Theodore von Holst !
 
+        // Convert the first character to uppercase and the rest to lowercase
+        String playerName = userInputName.substring(0, 1).toUpperCase() + userInputName.substring(1).toLowerCase();
+        return playerName;
+    }
     public void boardConfig() {
         Scanner scanner = new Scanner (System.in);
         String playerName = setPlayerName();

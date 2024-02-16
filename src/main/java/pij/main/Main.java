@@ -8,7 +8,7 @@ public class Main {
 
         BoardInit newGame = new BoardInit();
         newGame.intro_Header();
-        newGame.setPlayerName();;
+
 
 
 
