@@ -114,9 +114,7 @@ public class BoardInit {
         gameTypeOpenCLosed();
     }
 
-    public void openGame() {
-        System.out.println("OPEN GAME: The computer's tiles:");
-    }
+
 
 
 

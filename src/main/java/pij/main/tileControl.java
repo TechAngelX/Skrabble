@@ -151,7 +151,16 @@ public class tileControl {
 
 
 
-    public void tileRackComputer() {
+    public ArrayList<Character> tileRackComputer() {
+        //generates a rack of 7 random tiles (from the tileBag) for the Computer player
+        // by repeatedly calling a method called getRandomTile.
+      ArrayList<Character> rack = new ArrayList<>();
+      Random random = new Random();
+        for (int i = 0; i < 7; i++) {
+            char tile = getRandomTile();
+            rack.add(tile);
+        }
+    return rack;
     }
     /**
      * This method retrieves the current count of tiles in the SkraBBKle game

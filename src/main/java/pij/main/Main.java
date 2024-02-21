@@ -19,13 +19,21 @@ public class Main {
 
 
         newGame.boardConfig();
-//        readyPlayer1.printNumberInTileBag();
-//
-//        ArrayList<Character> tiles = readyPlayer1.tileRackHuman();
-//        System.out.print("Your tiles on the Rack: ");
-//        for (char tile : tiles) {
-//            System.out.print(tile + " ");
-//        }
+        readyPlayer1.printNumberInTileBag();
+
+        ArrayList<Character> tilesPc = readyPlayer1.tileRackComputer();
+        System.out.print("OPEN GAME: The computer's tiles:" );
+        for (char tile : tilesPc) {
+            System.out.print(tile + " ");
+        }
+
+        ArrayList<Character> tiles = readyPlayer1.tileRackHuman();
+        System.out.print("\nCurrent tiles on your Rack: ");
+        for (char tile : tiles) {
+            System.out.print(tile + " ");
+
+        }
+
 
 
 
