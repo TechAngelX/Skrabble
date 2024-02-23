@@ -1,5 +1,3 @@
-
-
 /**
  * The GameInit class is responsible for initializing and configuring the SkraBBKle game.
  * It provides methods for displaying the game's intro header, configuring the game board
@@ -15,18 +13,15 @@
 
 package pij.main;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class BoardInit {
+    private  final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
     private String boardType;
+    private static final int ROWS = 16;
+    private static final int COLUMNS = 16;
 
     public void intro_Header() {
         System.out.println("============                   ============");
@@ -55,11 +50,11 @@ public class BoardInit {
         return firstWordSentnceCase;
     }
 
-    public void boardConfig() {
-        Scanner scanner = new Scanner (System.in);
+    public void boardConfig() throws IOException {
+        Scanner scanner = new Scanner(System.in);
         String playerName = setPlayerName(); // sets playerName as a string from the setPlayerName method
 
-        System.out.print("Hello "+ playerName+". Would you like to _l_oad a board or use the _d_ef board?\n");
+        System.out.print("Hello " + playerName + ". Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
 
         String userChoice;
@@ -73,50 +68,108 @@ public class BoardInit {
         }
 
         if (userChoice.equals("l")) {
-            loadBoard(scanner);
+            // Handle user-loaded board (not shown here)
         } else {
-            try {
-                defBoard();
-            } catch (IOException e) {
-                System.out.println("Error reading default board file: " + e.getMessage());
-            }
+            defBoard();
         }
     }
-    public void loadBoard(Scanner scanner) {
-        // Read the data on a player's advance board from the loadBoard file.
-        // NOTE for Ricki: This method is called once in the game, then goes to gameTypeOpenClosed method.
-        System.out.print("Please enter the filename of the board: ");
-        String loadBoardFileName = "src/main/java/pij/resources/" + scanner.nextLine();
 
-        String relPathDirectory = "src/main/java/pij/resources/userLoadBoard.txt";
-        //TODO Logic
 
-        System.out.println(loadBoardFileName); // just test printout to confirm path of user's loadBoard.txt file.
-        // Move control flow onto next part - ask whether open or closed game
-        gameTypeOpenCLosed();
+    public void loadBoard(String filename) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
+
+        if (inputStream == null) {
+            throw new IOException("File not found: " + filename);
+        }
+
+        Scanner scanner = new Scanner(inputStream);
+        int size = scanner.nextInt();
+        board = new char[size][size];
+
+        scanner.nextLine(); // Skip the size line
+
+        for (int row = 0; row < size; row++) {
+            String line = scanner.nextLine();
+            for (int col = 0; col < size; col++) {
+                board[row][col] = line.charAt(col);
+            }
+        }
+        scanner.close();
+    }
+
+    public void printBoard() {
+        // Print column labels
+        System.out.print("  ");
+        for (int col = 0; col < board.length; col++) {
+            System.out.print(Character.toString(col + 'a') + " ");
+        }
+        System.out.println();
+
+        // Print rows with specified formatting
+        for (int row = 0; row < board.length; row++) {
+            // Print row number
+            System.out.print((row + 1) + " ");
+
+            // Iterate over columns individually
+            for (int col = 0; col < board.length; col++) {
+                // Print character with two spaces after
+                System.out.print(board[row][col] + "  ");
+            }
+
+            // Print row number again
+            System.out.println(row + 1);
+        }
+
+        // Print column labels again
+        System.out.print("  ");
+        for (int col = 0; col < board.length; col++) {
+            System.out.print(Character.toString(col + 'a') + " ");
+        }
+        System.out.println();
     }
 
 
+    private char[][] board;
 
-    // Assuming this method is within the BoardInit class in src/main/java/pij/main
+
     public void defBoard() throws IOException {
-        String defBoardFilePath = "src/resources/defaultBoard.txt";
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
 
-        try (FileReader fileReader = new FileReader(defBoardFilePath)) {
-            int data;
-            while ((data = fileReader.read()) != -1) {
-                System.out.print((char) data);
+            // Read board size (should match ROWS and COLUMN constants)
+            int size = Integer.parseInt(reader.readLine().trim());
+            board = new char[ROWS][COLUMNS];
+
+            // Read first row of column letters
+            String columnLetters = reader.readLine().trim();
+            for (int col = 0; col < COLUMNS; col++) {
+                board[0][col] = columnLetters.charAt(col);
             }
-        } catch (IOException e) {
-            System.out.println("File not found or IO Exception: " + e.getMessage());
+
+            // Read remaining rows with numbers and board data
+            for (int row = 1; row < ROWS; row++) {
+                String line = reader.readLine().trim();
+                board[row][0] = Character.forDigit(row + 1, 10);
+                for (int col = 1; col < COLUMNS; col++) {
+                    board[row][col] = line.charAt(col - 1);
+                }
+            }
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
         }
-        // This calls my method to control flow onto next part - ask whether open or closed game
-        gameTypeOpenCLosed();
     }
 
 
 
 
+
+
+    public void openGame() {
+        System.out.println("OPEN GAME: The computer's tiles:");
+    }
 
 
     public void gameTypeOpenCLosed() {
@@ -142,7 +195,34 @@ public class BoardInit {
         }
     }
 
+    public void printDefaultBoard() {
+        /**
+         * After default board has been initialised, this printDFefaultBoard
+         * function can be called throught the state of the game.
+         */
+        // Print column labels
+        System.out.print("  ");
+        for (int col = 0; col < COLUMNS; col++) {
+            System.out.print(Character.toString(col + 'a') + " ");
+        }
+        System.out.println();
 
+        // Print rows with specified formatting
+        for (int row = 0; row < ROWS; row++) {
+            // Print row number
+            System.out.print(Character.forDigit(row + 1, 10) + " ");
+
+            // This codeblock attempts to iterate over columns individually
+            for (int col = 0; col < COLUMNS; col++) {
+                // Print character with two spaces after
+                System.out.print(board[row][col] + "  ");
+            }
+
+            // New line after each row
+            System.out.println();
+        }
+    }
 
 
 }
+
