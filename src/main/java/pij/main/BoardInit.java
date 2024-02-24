@@ -94,7 +94,7 @@ public class BoardInit {
     }
     private char[][] board;
     public String[][] defBoard() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) {  // Keep this exact path reference.
+        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) {   // Keep this exact path reference.
             List<List<String>> rows = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -108,17 +108,14 @@ public class BoardInit {
                             row.add(line.substring(start, i));
                         }
 
-                        // Add the delimiter as a separate cell
+                        // Add the delimiter itself as a separate cell
                         row.add(String.valueOf(c));
 
                         if (c == '{') {
-                            // Extract the content within {} and add it as separate cells
+                            // Extract the entire content within {} as a single cell
                             int endIndex = line.indexOf('}', i + 1);
                             if (endIndex != -1) {
-                                String content = line.substring(i + 1, endIndex);
-                                for (String subCell : content.split(",")) {
-                                    row.add(subCell.trim());
-                                }
+                                row.add(line.substring(start + 1, endIndex + 1));
                                 i = endIndex; // Skip to the closing brace
                             } else {
                                 System.err.println("Warning: Unclosed '{' at position " + i + " in the file.");
@@ -127,11 +124,15 @@ public class BoardInit {
 
                         start = i + 1;
                     } else {
-                        // Handle consecutive non-delimiter characters
-                        if (i > start + 1) {
+                        // Handle the remaining non-delimiter characters as one cell
+                        if (i == start) {
+                            // Single character, add it directly
+                            row.add(String.valueOf(c));
+                        } else if (i > start + 1) {
+                            // Multiple characters, treat as one cell
                             row.add(line.substring(start, i));
                         }
-                        start = i;
+                        start = i + 1;
                     }
                 }
 
