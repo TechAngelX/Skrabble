@@ -68,7 +68,7 @@ public class BoardInit {
         if (userChoice.equals("l")) {
             // Handle user-loaded board (not shown here)
         } else {
-            defBoard();
+//            defBoard();
         }
     }
     public void loadBoard(String filename) throws IOException {
@@ -93,98 +93,10 @@ public class BoardInit {
         scanner.close();
     }
     private char[][] board;
-    public String[][] defBoard() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) {   // Keep this exact path reference.
-            List<List<String>> rows = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                List<String> row = new ArrayList<>();
-                int start = 0;
-                for (int i = 0; i < line.length(); i++) {
-                    char c = line.charAt(i);
-                    if (c == '.' || c == '(' || c == ')' || c == '{') {
-                        // Check if there are characters before the delimiter
-                        if (i > start) {
-                            row.add(line.substring(start, i));
-                        }
-
-                        // Add the delimiter itself as a separate cell
-                        row.add(String.valueOf(c));
-
-                        if (c == '{') {
-                            // Extract the entire content within {} as a single cell
-                            int endIndex = line.indexOf('}', i + 1);
-                            if (endIndex != -1) {
-                                row.add(line.substring(start + 1, endIndex + 1));
-                                i = endIndex; // Skip to the closing brace
-                            } else {
-                                System.err.println("Warning: Unclosed '{' at position " + i + " in the file.");
-                            }
-                        }
-
-                        start = i + 1;
-                    } else {
-                        // Handle the remaining non-delimiter characters as one cell
-                        if (i == start) {
-                            // Single character, add it directly
-                            row.add(String.valueOf(c));
-                        } else if (i > start + 1) {
-                            // Multiple characters, treat as one cell
-                            row.add(line.substring(start, i));
-                        }
-                        start = i + 1;
-                    }
-                }
-
-                // Add the last element (if any)
-                if (start < line.length()) {
-                    row.add(line.substring(start));
-                }
-
-                // Handle empty rows
-                if (row.isEmpty()) {
-                    System.err.println("Warning: Skipping empty line in file.");
-                    continue;
-                }
-
-                rows.add(row);
-            }
-
-            // Convert rows to a 2D array of strings
-            String[][] board = new String[rows.size()][];
-            for (int i = 0; i < rows.size(); i++) {
-                board[i] = new String[rows.get(i).size()]; // Pre-allocate correct size
-
-                // Check for valid index before accessing elements
-                if (board[i].length == 0) {
-                    System.err.println("Error: Unexpected empty row in processed data.");
-                    continue; // Skip to the next row or handle differently
-                }
-
-                for (int j = 0; j < board[i].length; j++) {
-                    board[i][j] = rows.get(i).get(j);
-                }
-            }
-
-            return board;
-        }
-    }
 
 
-    public  void printDefaultBoard() {
-        try {
-            String[][] board = defBoard();
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    System.out.print(board[i][j] + " ");
-                }
-                System.out.println();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // TODO Handle file reading errors here
-        }
-    }
+
+
 
 
 

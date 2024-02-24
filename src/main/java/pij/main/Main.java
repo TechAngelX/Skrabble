@@ -9,8 +9,8 @@ public class Main {
 
         BoardInit newGame = new BoardInit();
 //        newGame.intro_Header();
-        newGame.defBoard();
-        newGame.printDefaultBoard();
+//        newGame.defBoard();
+//        newGame.printDefaultBoard();
 
         tileControl readyPlayer1 = new tileControl();
 
