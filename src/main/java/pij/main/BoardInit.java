@@ -48,8 +48,10 @@ public class BoardInit {
 
         return firstWordSentnceCase;
     }
+    //TODO - in hindsight, is this method really needed, or just cosmetic?
     public void boardConfig() throws IOException {
         Scanner scanner = new Scanner(System.in);
+
         String playerName = setPlayerName(); // sets playerName as a string from the setPlayerName method
 
         System.out.print("Hello " + playerName + ". Would you like to _l_oad a board or use the _d_ef board?\n");
