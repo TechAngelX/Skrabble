@@ -13,6 +13,8 @@
 
 package pij.main;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class BoardInit {
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
@@ -92,35 +94,19 @@ public class BoardInit {
     }
 
     private char[][] board;
-    public  char[][] defBoard() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH)); // Keep this exact path reference.
-        String line;
-        int rows = ROWS;
-        int cols = COLUMNS;
 
-        // Determine the dimensions of the board
-        while ((line = reader.readLine()) != null) {
-            rows++;
-            cols = Math.max(cols, line.length());
-        }
-        reader.close();
-
-        // Create the 2D array
-        char[][] board = new char[rows][cols];
-
-        // Re-read the file and fill the array
-        reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
-        int row = 0;
-        while ((line = reader.readLine()) != null) {
-            for (int col = 0; col < line.length(); col++) {
-                board[row][col] = line.charAt(col);
+    public char[][] defBoard() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) { // Keep this exact path reference.
+            List<char[]> rows = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                rows.add(line.toCharArray());
             }
-            row++;
-        }
-        reader.close();
 
-        return board;
+            return rows.toArray(new char[rows.size()][]);
+        }
     }
+
 
     public void openGame() {
         System.out.println("OPEN GAME: The computer's tiles:");
