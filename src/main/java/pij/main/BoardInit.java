@@ -92,29 +92,87 @@ public class BoardInit {
         }
         scanner.close();
     }
-
     private char[][] board;
-
-    public char[][] defBoard() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) { // Keep this exact path reference.
-            List<char[]> rows = new ArrayList<>();
+    public String[][] defBoard() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH))) {  // Keep this exact path reference.
+            List<List<String>> rows = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-                rows.add(line.toCharArray());
+                List<String> row = new ArrayList<>();
+                int start = 0;
+                for (int i = 0; i < line.length(); i++) {
+                    char c = line.charAt(i);
+                    if (c == '.' || c == '(' || c == ')' || c == '{') {
+                        // Check if there are characters before the delimiter
+                        if (i > start) {
+                            row.add(line.substring(start, i));
+                        }
+
+                        // Add the delimiter as a separate cell
+                        row.add(String.valueOf(c));
+
+                        if (c == '{') {
+                            // Extract the content within {} and add it as separate cells
+                            int endIndex = line.indexOf('}', i + 1);
+                            if (endIndex != -1) {
+                                String content = line.substring(i + 1, endIndex);
+                                for (String subCell : content.split(",")) {
+                                    row.add(subCell.trim());
+                                }
+                                i = endIndex; // Skip to the closing brace
+                            } else {
+                                System.err.println("Warning: Unclosed '{' at position " + i + " in the file.");
+                            }
+                        }
+
+                        start = i + 1;
+                    } else {
+                        // Handle consecutive non-delimiter characters
+                        if (i > start + 1) {
+                            row.add(line.substring(start, i));
+                        }
+                        start = i;
+                    }
+                }
+
+                // Add the last element (if any)
+                if (start < line.length()) {
+                    row.add(line.substring(start));
+                }
+
+                // Handle empty rows
+                if (row.isEmpty()) {
+                    System.err.println("Warning: Skipping empty line in file.");
+                    continue;
+                }
+
+                rows.add(row);
             }
 
-            return rows.toArray(new char[rows.size()][]);
+            // Convert rows to a 2D array of strings
+            String[][] board = new String[rows.size()][];
+            for (int i = 0; i < rows.size(); i++) {
+                board[i] = new String[rows.get(i).size()]; // Pre-allocate correct size
+
+                // Check for valid index before accessing elements
+                if (board[i].length == 0) {
+                    System.err.println("Error: Unexpected empty row in processed data.");
+                    continue; // Skip to the next row or handle differently
+                }
+
+                for (int j = 0; j < board[i].length; j++) {
+                    board[i][j] = rows.get(i).get(j);
+                }
+            }
+
+            return board;
         }
     }
 
 
-    public void openGame() {
-        System.out.println("OPEN GAME: The computer's tiles:");
-    }
-
     public  void printDefaultBoard() {
         try {
-            char[][] board = defBoard();
+            String[][] board = defBoard();
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
                     System.out.print(board[i][j] + " ");
@@ -129,6 +187,12 @@ public class BoardInit {
 
 
 
+
+
+
+    public void openGame() {
+        System.out.println("OPEN GAME: The computer's tiles:");
+    }
 
 
     public void gameTypeOpenCLosed() {
