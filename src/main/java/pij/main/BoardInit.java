@@ -12,13 +12,10 @@
  */
 
 package pij.main;
-
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.Scanner;
-
 public class BoardInit {
-    private  final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
+    private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
     private String boardType;
     private static final int ROWS = 16;
     private static final int COLUMNS = 16;
@@ -49,7 +46,6 @@ public class BoardInit {
 
         return firstWordSentnceCase;
     }
-
     public void boardConfig() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String playerName = setPlayerName(); // sets playerName as a string from the setPlayerName method
@@ -73,8 +69,6 @@ public class BoardInit {
             defBoard();
         }
     }
-
-
     public void loadBoard(String filename) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
 
@@ -96,80 +90,102 @@ public class BoardInit {
         }
         scanner.close();
     }
+    public class BoardLoader {
 
-    public void printBoard() {
-        // Print column labels
-        System.out.print("  ");
-        for (int col = 0; col < board.length; col++) {
-            System.out.print(Character.toString(col + 'a') + " ");
-        }
-        System.out.println();
+        private static final String FILE_PATH = "src/resources/defaultBoard.txt";
 
-        // Print rows with specified formatting
-        for (int row = 0; row < board.length; row++) {
-            // Print row number
-            System.out.print((row + 1) + " ");
+        public static char[][] defBoard() throws IOException {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            int rows = 0;
+            int cols = 0;
 
-            // Iterate over columns individually
-            for (int col = 0; col < board.length; col++) {
-                // Print character with two spaces after
-                System.out.print(board[row][col] + "  ");
+            // Determine the dimensions of the board
+            while ((line = reader.readLine()) != null) {
+                rows++;
+                cols = Math.max(cols, line.length());
             }
+            reader.close();
 
-            // Print row number again
-            System.out.println(row + 1);
+            // Create the 2D array
+            char[][] board = new char[rows][cols];
+
+            // Re-read the file and fill the array
+            reader = new BufferedReader(new FileReader(FILE_PATH));
+            int row = 0;
+            while ((line = reader.readLine()) != null) {
+                for (int col = 0; col < line.length(); col++) {
+                    board[row][col] = line.charAt(col);
+                }
+                row++;
+            }
+            reader.close();
+
+            return board;
         }
 
-        // Print column labels again
-        System.out.print("  ");
-        for (int col = 0; col < board.length; col++) {
-            System.out.print(Character.toString(col + 'a') + " ");
+        public  void printDefaultBoard(char[][] board) {
+            for (char[] row : board) {
+                for (char cell : row) {
+                    System.out.print(cell);
+                }
+                System.out.println();
+            }
         }
-        System.out.println();
     }
-
 
     private char[][] board;
+    public  char[][] defBoard() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH)); // Keep this exact path reference.
+        String line;
+        int rows = ROWS;
+        int cols = COLUMNS;
 
-
-    public void defBoard() throws IOException {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
-
-            // Read board size (should match ROWS and COLUMN constants)
-            int size = Integer.parseInt(reader.readLine().trim());
-            board = new char[ROWS][COLUMNS];
-
-            // Read first row of column letters
-            String columnLetters = reader.readLine().trim();
-            for (int col = 0; col < COLUMNS; col++) {
-                board[0][col] = columnLetters.charAt(col);
-            }
-
-            // Read remaining rows with numbers and board data
-            for (int row = 1; row < ROWS; row++) {
-                String line = reader.readLine().trim();
-                board[row][0] = Character.forDigit(row + 1, 10);
-                for (int col = 1; col < COLUMNS; col++) {
-                    board[row][col] = line.charAt(col - 1);
-                }
-            }
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
+        // Determine the dimensions of the board
+        while ((line = reader.readLine()) != null) {
+            rows++;
+            cols = Math.max(cols, line.length());
         }
+        reader.close();
+
+        // Create the 2D array
+        char[][] board = new char[rows][cols];
+
+        // Re-read the file and fill the array
+        reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
+        int row = 0;
+        while ((line = reader.readLine()) != null) {
+            for (int col = 0; col < line.length(); col++) {
+                board[row][col] = line.charAt(col);
+            }
+            row++;
+        }
+        reader.close();
+
+        return board;
     }
-
-
-
-
-
 
     public void openGame() {
         System.out.println("OPEN GAME: The computer's tiles:");
     }
+
+    public  void printDefaultBoard() {
+        try {
+            char[][] board = defBoard();
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[i].length; j++) {
+                    System.out.print(board[i][j] + " ");
+                }
+                System.out.println();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO Handle file reading errors here
+        }
+    }
+
+
+
 
 
     public void gameTypeOpenCLosed() {
@@ -195,33 +211,19 @@ public class BoardInit {
         }
     }
 
-    public void printDefaultBoard() {
-        /**
-         * After default board has been initialised, this printDFefaultBoard
-         * function can be called throught the state of the game.
-         */
-        // Print column labels
-        System.out.print("  ");
-        for (int col = 0; col < COLUMNS; col++) {
-            System.out.print(Character.toString(col + 'a') + " ");
-        }
-        System.out.println();
 
-        // Print rows with specified formatting
-        for (int row = 0; row < ROWS; row++) {
-            // Print row number
-            System.out.print(Character.forDigit(row + 1, 10) + " ");
 
-            // This codeblock attempts to iterate over columns individually
-            for (int col = 0; col < COLUMNS; col++) {
-                // Print character with two spaces after
-                System.out.print(board[row][col] + "  ");
-            }
 
-            // New line after each row
-            System.out.println();
-        }
-    }
+
+
+
+
+
+
+
+
+
+
 
 
 }
