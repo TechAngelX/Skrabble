@@ -90,49 +90,6 @@ public class BoardInit {
         }
         scanner.close();
     }
-    public class BoardLoader {
-
-        private static final String FILE_PATH = "src/resources/defaultBoard.txt";
-
-        public static char[][] defBoard() throws IOException {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-            String line;
-            int rows = 0;
-            int cols = 0;
-
-            // Determine the dimensions of the board
-            while ((line = reader.readLine()) != null) {
-                rows++;
-                cols = Math.max(cols, line.length());
-            }
-            reader.close();
-
-            // Create the 2D array
-            char[][] board = new char[rows][cols];
-
-            // Re-read the file and fill the array
-            reader = new BufferedReader(new FileReader(FILE_PATH));
-            int row = 0;
-            while ((line = reader.readLine()) != null) {
-                for (int col = 0; col < line.length(); col++) {
-                    board[row][col] = line.charAt(col);
-                }
-                row++;
-            }
-            reader.close();
-
-            return board;
-        }
-
-        public  void printDefaultBoard(char[][] board) {
-            for (char[] row : board) {
-                for (char cell : row) {
-                    System.out.print(cell);
-                }
-                System.out.println();
-            }
-        }
-    }
 
     private char[][] board;
     public  char[][] defBoard() throws IOException {
