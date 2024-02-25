@@ -20,7 +20,44 @@ public class BoardInit {
                 board[i][j] = 1;
             }
         }
+
     }
+
+
+    private void parseFile(BufferedReader reader) throws IOException {
+        String line;
+        for (int i = 0; i < board.length; i++) {
+            line = reader.readLine();
+            String[] tokens = line.split("[ ,]"); // Split on spaces or commas
+
+            for (int j = 0; j < tokens.length; j++) {
+                String token = tokens[j];
+
+                // Handle empty elements:
+                if (token.isEmpty()) {
+                    board[i][j] = 0;
+                    continue; // Skip to the next element
+                }
+
+                // Handle groups of elements with curly braces:
+                if (token.startsWith("{") && token.endsWith("}")) {
+                    int value = Integer.parseInt(token.substring(1, token.length() - 1));
+                    board[i][j] = value;
+                    continue; // Skip to the next element
+                }
+
+                // Handle optional negative values in parentheses:
+                int value;
+                if (token.startsWith("(")) {
+                    value = -Integer.parseInt(token.substring(1, token.length() - 1));
+                } else {
+                    value = Integer.parseInt(token);
+                }
+                board[i][j] = value;
+            }
+        }
+    }
+
 
     public void setElement(int row, int col, int value) {
         if (isValidIndex(row, col)) {
@@ -62,11 +99,11 @@ public class BoardInit {
             for (int j = 0; j < board[i].length; j++) {
                 builder.append(board[i][j]);
                 if (j < board[i].length - 1) {
-                    builder.append(", ");
+                    builder.append(" "); // Commas can be added here if necc.
                 }
             }
             if (i < board.length - 1) {
-                builder.append(";\n ");
+                builder.append("\n ");
             }
         }
         return builder.append(" ").toString();
