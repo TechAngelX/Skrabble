@@ -13,10 +13,8 @@
 
 package pij.main;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-public class BoardInit {
+public class BoardInitOldTmp {
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
     private String boardType;
     private static final int ROWS = 16;
