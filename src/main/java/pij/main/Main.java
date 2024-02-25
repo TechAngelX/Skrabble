@@ -7,11 +7,12 @@ public class Main {
 
         // Test based on 2D Array readings.
         BoardInit boardInit = new BoardInit();
-        boardInit.setElement(0,1,5);
-        boardInit.setRow(0,"2,3,4");
-        boardInit.setColumn(2,"1,7,3");
+        boardInit.setElement(1,0,5);
 
         System.out.println(boardInit.toString());
+
+//        boardInit.setRow(0,"2,3,4"); // Redundant?
+//        boardInit.setColumn(2,"1,7,3"); // Redundant?
 
 //      BELOW METHODS AND CODE ARE ALL ON THE OLD DEPRECATED BOARDINITOLDTMP CLASS. I WILL SLOWLY MIGRATE THEM OVER.
 //        newGame.intro_Header();

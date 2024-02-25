@@ -10,8 +10,11 @@ public class BoardInit {
     public BoardInit() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src/resources/defaultBoard.txt"));
         String firstLine = reader.readLine();
-        int boardSize = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board (16 for example)
 
+        int boardSize = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board (16 for example)
+        if (boardSize < 11 || boardSize > 26){
+            throw new RuntimeException("Invalid Board size value. Board must have a minimum 11, and a maximum 26 elements.");
+        }
         this.board = new int[boardSize][boardSize];
 
         // Initialize the board with default values
