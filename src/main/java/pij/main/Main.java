@@ -5,12 +5,19 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        BoardInitOldTmp newGame = new BoardInitOldTmp();
+        // Test based on 2D Array readings.
+        BoardInit boardInit = new BoardInit();
+        boardInit.setElement(0,1,5);
+        boardInit.setRow(0,"2,3,4");
+        boardInit.setColumn(2,"1,7,3");
+        boardInit.toString();
+        System.out.println(boardInit.toString());
+
+
 //        newGame.intro_Header();
-//        newGame.defBoard();
 //        newGame.printDefaultBoard();
 
-        tileControl readyPlayer1 = new tileControl();
+//        tileControl readyPlayer1 = new tileControl();
 
         // Initialize the tile bag for this game's instance.
 //        readyPlayer1.tileBagInit();
