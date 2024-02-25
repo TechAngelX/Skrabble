@@ -10,13 +10,13 @@ public class BoardInit {
     public BoardInit() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src/resources/defaultBoard.txt"));
         String firstLine = reader.readLine();
-        int size = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board
+        int boardSize = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board (16 for example)
 
-        this.board = new int[size][size];
+        this.board = new int[boardSize][boardSize];
 
         // Initialize the board with default values
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 board[i][j] = 1;
             }
         }
@@ -30,20 +30,21 @@ public class BoardInit {
 
     public void setRow(int row, String string) {
         try {
-            String[] numbers = string.split(",");
+            String[] numbers = string.split("");
             if (numbers.length == board[0].length) {
                 for (int i = 0; i < numbers.length; i++) {
                     board[row][i] = Integer.parseInt(numbers[i]);
                 }
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            //TODO - the NumberFormatException seems to work if FIRST LINE is not an integer, but randome text (i.e., dwieudiwei. Test More.
             e.printStackTrace(); // Handle exception appropriately
         }
     }
 
     public void setColumn(int col, String string) {
         try {
-            String[] numbers = string.split(",");
+            String[] numbers = string.split("");
             if (numbers.length == board.length) {
                 for (int i = 0; i < numbers.length; i++) {
                     board[i][col] = Integer.parseInt(numbers[i]);
@@ -56,7 +57,7 @@ public class BoardInit {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("[");
+        StringBuilder builder = new StringBuilder(" ");
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 builder.append(board[i][j]);
@@ -68,7 +69,7 @@ public class BoardInit {
                 builder.append(";\n ");
             }
         }
-        return builder.append("]").toString();
+        return builder.append(" ").toString();
     }
 
     public void prettyPrint() {
