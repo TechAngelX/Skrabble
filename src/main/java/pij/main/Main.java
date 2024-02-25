@@ -10,10 +10,10 @@ public class Main {
         boardInit.setElement(0,1,5);
         boardInit.setRow(0,"2,3,4");
         boardInit.setColumn(2,"1,7,3");
-        boardInit.toString();
+
         System.out.println(boardInit.toString());
 
-
+//      BELOW METHODS AND CODE ARE ALL ON THE OLD DEPRECATED BOARDINITOLDTMP CLASS. I WILL SLOWLY MIGRATE THEM OVER.
 //        newGame.intro_Header();
 //        newGame.printDefaultBoard();
 
