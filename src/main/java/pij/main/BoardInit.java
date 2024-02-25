@@ -6,17 +6,17 @@ import java.io.IOException;
 
 public class BoardInit {
     private final int[][] board;
+
     public BoardInit() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src/resources/defaultBoard.txt"));
         String firstLine = reader.readLine();
-        String[] dimensions = firstLine.split(" ");
+        int size = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board
 
-        int rows = Integer.parseInt(dimensions[0]);
-        int cols = Integer.parseInt(dimensions[1]);
+        this.board = new int[size][size];
 
-        this.board = new int[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        // Initialize the board with default values
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 board[i][j] = 1;
             }
         }
@@ -37,7 +37,7 @@ public class BoardInit {
                 }
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-
+            e.printStackTrace(); // Handle exception appropriately
         }
     }
 
@@ -50,7 +50,7 @@ public class BoardInit {
                 }
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-
+            e.printStackTrace(); // Handle exception appropriately
         }
     }
 
@@ -70,7 +70,6 @@ public class BoardInit {
         }
         return builder.append("]").toString();
     }
-
 
     public void prettyPrint() {
         for (int i = 0; i < board.length; i++) {
