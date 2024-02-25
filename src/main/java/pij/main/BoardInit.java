@@ -6,9 +6,10 @@ import java.io.IOException;
 
 public class BoardInit {
     private final int[][] board;
+    private static final String DEFAULT_BOARD_PATH = ("src/resources/defaultBoard.txt");
 
     public BoardInit() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/resources/defaultBoard.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
         String firstLine = reader.readLine();
 
         int boardSize = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board (16 for example)
