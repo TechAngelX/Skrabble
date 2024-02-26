@@ -1,4 +1,3 @@
-// EDIT
 package pij.main;
 
 import java.io.BufferedReader;
@@ -60,7 +59,7 @@ public class BoardInit {
         StringBuilder builder = new StringBuilder();
 
         // Print column headers a-p (or 's' if loadBoard
-        builder.append("   "); // Extra space for alignment
+        builder.append("  "); // Extra space for alignment
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
             builder.append(columnHeader).append("  "); // Add spacing for readability
@@ -69,12 +68,12 @@ public class BoardInit {
 
         // Print row headers 1-16 (or 's' if loadBoard) and elements
         for (int i = 0; i < board.length; i++) {
-            int rowHeader = i + 1;
-            builder.append(rowHeader).append("  ");
+            String RowHeaderFormatted = String.format("%2d", i + 1);
+            builder.append(RowHeaderFormatted).append(" ");
             for (int j = 0; j < board[i].length; j++) {
                 builder.append(board[i][j]).append("  ");
             }
-            builder.append(" ").append(rowHeader).append("\n"); // Add row header at the end
+            builder.append(" ").append(RowHeaderFormatted).append("\n"); // Add row header at the end
         }
 
         // Print final row of column headers
