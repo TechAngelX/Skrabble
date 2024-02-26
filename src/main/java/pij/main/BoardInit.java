@@ -6,6 +6,9 @@ import java.io.IOException;
 
 public class BoardInit {
     private final int[][] board;
+    private final int MIN_BOARD_SIZE = 11;
+    private final int MAX_BOARD_SIZE = 26;
+
     private static final String DEFAULT_BOARD_PATH = ("src/resources/defaultBoard.txt");
 
     public BoardInit() throws IOException {
@@ -13,8 +16,8 @@ public class BoardInit {
         String firstLine = reader.readLine();
 
         int boardSize = Integer.parseInt(firstLine.trim()); // Assuming the first line indicates the size of the square board (16 for example)
-        if (boardSize < 11 || boardSize > 26){
-            throw new RuntimeException("Invalid Board size value. Board must have a minimum 11, and a maximum 26 elements.");
+        if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE){
+            throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
         }
         this.board = new int[boardSize][boardSize];
 
