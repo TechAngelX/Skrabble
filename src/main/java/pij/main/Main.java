@@ -6,8 +6,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         BoardInit<String> defBoard = new BoardInit<>();
-        defBoard.setElement(1,0,"5");
         System.out.println(defBoard.toString());
+
+ //     defBoard.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
+
 
 //      BELOW METHODS AND CODE ARE ALL ON THE OLD DEPRECATED BOARDINITOLDTMP CLASS. I WILL SLOWLY MIGRATE THEM OVER.
 //        newGame.intro_Header();

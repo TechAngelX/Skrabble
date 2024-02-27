@@ -22,11 +22,25 @@ public class BoardInit<T> {
         }
         this.board = (T[][]) new Object[boardSize][boardSize];
 
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                board[i][j] = null; // Assigns default value null to elements at index [i, j] in the 2D array, for board initialization.
+        String line;
+        int i = 0; // Row index
+        while ((line = reader.readLine()) != null) {
+            if (i >= boardSize) {
+                // Handle potential extra lines in the file (e.g., log warning or throw an exception)
+                break;
             }
+            String[] values = line.split("");
+            if (values.length == boardSize) {
+                for (int j = 0; j < values.length; j++) {
+                    board[i][j] = (T)(values[j]);
+                }
+            } else {
+                // Handle lines with invalid number of elements (e.g., log warning or throw an exception)
+                System.err.println("Invalid line format in file: " + line);
+            }
+            i++;
         }
+        reader.close();
     }
     public  void setElement(int row, int col, T value) {
         if (isValidIndex(row, col)) {
@@ -38,7 +52,7 @@ public class BoardInit<T> {
             String[] values = string.split("");
             if (values.length == board[0].length) {
                 for (int i = 0; i < values.length; i++) {
-                    board[row][i] = (T) parseValue(values[i]);
+                    board[row][i] = (T) (values[i]);
                 }
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
@@ -47,10 +61,7 @@ public class BoardInit<T> {
     }
 
     // Helper method to convert string values to type T
-    private T parseValue(String value) {
-    // TODO Logic to allow String values (i.e. defaultBoard.txt elements) to cast
-        throw new UnsupportedOperationException("Parsing for type T not implemented");
-    }
+
 
     @Override
     public  String toString() {
@@ -80,6 +91,7 @@ public class BoardInit<T> {
             char columnHeader = (char) ('a' + i);
             builder.append(columnHeader).append("  ");
         }
+
         return builder.toString();
     }
     private boolean isValidIndex(int row, int col) {
