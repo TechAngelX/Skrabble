@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        BoardInit<String> defBoard = new BoardInit<>();
+        BoardInit defBoard = new BoardInit();
         System.out.println(defBoard.toString());
 
  //     defBoard.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
