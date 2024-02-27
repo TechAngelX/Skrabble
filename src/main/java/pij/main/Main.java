@@ -5,10 +5,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        // Test based on 2D Array readings.
-        BoardInit boardInit = new BoardInit();
-        boardInit.setElement(1,0,5);
-        System.out.println(boardInit.toString());
+        BoardInit<String> defBoard = new BoardInit<>();
+        defBoard.setElement(1,0,"5");
+        System.out.println(defBoard.toString());
 
 //      BELOW METHODS AND CODE ARE ALL ON THE OLD DEPRECATED BOARDINITOLDTMP CLASS. I WILL SLOWLY MIGRATE THEM OVER.
 //        newGame.intro_Header();
