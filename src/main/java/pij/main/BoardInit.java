@@ -13,6 +13,7 @@ public class BoardInit {
 
     // Initialize the board with default values, and check min/max board sizes.
     public BoardInit() throws IOException {
+        char spacer = '\uFEFF';
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
         String firstLine = reader.readLine();
 
@@ -39,16 +40,16 @@ public class BoardInit {
 
             while (j < elementsFromTextFile.length) {
                 if (elementsFromTextFile[j].equals("{")) {
-                    StringBuilder makeOneString = new StringBuilder("{");
+                    StringBuilder makeOneSet = new StringBuilder("{");
                     j++; // Move to the next character after '{'
 
                     while (!elementsFromTextFile[j].equals("}")) {
-                        makeOneString.append(elementsFromTextFile[j]);
+                        makeOneSet.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    makeOneString.append("}");
-                    board[i][columnIndex] = makeOneString.toString();
+                    makeOneSet.append("}");
+                    board[i][columnIndex] = makeOneSet.toString();
                     columnIndex++; // Move to the next column index
                 } else if (elementsFromTextFile[j].equals("(")) {
                     StringBuilder makeOneString = new StringBuilder("(");
@@ -75,9 +76,12 @@ public class BoardInit {
 
     }
 
-    public void setElement(int row, int col, String value) {
-        if (isValidIndex(row, col)) {
+    public String setElement(int row, int col, String value) {
+        if (isValidIndex(row, col) && board != null) {
             board[row][col] = value;
+            return "Element set successfully"; // Example return value
+        } else {
+            return "Invalid index or board not initialized"; // Example return value
         }
     }
 
@@ -94,7 +98,6 @@ public class BoardInit {
         }
     }
 
-    // Helper method to convert string values to type T is no longer needed
 
     @Override
     public String toString() {
@@ -103,8 +106,8 @@ public class BoardInit {
         // Print alphabetic board column headers based on size (e.g., a-p if board size is 16).
         builder.append("  "); // Extra space for alignment
         for (int i = 0; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i);
-            builder.append(columnHeader).append("  "); // Add spacing for readability
+            char columnHeader = (char) ('a' + i); // Unicode increments from U+0061 (97) to 'S' (board.length)
+            builder.append(columnHeader).append("   "); // Add spacing for readability
         }
         builder.append("\n");
 
@@ -128,6 +131,14 @@ public class BoardInit {
         return builder.toString();
     }
 
+    public void prettyPrint() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print("\t" + board[i][j]);
+            }
+            System.out.println();
+        }
+    }
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
