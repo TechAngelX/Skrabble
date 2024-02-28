@@ -23,22 +23,40 @@ public class BoardInit {
         this.board = new String[boardSize][boardSize];
 
         String line;
+
         int i = 0; // Row index
+
         while ((line = reader.readLine()) != null) {
             if (i >= boardSize) {
                 // Handle potential extra lines in the file (e.g., log warning or throw an exception)
                 break;
             }
+
             String[] values = line.split("");
-            if (values.length == boardSize) {
-                for (int j = 0; j < values.length; j++) {
-                    board[i][j] = values[j];
+
+            int j = 0; // Column index
+            int columnIndex = 0; // Additional column index for handling enclosed characters
+
+            while (j < values.length) {
+                if (values[j].equals("{")) {
+                    StringBuilder enclosed = new StringBuilder("{");
+                    j++; // Move to the next character after '{'
+
+                    while (!values[j].equals("}")) {
+                        enclosed.append(values[j]);
+                        j++;
+                    }
+
+                    enclosed.append("}");
+                    board[i][columnIndex] = enclosed.toString();
+                    columnIndex++; // Move to the next column index
+                } else {
+                    board[i][columnIndex] = values[j];
+                    columnIndex++; // Move to the next column index
                 }
-            } else {
-                // Handle lines with invalid number of elements (e.g., log warning or throw an exception)
-                System.err.println("Invalid line format in file: " + line);
+                j++; // Move to the next character
             }
-            i++;
+            i++; // Move to the next row
         }
         reader.close();
     }

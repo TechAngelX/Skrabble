@@ -1,14 +1,3 @@
 11
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
-AAAAAAAAAAA
+G{D}{E}{P}G{-C2}YYNNA
 
- "BoardInit() Cleanup: Refactor Board class so no longer generic Type. Cleanup class / remove legacy code."
