@@ -38,19 +38,32 @@ public class BoardInit {
             int columnIndex = 0; // Additional column index for handling enclosed characters
 
             while (j < elementsFromTextFile.length) {
-                if (elementsFromTextFile[j].equals("{") ) {
-                    StringBuilder makeOneSet = new StringBuilder("{");
+                if (elementsFromTextFile[j].equals("{")) {
+                    StringBuilder makeOneString = new StringBuilder("{");
                     j++; // Move to the next character after '{'
 
                     while (!elementsFromTextFile[j].equals("}")) {
-                        makeOneSet.append(elementsFromTextFile[j]);
+                        makeOneString.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    makeOneSet.append("}");
-                    board[i][columnIndex] = makeOneSet.toString();
+                    makeOneString.append("}");
+                    board[i][columnIndex] = makeOneString.toString();
+                    columnIndex++; // Move to the next column index
+                } else if (elementsFromTextFile[j].equals("(")) {
+                    StringBuilder makeOneString = new StringBuilder("(");
+                    j++; // Move to the next character after '('
+
+                    while (!elementsFromTextFile[j].equals(")")) {
+                        makeOneString.append(elementsFromTextFile[j]);
+                        j++;
+                    }
+
+                    makeOneString.append(")");
+                    board[i][columnIndex] = makeOneString.toString();
                     columnIndex++; // Move to the next column index
                 } else {
+                    // Handle regular characters without curly braces or parentheses
                     board[i][columnIndex] = elementsFromTextFile[j];
                     columnIndex++; // Move to the next column index
                 }
@@ -59,6 +72,7 @@ public class BoardInit {
             i++; // Move to the next row
         }
         reader.close();
+
     }
 
     public void setElement(int row, int col, String value) {
