@@ -40,16 +40,16 @@ public class BoardInit {
 
             while (j < elementsFromTextFile.length) {
                 if (elementsFromTextFile[j].equals("{")) {
-                    StringBuilder makeOneSet = new StringBuilder("{");
+                    StringBuilder makeOneString = new StringBuilder("{");
                     j++; // Move to the next character after '{'
 
                     while (!elementsFromTextFile[j].equals("}")) {
-                        makeOneSet.append(elementsFromTextFile[j]);
+                        makeOneString.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    makeOneSet.append("}");
-                    board[i][columnIndex] = makeOneSet.toString();
+                    makeOneString.append("}");
+                    board[i][columnIndex] = makeOneString.toString();
                     columnIndex++; // Move to the next column index
                 } else if (elementsFromTextFile[j].equals("(")) {
                     StringBuilder makeOneString = new StringBuilder("(");
@@ -131,14 +131,7 @@ public class BoardInit {
         return builder.toString();
     }
 
-    public void prettyPrint() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print("\t" + board[i][j]);
-            }
-            System.out.println();
-        }
-    }
+
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
