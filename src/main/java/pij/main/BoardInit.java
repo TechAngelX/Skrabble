@@ -32,18 +32,18 @@ public class BoardInit {
                 break;
             }
 
-            String[] values = line.split("");
+            String[] elementsFromTextFile = line.split("");
 
             int j = 0; // Column index
             int columnIndex = 0; // Additional column index for handling enclosed characters
 
-            while (j < values.length) {
-                if (values[j].equals("{")) {
+            while (j < elementsFromTextFile.length) {
+                if (elementsFromTextFile[j].equals("{") ) {
                     StringBuilder enclosed = new StringBuilder("{");
                     j++; // Move to the next character after '{'
 
-                    while (!values[j].equals("}")) {
-                        enclosed.append(values[j]);
+                    while (!elementsFromTextFile[j].equals("}")) {
+                        enclosed.append(elementsFromTextFile[j]);
                         j++;
                     }
 
@@ -51,7 +51,7 @@ public class BoardInit {
                     board[i][columnIndex] = enclosed.toString();
                     columnIndex++; // Move to the next column index
                 } else {
-                    board[i][columnIndex] = values[j];
+                    board[i][columnIndex] = elementsFromTextFile[j];
                     columnIndex++; // Move to the next column index
                 }
                 j++; // Move to the next character
