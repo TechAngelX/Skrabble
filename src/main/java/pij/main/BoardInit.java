@@ -39,16 +39,16 @@ public class BoardInit {
 
             while (j < elementsFromTextFile.length) {
                 if (elementsFromTextFile[j].equals("{") ) {
-                    StringBuilder enclosed = new StringBuilder("{");
+                    StringBuilder makeOneSet = new StringBuilder("{");
                     j++; // Move to the next character after '{'
 
                     while (!elementsFromTextFile[j].equals("}")) {
-                        enclosed.append(elementsFromTextFile[j]);
+                        makeOneSet.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    enclosed.append("}");
-                    board[i][columnIndex] = enclosed.toString();
+                    makeOneSet.append("}");
+                    board[i][columnIndex] = makeOneSet.toString();
                     columnIndex++; // Move to the next column index
                 } else {
                     board[i][columnIndex] = elementsFromTextFile[j];
