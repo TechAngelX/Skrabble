@@ -14,7 +14,7 @@ public class BoardInit {
 
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
 
-    // introHeader() - standard method to load the intro Header. called only once in the game.
+    // introHeader() -  Prints the game introduction header.
     public void introHeader() {
         System.out.println("============                   ============");
         System.out.println("============ S k r a B B K l e ============");
@@ -22,7 +22,7 @@ public class BoardInit {
     }
 
 
-    // boardConfig() - logic to load custom board, or load default board.
+    // boardConfig() - prompts the user for loading a custom board or using the default board.
     public void boardConfig() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
@@ -47,7 +47,9 @@ public class BoardInit {
         }
     }
 
-    public void gameTypeOpenCLosed() {
+
+    // gameTypeOpenClosed(): Prompts user for the game type (open or closed).
+    public void gameTypeOpenClosed() {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.println("Please enter your choice (o/c): ");
 
