@@ -115,11 +115,12 @@ public class BoardInit {
                 maxWidths[j] = Math.max(maxWidths[j], row[j].length());
             }
         }
+
         // Print alphabetic board TOP column headers based on size (e.g., a-p if board size is 16).
         builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
-            builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
+            builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
         }
         builder.append("\n");
 
@@ -127,23 +128,20 @@ public class BoardInit {
         for (int i = 0; i < board.length; i++) {
             builder.append(String.format("%-5d", i + 1)); // Print row number
             for (int j = 0; j < board[i].length; j++) {
-                builder.append(String.format("%-6s", board[i][j])); // Adjust the formatting
+                builder.append(String.format("%-4s\uFEFF", board[i][j])); // Adjust the formatting with BOM standard
             }
-            builder.append("\n");
+            // Print row headers at the end of the board
+            builder.append(String.format("%-5d\n", i + 1));
         }
 
-        // Print BOTTOM alphabetic board column headers again for consistency
+        // Print BOTTOM alphabetic board column headers
         builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
-            builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
+            builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
         }
-
         return builder.toString();
     }
-
-
-
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
