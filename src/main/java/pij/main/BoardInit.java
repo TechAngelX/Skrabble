@@ -108,33 +108,40 @@ public class BoardInit {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
+        // Calculate the maximum width needed for each column
+        int[] maxWidths = new int[board[0].length];
+        for (String[] row : board) {
+            for (int j = 0; j < row.length; j++) {
+                maxWidths[j] = Math.max(maxWidths[j], row[j].length());
+            }
+        }
         // Print alphabetic board column headers based on size (e.g., a-p if board size is 16).
-        builder.append("  "); // Extra space for alignment
+        builder.append("     "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i); // Unicode increments from U+0061 (97) to 'S' (board.length)
-            builder.append(columnHeader).append("   "); // Add spacing for readability
+            char columnHeader = (char) ('a' + i);
+            builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
         }
         builder.append("\n");
 
-        // Print numeric board row headers based on size (e.g., 1-16 if board size is 16).
+        // Print the board content with even spacing
         for (int i = 0; i < board.length; i++) {
-            String rowHeaderFormatted = String.format("%2d", i + 1);
-            builder.append(rowHeaderFormatted).append(" ");
+            builder.append(String.format("%-5d", i + 1)); // Print row number
             for (int j = 0; j < board[i].length; j++) {
-                builder.append(board[i][j]).append("  ");
+                builder.append(String.format("%-6s", board[i][j])); // Adjust the formatting
             }
-            builder.append(" ").append(rowHeaderFormatted).append("\n"); // Add row header at the end
+            builder.append("\n");
         }
 
-        // Print bottom row of column headers
-        builder.append("   ");
+        // Print alphabetic board column headers again for consistency
+        builder.append("     "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
-            builder.append(columnHeader).append("  ");
+            builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
         }
 
         return builder.toString();
     }
+
 
 
     private boolean isValidIndex(int row, int col) {

@@ -7,7 +7,12 @@ public class Main {
 
         BoardInit defBoard = new BoardInit();
         System.out.println(defBoard.toString());
-//        System.out.println(defBoard.setElement(5,5,"ewdwe"));
+//        System.out.println(defBoard.setElement(0,1,"R"));
+//        System.out.println(defBoard.setElement(1,1,"I"));
+//        System.out.println(defBoard.setElement(2,1,"C"));
+//        System.out.println(defBoard.setElement(3,1,"K"));
+//        System.out.println(defBoard.setElement(4,1,"I"));
+//        System.out.println(defBoard.toString());
 
 
         //     defBoard.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
