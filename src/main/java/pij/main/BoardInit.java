@@ -115,8 +115,8 @@ public class BoardInit {
                 maxWidths[j] = Math.max(maxWidths[j], row[j].length());
             }
         }
-        // Print alphabetic board column headers based on size (e.g., a-p if board size is 16).
-        builder.append("     "); // Add an extra space to align with elements
+        // Print alphabetic board TOP column headers based on size (e.g., a-p if board size is 16).
+        builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
             builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
@@ -132,8 +132,8 @@ public class BoardInit {
             builder.append("\n");
         }
 
-        // Print alphabetic board column headers again for consistency
-        builder.append("     "); // Add an extra space to align with elements
+        // Print BOTTOM alphabetic board column headers again for consistency
+        builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
             builder.append(String.format("%-6s", columnHeader)); // Adjust the formatting
