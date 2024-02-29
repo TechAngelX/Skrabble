@@ -19,7 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class tileControl {
+public class TileControl {
     private Map<Character, Integer> tileBag;
 
     public void wordListChecker() {
@@ -34,6 +34,8 @@ public class tileControl {
             System.out.println("File not found or IO Exception: " + e.getMessage());
         }
     }
+
+
 
     public void tileBagInit() {
         /**

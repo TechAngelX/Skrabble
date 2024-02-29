@@ -20,11 +20,6 @@ public class BoardInitOldTmp {
     private static final int ROWS = 16;
     private static final int COLUMNS = 16;
 
-    public void intro_Header() {
-        System.out.println("============                   ============");
-        System.out.println("============ S k r a B B K l e ============");
-        System.out.println("============                   ============");
-    }
 
     private String setPlayerName() {
         Scanner scanner = new Scanner(System.in);
@@ -47,30 +42,7 @@ public class BoardInitOldTmp {
         return firstWordSentnceCase;
     }
     //TODO - in hindsight, is this method really needed, or just cosmetic?
-    public void boardConfig() throws IOException {
-        Scanner scanner = new Scanner(System.in);
 
-        String playerName = setPlayerName(); // sets playerName as a string from the setPlayerName method
-
-        System.out.print("Hello " + playerName + ". Would you like to _l_oad a board or use the _d_ef board?\n");
-        System.out.print("Please enter your choice (l/d): ");
-
-        String userChoice;
-        while (true) {
-            userChoice = scanner.nextLine().toLowerCase();
-            if (userChoice.equals("l") || userChoice.equals("d")) {
-                break;
-            } else {
-                System.out.print("Invalid entry. Please enter your choice (l/d): ");
-            }
-        }
-
-        if (userChoice.equals("l")) {
-            // Handle user-loaded board (not shown here)
-        } else {
-//            defBoard();
-        }
-    }
     public void loadBoard(String filename) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
 
@@ -108,28 +80,7 @@ public class BoardInitOldTmp {
     }
 
 
-    public void gameTypeOpenCLosed() {
-        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
-        System.out.println("Please enter your choice (o/c): ");
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            String openClosedOption;
-            while (true) {
-                openClosedOption = scanner.nextLine().toLowerCase().substring(0, 1);
-                if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
-                    if (openClosedOption.equals("o")) {
-                        System.out.println("Starting an open game...");
-                    } else {
-                        System.out.println("Starting a closed game...");
-                    }
-                    break;
-                } else {
-                    System.out.print("Invalid entry.\nPlease enter 'o' for open or 'c' for closed game: ");
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
 
 
 

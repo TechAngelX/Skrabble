@@ -3,6 +3,7 @@ package pij.main;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class BoardInit {
 
@@ -12,6 +13,60 @@ public class BoardInit {
     private final int MAX_BOARD_SIZE = 26;
 
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
+    public void intro_Header() {
+        System.out.println("============                   ============");
+        System.out.println("============ S k r a B B K l e ============");
+        System.out.println("============                   ============");
+    }
+
+
+    public void boardConfig() throws IOException { // logic to load custm board, or load default board.
+        Scanner scanner = new Scanner(System.in);
+
+
+        System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
+        System.out.print("Please enter your choice (l/d): ");
+
+        String userChoice;
+        while (true) {
+            userChoice = scanner.nextLine().toLowerCase();
+            if (userChoice.equals("l") || userChoice.equals("d")) {
+                break;
+            } else {
+                System.out.print("Invalid entry. Please enter your choice (l/d): ");
+            }
+        }
+
+        if (userChoice.equals("l")) {
+            // TODO Handle user-loaded board
+        } else {
+            System.out.println(this.toString());
+        }
+    }
+
+    public void gameTypeOpenCLosed() {
+        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
+        System.out.println("Please enter your choice (o/c): ");
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            String openClosedOption;
+            while (true) {
+                openClosedOption = scanner.nextLine().toLowerCase().substring(0, 1);
+                if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
+                    if (openClosedOption.equals("o")) {
+                        System.out.println("Starting an open game...");
+                    } else {
+                        System.out.println("Starting a closed game...");
+                    }
+                    break;
+                } else {
+                    System.out.print("Invalid entry.\nPlease enter 'o' for open or 'c' for closed game: ");
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
 
     public BoardInit() throws IOException {
 
