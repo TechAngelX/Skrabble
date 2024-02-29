@@ -5,15 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class BoardInit {
+
+    // Initialize the board with default values, and check min/max board sizes.
     private final String[][] board;
     private final int MIN_BOARD_SIZE = 11;
     private final int MAX_BOARD_SIZE = 26;
 
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
 
-    // Initialize the board with default values, and check min/max board sizes.
     public BoardInit() throws IOException {
-        char spacer = '\uFEFF';
+
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
         String firstLine = reader.readLine();
 
@@ -25,7 +26,7 @@ public class BoardInit {
 
         String line;
 
-        int i = 0; // Row index
+        int i = 0; // Initialize row index
 
         while ((line = reader.readLine()) != null) {
             if (i >= boardSize) {
@@ -35,39 +36,43 @@ public class BoardInit {
 
             String[] elementsFromTextFile = line.split("");
 
-            int j = 0; // Column index
+            int j = 0; // Initialize column index
             int columnIndex = 0; // Additional column index for handling enclosed characters
 
             while (j < elementsFromTextFile.length) {
+                StringBuilder currentElement = new StringBuilder();
+
                 if (elementsFromTextFile[j].equals("{")) {
-                    StringBuilder makeOneString = new StringBuilder("{");
+                    // Handle curly braces
+                    currentElement.append("{");
                     j++; // Move to the next character after '{'
 
                     while (!elementsFromTextFile[j].equals("}")) {
-                        makeOneString.append(elementsFromTextFile[j]);
+                        currentElement.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    makeOneString.append("}");
-                    board[i][columnIndex] = makeOneString.toString();
-                    columnIndex++; // Move to the next column index
+                    currentElement.append("}");
                 } else if (elementsFromTextFile[j].equals("(")) {
-                    StringBuilder makeOneString = new StringBuilder("(");
+                    // Handle parentheses
+                    currentElement.append("(");
                     j++; // Move to the next character after '('
 
                     while (!elementsFromTextFile[j].equals(")")) {
-                        makeOneString.append(elementsFromTextFile[j]);
+                        currentElement.append(elementsFromTextFile[j]);
                         j++;
                     }
 
-                    makeOneString.append(")");
-                    board[i][columnIndex] = makeOneString.toString();
-                    columnIndex++; // Move to the next column index
+                    currentElement.append(")");
                 } else {
                     // Handle regular characters without curly braces or parentheses
-                    board[i][columnIndex] = elementsFromTextFile[j];
-                    columnIndex++; // Move to the next column index
+                    currentElement.append(elementsFromTextFile[j]);
                 }
+
+                // Store only the first three characters
+                board[i][columnIndex] = currentElement.substring(0, Math.min(3, currentElement.length()));
+
+                columnIndex++; // Move to the next column index
                 j++; // Move to the next character
             }
             i++; // Move to the next row
