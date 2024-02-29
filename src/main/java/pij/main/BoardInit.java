@@ -118,15 +118,15 @@ public class BoardInit {
 
         // Print numeric board row headers based on size (e.g., 1-16 if board size is 16).
         for (int i = 0; i < board.length; i++) {
-            String RowHeaderFormatted = String.format("%2d", i + 1);
-            builder.append(RowHeaderFormatted).append(" ");
+            String rowHeaderFormatted = String.format("%2d", i + 1);
+            builder.append(rowHeaderFormatted).append(" ");
             for (int j = 0; j < board[i].length; j++) {
                 builder.append(board[i][j]).append("  ");
             }
-            builder.append(" ").append(RowHeaderFormatted).append("\n"); // Add row header at the end
+            builder.append(" ").append(rowHeaderFormatted).append("\n"); // Add row header at the end
         }
 
-        // Print final row of column headers
+        // Print bottom row of column headers
         builder.append("   ");
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
