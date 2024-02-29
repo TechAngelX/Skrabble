@@ -13,14 +13,17 @@ public class BoardInit {
     private final int MAX_BOARD_SIZE = 26;
 
     private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
-    public void intro_Header() {
+
+    // introHeader() - standard method to load the intro Header. called only once in the game.
+    public void introHeader() {
         System.out.println("============                   ============");
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
 
 
-    public void boardConfig() throws IOException { // logic to load custm board, or load default board.
+    // boardConfig() - logic to load custom board, or load default board.
+    public void boardConfig() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
 

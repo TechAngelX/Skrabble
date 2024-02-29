@@ -10,7 +10,7 @@ public class Main {
         // Initialize the tile bag for this game's instance.
         TileControl tileControl = new TileControl();
 
-        newGame.intro_Header();
+        newGame.introHeader();
         newGame.boardConfig();
 //        newGame.gameTypeOpenCLosed();
 
