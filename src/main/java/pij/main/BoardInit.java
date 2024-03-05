@@ -54,9 +54,10 @@ public class BoardInit {
                 validFile = file.exists() && file.isFile();
 
                 if (validFile) {
-                    System.out.println("Yeah!");
+                    // TODO Logic to move onto Boardinit method to load and initiate the custom board.
+                    System.out.println("Yeah!"); // Just a test print. remove when TODO done.
                 } else {
-                    System.out.println("Booh!. Not valid.");
+                    System.out.print("This is not a valid file. ");
                 }
             }
             System.out.println(loadBoardFilePath); // Just a test print.
