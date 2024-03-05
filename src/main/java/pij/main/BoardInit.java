@@ -43,7 +43,7 @@ public class BoardInit {
         if (userChoice.equals("l")) {
             Scanner scanner1 = new Scanner(System.in);
             System.out.print("Please enter the file name of the board: ");
-            String lBoardName  = scanner1.nextLine().toLowerCase();
+            String lBoardName = scanner1.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
             String loadBoardFilePath = LOAD_BOARD_DIR_PATH+lBoardName+".txt";
             System.out.println(loadBoardFilePath);
 
