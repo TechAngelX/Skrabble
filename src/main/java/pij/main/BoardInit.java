@@ -27,7 +27,6 @@ public class BoardInit {
     public String boardCustomOrDefault() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
 
@@ -43,32 +42,30 @@ public class BoardInit {
 
         if (userChoice.equals("l")) {
             boolean validFile = false;
-            Scanner scanner1 = new Scanner(System.in);
-            System.out.print("Please enter the file name of the board: ");
-            String lBoardName = scanner1.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
-            scanner1.close();
-            String loadBoardFilePath = LOAD_BOARD_DIR_PATH+lBoardName+".txt";
+            String loadBoardFilePath = null;
 
-            // Logic to check if file is valid and in directory.
-            File file = new File(loadBoardFilePath);
-            validFile = file.exists() && file.isFile();
-            if (validFile) {
-                System.out.println("Yeah!");
-            } else {
-                System.out.println("Booh!. Not valid");
+            while (!validFile) {
+                System.out.print("Please enter the file name of the board: ");
+                String lBoardName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
+                loadBoardFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
+
+                // Logic to check if file is valid and in directory.
+                File file = new File(loadBoardFilePath);
+                validFile = file.exists() && file.isFile();
+
+                if (validFile) {
+                    System.out.println("Yeah!");
+                } else {
+                    System.out.println("Booh!. Not valid.");
+                }
             }
-
-
-
             System.out.println(loadBoardFilePath); // Just a test print.
             return loadBoardFilePath; // Allow this user-defined file path to be used out of scope.
-
         } else {
-            System.out.println(this.toString());
+            System.out.println(this.toString()); // Prints the default board.
             return null;
         }
     }
-
 
     // gameTypeOpenClosed(): Prompts user for the game type (open or closed).
     public void gameTypeOpenClosed() {
