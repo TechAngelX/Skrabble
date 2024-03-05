@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Initialize Board for this game's instance.
         BoardInit newGame = new BoardInit();
-
+        newGame.useLoadBoardFilePath();
         // Initialize the tile bag for this game's instance.
         TileControl tileControl = new TileControl();
 

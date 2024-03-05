@@ -15,6 +15,7 @@ public class BoardInit {
 
     private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt";
     private static final String LOAD_BOARD_DIR_PATH = "src/resources/";
+    private String loadBoardFilePath;
 
     // introHeader() -  Prints the game introduction header.
     public void introHeader() {
@@ -53,9 +54,12 @@ public class BoardInit {
                 File file = new File(loadBoardFilePath);
                 validFile = file.exists() && file.isFile();
 
-                if (validFile) {
+                if (validFile) { // Load Name Valid
                     // TODO Logic to move onto Boardinit method to load and initiate the custom board.
                     System.out.println("Success! "+lBoardName+".txt, is valid and present in the directory."); // Just a test print. remove when TODO done.
+
+                    return loadBoardFilePath;
+
                 } else {
                     System.out.println(lBoardName+".txt"+ ", is not a valid file. ");
                 }
@@ -63,45 +67,34 @@ public class BoardInit {
             System.out.println(loadBoardFilePath); // Just a test print.
             return loadBoardFilePath; // Allow this user-defined file path to be used out of scope.
         } else {
-            System.out.println(this.toString()); // Prints the default board.
-            return null;
+BoardInit defGame = new BoardInit();
+return null;
         }
     }
 
-    // gameTypeOpenClosed(): Prompts user for the game type (open or closed).
-    public void gameTypeOpenClosed() {
-        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
-        System.out.println("Please enter your choice (o/c): ");
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            String openClosedOption;
-            while (true) {
-                openClosedOption = scanner.nextLine().toLowerCase().substring(0, 1);
-                if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
-                    if (openClosedOption.equals("o")) {
-                        System.out.println("Starting an open game...");
-                    } else {
-                        System.out.println("Starting a closed game...");
-                    }
-                    break;
-                } else {
-                    System.out.print("Invalid entry.\nPlease enter 'o' for open or 'c' for closed game: ");
-                }
-            }
-        } catch (Exception e) {
+    // Helper method to use loadBoardFilePath data out of scope.
+    public void useLoadBoardFilePath() {
+        if (loadBoardFilePath != null) {
+            System.out.println("Loaded board file path: " + loadBoardFilePath);
+        } else {
+            System.out.println("No board file path loaded.");
         }
     }
 
-    // Boardinit(): Creates the Scrabble board according to user size.
+
+
+    // Boardinit(): Creates the Scrabble board object, according to user size.
     public BoardInit() throws IOException {
+        String filePath = DEFAULT_BOARD_FILE_PATH;
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
         String firstLine = reader.readLine();
 
+
         int boardSize = Integer.parseInt(firstLine.trim());
         if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
             throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
-        }
+        } 
         this.board = new String[boardSize][boardSize];
 
         String line;
@@ -160,6 +153,31 @@ public class BoardInit {
         reader.close();
 
     }
+
+    // gameTypeOpenClosed(): Prompts user for the game type (open or closed).
+    public void gameTypeOpenClosed() {
+        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
+        System.out.println("Please enter your choice (o/c): ");
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            String openClosedOption;
+            while (true) {
+                openClosedOption = scanner.nextLine().toLowerCase().substring(0, 1);
+                if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
+                    if (openClosedOption.equals("o")) {
+                        System.out.println("Starting an open game...");
+                    } else {
+                        System.out.println("Starting a closed game...");
+                    }
+                    break;
+                } else {
+                    System.out.print("Invalid entry.\nPlease enter 'o' for open or 'c' for closed game: ");
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
 
     // setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.
     public String setElement(int row, int col, String value) {
