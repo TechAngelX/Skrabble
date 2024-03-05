@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -41,11 +42,24 @@ public class BoardInit {
         }
 
         if (userChoice.equals("l")) {
+            boolean validFile = false;
             Scanner scanner1 = new Scanner(System.in);
             System.out.print("Please enter the file name of the board: ");
             String lBoardName = scanner1.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
             scanner1.close();
             String loadBoardFilePath = LOAD_BOARD_DIR_PATH+lBoardName+".txt";
+
+            // Logic to check if file is valid and in directory.
+            File file = new File(loadBoardFilePath);
+            validFile = file.exists() && file.isFile();
+            if (validFile) {
+                System.out.println("Yeah!");
+            } else {
+                System.out.println("Booh!. Not valid");
+            }
+
+
+
             System.out.println(loadBoardFilePath); // Just a test print.
             return loadBoardFilePath; // Allow this user-defined file path to be used out of scope.
 
