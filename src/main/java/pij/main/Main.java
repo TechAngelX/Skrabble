@@ -11,7 +11,7 @@ public class Main {
         TileControl tileControl = new TileControl();
 
         newGame.introHeader();
-        newGame.boardConfig();
+        newGame.boardCustomOrDefault();
 //        newGame.gameTypeOpenCLosed();
 
         tileControl.tileBagInit();

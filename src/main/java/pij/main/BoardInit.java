@@ -22,8 +22,8 @@ public class BoardInit {
         System.out.println("============                   ============");
     }
 
-    // boardConfig() - prompts the user for loading a custom board or using the default board.
-    public void boardConfig() throws IOException {
+    // boardCustomOrDefault() - prompts the user for loading a custom board or using the default board.
+    public String boardCustomOrDefault() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
 
@@ -44,11 +44,14 @@ public class BoardInit {
             Scanner scanner1 = new Scanner(System.in);
             System.out.print("Please enter the file name of the board: ");
             String lBoardName = scanner1.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
+            scanner1.close();
             String loadBoardFilePath = LOAD_BOARD_DIR_PATH+lBoardName+".txt";
-            System.out.println(loadBoardFilePath);
+            System.out.println(loadBoardFilePath); // Just a test print.
+            return loadBoardFilePath; // Allow this user-defined file path to be used out of scope.
 
         } else {
             System.out.println(this.toString());
+            return null;
         }
     }
 
@@ -77,7 +80,7 @@ public class BoardInit {
         }
     }
 
-
+    // Boardinit(): Creates the Scrabble board according to user size.
     public BoardInit() throws IOException {
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
