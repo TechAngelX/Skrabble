@@ -12,7 +12,8 @@ public class BoardInit {
     private final int MIN_BOARD_SIZE = 11;
     private final int MAX_BOARD_SIZE = 26;
 
-    private static final String DEFAULT_BOARD_PATH = "src/resources/defaultBoard.txt";
+    private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt";
+    private static final String LOAD_BOARD_DIR_PATH = "src/resources/";
 
     // introHeader() -  Prints the game introduction header.
     public void introHeader() {
@@ -20,7 +21,6 @@ public class BoardInit {
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
-
 
     // boardConfig() - prompts the user for loading a custom board or using the default board.
     public void boardConfig() throws IOException {
@@ -41,7 +41,12 @@ public class BoardInit {
         }
 
         if (userChoice.equals("l")) {
-            // TODO Handle user-loaded board
+            Scanner scanner1 = new Scanner(System.in);
+            System.out.print("Please enter the file name of the board: ");
+            String lBoardName  = scanner1.nextLine().toLowerCase();
+            String loadBoardFilePath = LOAD_BOARD_DIR_PATH+lBoardName+".txt";
+            System.out.println(loadBoardFilePath);
+
         } else {
             System.out.println(this.toString());
         }
@@ -75,7 +80,7 @@ public class BoardInit {
 
     public BoardInit() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_PATH));
+        BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
         String firstLine = reader.readLine();
 
         int boardSize = Integer.parseInt(firstLine.trim());
@@ -141,6 +146,7 @@ public class BoardInit {
 
     }
 
+    // setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
             board[row][col] = value;
