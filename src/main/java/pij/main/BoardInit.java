@@ -13,8 +13,8 @@ public class BoardInit {
     private final int MIN_BOARD_SIZE = 11;
     private final int MAX_BOARD_SIZE = 26;
 
-    private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt";
-    private static final String LOAD_BOARD_DIR_PATH = "src/resources/";
+    private static final String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
+    private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
     private String loadBoardFilePath;
 
     // introHeader() -  Prints the game introduction header.
@@ -24,8 +24,8 @@ public class BoardInit {
         System.out.println("============                   ============");
     }
 
-    // boardCustomOrDefault() - prompts the user for loading a custom board or using the default board.
-    public void boardCustomOrDefault() throws IOException {
+    // customOrDefaultBoardChooser() - prompts the user to choose loading a custom board, or use the default board.
+    public void customOrDefaultBoardChooser() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
@@ -67,10 +67,11 @@ public class BoardInit {
         }
     }
 
+
     // Helper method to use loadBoardFilePath data out of scope.
     private void LoadBoardFilePath(String filePath) {
 
-        System.out.println("Loadboard path file is: " + filePath);
+        System.out.println(filePath);
     }
 
 
@@ -146,8 +147,8 @@ public class BoardInit {
 
     }
 
-    // gameTypeOpenClosed(): Prompts user for the game type (open or closed).
-    public void gameTypeOpenClosed() {
+    // openOrClosedGameChooser(): Prompts user to choose either an open, or closed game type.
+    public void openOrClosedGameChooser() {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.println("Please enter your choice (o/c): ");
 

@@ -10,7 +10,7 @@ public class Main {
         TileControl tileControl = new TileControl();
 
         newGame.introHeader();
-        newGame.boardCustomOrDefault();
+        newGame.customOrDefaultBoardChooser();
 
 
 //        newGame.gameTypeOpenCLosed();
