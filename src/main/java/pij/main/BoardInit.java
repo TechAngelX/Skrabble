@@ -43,35 +43,32 @@ public class BoardInit {
 
         if (userChoice.equals("l")) {
             boolean validFile = false;
-            String loadBoardFilePath = null;
+            String tmpCustomFilePath = null;
 
             while (!validFile) {
                 System.out.print("Please enter the file name of the board: ");
                 String lBoardName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
-                loadBoardFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
+                tmpCustomFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
 
                 // Logic to check if file is valid and in directory.
-                File file = new File(loadBoardFilePath);
+                File file = new File(tmpCustomFilePath);
                 validFile = file.exists() && file.isFile();
 
                 if (validFile) { // Load Name Valid
-                    // TODO Logic to move onto Boardinit method to load and initiate the custom board.
-                    System.out.println("Success! "+lBoardName+".txt, is valid and present in the directory."); // Just a test print. remove when TODO done.
-
-                    useLoadBoardFilePath(loadBoardFilePath);
+                    LoadBoardFilePath(tmpCustomFilePath);
 
                 } else {
                     System.out.println(lBoardName+".txt"+ ", is not a valid file. ");
                 }
             }
-            System.out.println(loadBoardFilePath); // Just a test print.
+
         } else {
-BoardInit defGame = new BoardInit();
+        BoardInit defGame = new BoardInit();
         }
     }
 
     // Helper method to use loadBoardFilePath data out of scope.
-    private void useLoadBoardFilePath(String filePath) {
+    private void LoadBoardFilePath(String filePath) {
 
         System.out.println("Loadboard path file is: " + filePath);
     }
