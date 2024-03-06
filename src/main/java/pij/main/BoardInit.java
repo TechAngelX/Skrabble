@@ -6,88 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+// class BoardInit - Initializes the board (custom or default), and checks min/max board sizes.
 public class BoardInit {
-
-    // Initialize the board with default values, and check min/max board sizes.
-    private final String[][] board;
-    private final int MIN_BOARD_SIZE = 11;
-    private final int MAX_BOARD_SIZE = 26;
 
     private static final String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
     private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
-    private String loadBoardFilePath;
+    private final int MIN_BOARD_SIZE = 11;
+    private final int MAX_BOARD_SIZE = 26;
+    private String[][] board;
 
-    // introHeader() -  Prints the game introduction header.
-    public void introHeader() {
-        System.out.println("============                   ============");
-        System.out.println("============ S k r a B B K l e ============");
-        System.out.println("============                   ============");
-    }
-
-    // customOrDefaultBoardChooser() - prompts the user to choose loading a custom board, or use the default board.
-    public void customOrDefaultBoardChooser() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
-        System.out.print("Please enter your choice (l/d): ");
-
-        String userChoice;
-        while (true) {
-            userChoice = scanner.nextLine().toLowerCase();
-            if (userChoice.equals("l") || userChoice.equals("d")) {
-                break;
-            } else {
-                System.out.print("Invalid entry. Please enter your choice (l/d): ");
-            }
-        }
-
-        if (userChoice.equals("l")) {
-            boolean validFile = false;
-            String tmpCustomFilePath = null;
-
-            while (!validFile) {
-                System.out.print("Please enter the file name of the board: ");
-                String lBoardName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
-                tmpCustomFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
-
-                // Logic to check if file is valid and in directory.
-                File file = new File(tmpCustomFilePath);
-                validFile = file.exists() && file.isFile();
-
-                if (validFile) { // Load Name Valid
-                    LoadBoardFilePath(tmpCustomFilePath);
-
-                } else {
-                    System.out.println(lBoardName+".txt"+ ", is not a valid file. ");
-                }
-            }
-
-        } else {
-        BoardInit defGame = new BoardInit();
-        }
-    }
-
-
-    // Helper method to use loadBoardFilePath data out of scope.
-    private void LoadBoardFilePath(String filePath) {
-
-        System.out.println(filePath);
-    }
-
-
-
-    // Boardinit(): Creates the Scrabble board object, according to user size.
+    // BoardInit() - Initializes default board, loads default.txt data into 2D array, prints initial board.
     public BoardInit() throws IOException {
         String filePath = DEFAULT_BOARD_FILE_PATH;
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
         String firstLine = reader.readLine();
 
-
         int boardSize = Integer.parseInt(firstLine.trim());
         if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
             throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
-        } 
+        }
         this.board = new String[boardSize][boardSize];
 
         String line;
@@ -143,14 +81,133 @@ public class BoardInit {
             }
             i++; // Move to the next row
         }
+
         reader.close();
+
+
+    }
+
+    // introHeader() -  Prints the game introduction header.
+    public void introHeader() {
+        System.out.println("============                   ============");
+        System.out.println("============ S k r a B B K l e ============");
+        System.out.println("============                   ============");
+    }
+
+    // customOrDefaultBoardChooser() - prompts the user to choose loading a custom board, or use the default board.
+    public void customOrDefaultBoardChooser() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
+        System.out.print("Please enter your choice (l/d): ");
+
+        String userBoardChoice;
+        while (true) {
+            userBoardChoice = scanner.nextLine().toLowerCase();
+            if (userBoardChoice.equals("l") || userBoardChoice.equals("d")) {
+                break;
+            } else {
+                System.out.print("Invalid entry. Please enter your choice (l/d): ");
+            }
+        }
+        if (userBoardChoice.equals("l")) {
+            loadCustomBoard();
+        } else {
+            new BoardInit();
+            System.out.println(this);
+
+        }
+    }
+
+    // loadCustomBoard() - Checks/parses filename, initializes custom board, loads filename data into 2D array, prints initial board.
+    private void loadCustomBoard() throws IOException {
+        String tmpCustomFilePath;
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Please enter the file name of the board: ");
+            String lBoardName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
+            tmpCustomFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
+
+            File file = new File(tmpCustomFilePath);
+            if (file.exists() && file.isFile()) {
+                break;
+            } else {
+                System.out.println(lBoardName + ".txt" + ", is not a valid file. ");
+            }
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(tmpCustomFilePath))) {
+            String firstLine = reader.readLine();
+
+            int boardSize = Integer.parseInt(firstLine.trim());
+            if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
+                throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
+            }
+            this.board = new String[boardSize][boardSize];
+
+            String line;
+            int i = 0; // Initialize row index
+
+            while ((line = reader.readLine()) != null) {
+                if (i >= boardSize) {
+                    // Handle potential extra lines in the file (e.g., log warning or throw an exception)
+                    break;
+                }
+                String[] elementsFromTextFile = line.split("");
+
+                int j = 0; // Initialize column index
+                int columnIndex = 0; // Additional column index for handling enclosed characters
+
+                while (j < elementsFromTextFile.length) {
+                    StringBuilder currentElement = new StringBuilder();
+
+                    if (elementsFromTextFile[j].equals("{")) {
+                        // Handle curly braces
+                        currentElement.append("{");
+                        j++; // Move to the next character after '{'
+
+                        while (!elementsFromTextFile[j].equals("}")) {
+                            currentElement.append(elementsFromTextFile[j]);
+                            j++;
+                        }
+
+                        currentElement.append("}");
+                    } else if (elementsFromTextFile[j].equals("(")) {
+                        // Handle parentheses
+                        currentElement.append("(");
+                        j++; // Move to the next character after '('
+
+                        while (!elementsFromTextFile[j].equals(")")) {
+                            currentElement.append(elementsFromTextFile[j]);
+                            j++;
+                        }
+
+                        currentElement.append(")");
+                    } else {
+                        // Handle regular characters without curly braces or parentheses
+                        currentElement.append(elementsFromTextFile[j]);
+                    }
+
+                    // Store only the first three characters
+                    this.board[i][columnIndex] = currentElement.substring(0, Math.min(3, currentElement.length()));
+
+                    columnIndex++; // Move to the next column index
+                    j++; // Move to the next character
+                }
+                i++; // Move to the next row
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO Write messages/code to Handle IOException appropriately
+        }
+
+// Now that initialized, Print the initial loaded custom board
+        System.out.println(this);
 
     }
 
     // openOrClosedGameChooser(): Prompts user to choose either an open, or closed game type.
     public void openOrClosedGameChooser() {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
-        System.out.println("Please enter your choice (o/c): ");
+        System.out.print("Please enter your choice (o/c): ");
 
         try (Scanner scanner = new Scanner(System.in)) {
             String openClosedOption;
@@ -171,7 +228,6 @@ public class BoardInit {
         }
     }
 
-
     // setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
@@ -186,16 +242,14 @@ public class BoardInit {
         try {
             String[] values = string.split("");
             if (values.length == board[0].length) {
-                for (int i = 0; i < values.length; i++) {
-                    board[row][i] = values[i];
-                }
+                System.arraycopy(values, 0, board[row], 0, values.length);
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             e.printStackTrace(); // TODO handle exception more better/appropriately
         }
     }
 
-
+    // toString(): Override Method for printing the current state of the board.
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -234,6 +288,9 @@ public class BoardInit {
         }
         return builder.toString();
     }
+
+
+    // isValidIndex () Helper method to ensure user-provided coordinates for accessing elements in the board array are within the valid range.
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }

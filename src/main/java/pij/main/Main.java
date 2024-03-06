@@ -6,24 +6,29 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Initialize Board for this game's instance.
         BoardInit newGame = new BoardInit();
+        newGame.customOrDefaultBoardChooser();
+        newGame.openOrClosedGameChooser();
+
+
+
         // Initialize the tile bag for this game's instance.
         TileControl tileControl = new TileControl();
 
-        newGame.introHeader();
-        newGame.customOrDefaultBoardChooser();
+//        newGame.introHeader();
 
 
-//        newGame.gameTypeOpenCLosed();
+
 
         tileControl.tileBagInit();
 
 
-//        System.out.println(newGame.setElement(0,1,"R1"));
-//        System.out.println(newGame.setElement(1,1,"I1"));
-//        System.out.println(newGame.setElement(2,1,"C3"));
-//        System.out.println(newGame.setElement(3,1,"K4"));
-//        System.out.println(newGame.setElement(4,1,"I1"));
+        System.out.println(newGame.setElement(0,1,"R1"));
+        System.out.println(newGame.setElement(1,1,"I1"));
+        System.out.println(newGame.setElement(2,1,"C3"));
+        System.out.println(newGame.setElement(3,1,"K4"));
+        System.out.println(newGame.setElement(4,1,"I1"));
 
+//        System.out.println(newGame.toString());
 
         //     newGame.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 

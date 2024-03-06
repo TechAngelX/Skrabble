@@ -1,0 +1,59 @@
+package pij.main;
+
+Source path for resources is ‘src/resources/defaultBoard.txt’
+
+File Path (Using Linux tree command):
+
+src
+├── main
+│   └── java
+│       └── pij
+│           └── main
+│               ├── BoardInit.java
+│               ├── BoardInitOldTmp.java
+│               ├── GameLogic.java
+│               ├── Main.java
+│               ├── Score.java
+│               ├── SkrabbleBoard.java
+│               └── TileControl.java
+└── resources
+    ├── test.txt
+    ├── defaultBoard.txt
+    └── wordlist.txt
+
+
+	
+
+
+File path including Maven ‘target’ test dir:
+
+└── SkraBBKle
+    ├── src
+    │   ├── main
+    │   │   └── java
+    │   │       └── pij
+    │   │           └── main
+    │   │               ├── BoardInit.java
+    │   │               ├── GameLogic.java
+    │   │               ├── Main.java
+    │   │               ├── Score.java
+    │   │               ├── SkrabbleBoard.java
+    │   │               └── tileControl.java
+    │   └── resources
+    │       ├── defaultBoard.txt
+    │       └── wordlist.txt
+    └── target
+        ├── classes
+        │   ├── defaultBoard.txt
+        │   ├── pij
+        │   │   └── main
+        │   │       ├── BoardInit.class
+        │   │       ├── GameLogic.class
+        │   │       ├── Main.class
+        │   │       ├── Score.class
+        │   │       ├── SkrabbleBoard.class
+        │   │       └── tileControl.class
+        │   └── wordlist.txt
+        └── generated-sources
+            └── annotations
+
