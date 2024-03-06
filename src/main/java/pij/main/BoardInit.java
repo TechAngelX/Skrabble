@@ -25,7 +25,7 @@ public class BoardInit {
     }
 
     // boardCustomOrDefault() - prompts the user for loading a custom board or using the default board.
-    public String boardCustomOrDefault() throws IOException {
+    public void boardCustomOrDefault() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
@@ -58,27 +58,22 @@ public class BoardInit {
                     // TODO Logic to move onto Boardinit method to load and initiate the custom board.
                     System.out.println("Success! "+lBoardName+".txt, is valid and present in the directory."); // Just a test print. remove when TODO done.
 
-                    return loadBoardFilePath;
+                    useLoadBoardFilePath(loadBoardFilePath);
 
                 } else {
                     System.out.println(lBoardName+".txt"+ ", is not a valid file. ");
                 }
             }
             System.out.println(loadBoardFilePath); // Just a test print.
-            return loadBoardFilePath; // Allow this user-defined file path to be used out of scope.
         } else {
 BoardInit defGame = new BoardInit();
-return null;
         }
     }
 
     // Helper method to use loadBoardFilePath data out of scope.
-    public void useLoadBoardFilePath() {
-        if (loadBoardFilePath != null) {
-            System.out.println("Loaded board file path: " + loadBoardFilePath);
-        } else {
-            System.out.println("No board file path loaded.");
-        }
+    private void useLoadBoardFilePath(String filePath) {
+
+        System.out.println("Loadboard path file is: " + filePath);
     }
 
 
