@@ -51,33 +51,33 @@ public class TileControl {
 
         tileBag = new HashMap<>();
 
-        tileBag.put('A', 1);  // 8 tiles in bag at start.
-        tileBag.put('B', 3);  //2 tiles in bag at start.
-        tileBag.put('C', 3);  //2 tiles in bag at start.
-        tileBag.put('D', 2);  //4 tiles in bag at start.
-        tileBag.put('E', 1); //10 tiles in bag at start.
-        tileBag.put('F', 4);  //3 tiles in bag at start.
-        tileBag.put('G', 2);  //4 tiles in bag at start.
-        tileBag.put('H', 4);  //3 tiles in bag at start.
-        tileBag.put('I', 1);  //8 tiles in bag at start.
-        tileBag.put('J', 9);  //1 tiles in bag at start.
-        tileBag.put('K', 6);  //1 tiles in bag at start.
-        tileBag.put('L', 1);  //4 tiles in bag at start.
-        tileBag.put('M', 3);  //2 tiles in bag at start.
-        tileBag.put('N', 1);  //7 tiles in bag at start.
-        tileBag.put('O', 1);  //7 tiles in bag at start.
-        tileBag.put('P', 3);  //2 tiles in bag at start.
-        tileBag.put('Q', 12);  //1 tiles in bag at start.
-        tileBag.put('R', 1);  //6 tiles in bag at start.
-        tileBag.put('S', 1);  //4 tiles in bag at start.
-        tileBag.put('T', 1);  //6 tiles in bag at start.
-        tileBag.put('U', 1);  //5 tiles in bag at start.
-        tileBag.put('V', 4);  //2 tiles in bag at start.
-        tileBag.put('W', 4);  //1 tiles in bag at start.
-        tileBag.put('X', 9);  //1 tiles in bag at start.
-        tileBag.put('Y', 5);  //2 tiles in bag at start.
-        tileBag.put('Z', 11);  //1 tiles in bag at start.
-        tileBag.put('_', 5);  //2 tiles in bag at start.
+        tileBag.put('A', 1);  // 8 tiles in bag at start
+        tileBag.put('B', 3);  //2 tiles in bag at start
+        tileBag.put('C', 3);  //2 tiles in bag at start
+        tileBag.put('D', 2);  //4 tiles in bag at start
+        tileBag.put('E', 1); //10 tiles in bag at start
+        tileBag.put('F', 4);  //3 tiles in bag at start
+        tileBag.put('G', 2);  //4 tiles in bag at start
+        tileBag.put('H', 4);  //3 tiles in bag at start
+        tileBag.put('I', 1);  //8 tiles in bag at start
+        tileBag.put('J', 9);  //1 tiles in bag at start
+        tileBag.put('K', 6);  //1 tiles in bag at start
+        tileBag.put('L', 1);  //4 tiles in bag at start
+        tileBag.put('M', 3);  //2 tiles in bag at start
+        tileBag.put('N', 1);  //7 tiles in bag at start
+        tileBag.put('O', 1);  //7 tiles in bag at start
+        tileBag.put('P', 3);  //2 tiles in bag at start
+        tileBag.put('Q', 12);  //1 tiles in bag at start
+        tileBag.put('R', 1);  //6 tiles in bag at start
+        tileBag.put('S', 1);  //4 tiles in bag at start
+        tileBag.put('T', 1);  //6 tiles in bag at start
+        tileBag.put('U', 1);  //5 tiles in bag at start
+        tileBag.put('V', 4);  //2 tiles in bag at start
+        tileBag.put('W', 4);  //1 tiles in bag at start
+        tileBag.put('X', 9);  //1 tiles in bag at start
+        tileBag.put('Y', 5);  //2 tiles in bag at start
+        tileBag.put('Z', 11);  //1 tiles in bag at start
+        tileBag.put('_', 5);  //2 tiles in bag at start
 
     }
     /**
