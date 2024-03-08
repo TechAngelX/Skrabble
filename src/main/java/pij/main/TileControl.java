@@ -21,9 +21,11 @@ import java.util.*;
 
 public class TileControl {
     private Map<Character, Integer> tileBag;
+    private static final String WORDLIST_FILE_PATH = "src/resources/wordlist.txt"; // dir and rel path for wordlist text document.
+
 
     public void wordListChecker() {
-        String absolutePath = "/Users/xeon2035/Library/Mobile Documents/com~apple~CloudDocs/UniWerk/PROJECT-PIJ/resources/wordlist.txt";
+        String absolutePath = WORDLIST_FILE_PATH;
 
         try (FileReader fileReader = new FileReader(absolutePath)) {
             int data;
@@ -94,18 +96,20 @@ public class TileControl {
      * tileRackHuman and tileRachComputer.
      *
      */
-    public ArrayList<Character> tileRackHuman() {
+    public HashMap<Character, Integer> tileRackHuman() {
         //Generates a rack of 7 random tiles (from the tileBag) for the human player
         // by repeatedly calling a method called getRandomTile.
 
-        ArrayList<Character> rack = new ArrayList<>();
+        HashMap<Character, Integer> rack = new HashMap<>();
         Random random = new Random();
         for (int i = 0; i < 7; i++) {
             char tile = getRandomTile();
-            rack.add(tile);
+            rack.put(tile, 1); // Add tile with count 1
         }
         return rack;
     }
+
+
 
 
 
@@ -168,6 +172,8 @@ public class TileControl {
      * This method retrieves the current count of tiles in the SkraBBKle game
      * and prints it to the console.
      * */
+
+    // printNumberInTileBag() Helper method. Use to show current state (number) of tiles in bag.
     public void printNumberInTileBag() {
 
         System.out.println("\nTiles remaining in the bag: (Letter / Number Count of that letter)");

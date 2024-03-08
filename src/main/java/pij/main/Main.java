@@ -2,6 +2,9 @@ package pij.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -19,10 +22,12 @@ public class Main {
 //        tileControl.printNumberInTileBag(); // Prints current state of tiles in the bag.
 
 
-                ArrayList<Character> tiles = tileControl.tileRackHuman();
+          HashMap<Character, Integer> tiles = tileControl.tileRackHuman();
         System.out.print("\nIt's your turn. Your tiles:: ");
-        for (char tile : tiles) {
-            System.out.print(tile + " ");
+        for (Map.Entry<Character, Integer> entry : tiles.entrySet()) {
+            char tile = entry.getKey();
+            int count = entry.getValue();
+            System.out.print("["+tile + count +"]"); // Print tile and count
         }
 
 //        newGame.introHeader();
