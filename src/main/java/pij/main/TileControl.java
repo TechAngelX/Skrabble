@@ -95,7 +95,7 @@ public class TileControl {
      *
      */
     public ArrayList<Character> tileRackHuman() {
-        //generates a rack of 7 random tiles (from the tileBag) for the human player
+        //Generates a rack of 7 random tiles (from the tileBag) for the human player
         // by repeatedly calling a method called getRandomTile.
 
         ArrayList<Character> rack = new ArrayList<>();

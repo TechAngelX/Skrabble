@@ -218,6 +218,7 @@ public class BoardInit {
                         System.out.println("Starting an open game...");
                     } else {
                         System.out.println("Starting a closed game...");
+
                     }
                     break;
                 } else {
@@ -232,9 +233,9 @@ public class BoardInit {
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
             board[row][col] = value;
-            return "Element set successfully"; // Example return value
+            return ""; // Example return value
         } else {
-            return "Invalid index or board not initialized"; // Example return value
+            return ""; // Example return value
         }
     }
 
