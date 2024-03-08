@@ -11,7 +11,7 @@ public class Main {
         // Initialize Board for this game's instance.
         BoardInit newGame = new BoardInit();
         newGame.customOrDefaultBoardChooser();
-        newGame.openOrClosedGameChooser();
+//        newGame.openOrClosedGameChooser();
 
 
 
@@ -19,16 +19,18 @@ public class Main {
         TileControl tileControl = new TileControl();
          tileControl.tileBagInit(); // Initialize (otherwise, null pointer exception).
 
-//        tileControl.printNumberInTileBag(); // Prints current state of tiles in the bag.
+        tileControl.printNumberInTileBag(); // Prints current state of tiles in the bag.
 
 
           HashMap<Character, Integer> tiles = tileControl.tileRackHuman();
-        System.out.print("\nIt's your turn. Your tiles:: ");
+        System.out.print("\nIt's your turn. Your tiles: ");
         for (Map.Entry<Character, Integer> entry : tiles.entrySet()) {
             char tile = entry.getKey();
             int count = entry.getValue();
-            System.out.print("["+tile + count +"]"); // Print tile and count
+            System.out.print("["+tile + count +"] "); // Print tile and count
         }
+
+                tileControl.printNumberInTileBag(); // Prints current state of tiles in the bag.
 
 //        newGame.introHeader();
 

@@ -23,7 +23,6 @@ public class TileControl {
     private Map<Character, Integer> tileBag;
     private static final String WORDLIST_FILE_PATH = "src/resources/wordlist.txt"; // dir and rel path for wordlist text document.
 
-
     public void wordListChecker() {
         String absolutePath = WORDLIST_FILE_PATH;
 
@@ -36,8 +35,6 @@ public class TileControl {
             System.out.println("File not found or IO Exception: " + e.getMessage());
         }
     }
-
-
 
     public void tileBagInit() {
         /**
@@ -54,33 +51,33 @@ public class TileControl {
 
         tileBag = new HashMap<>();
 
-        tileBag.put('A', 8);  // value is worth 1 point
-        tileBag.put('B', 2);  // value is worth 3 points
-        tileBag.put('C', 2);  // value is worth 3 points
-        tileBag.put('D', 4);  // value is worth 2 points
-        tileBag.put('E', 10); // value is worth 1 point
-        tileBag.put('F', 3);  // value is worth 4 points
-        tileBag.put('G', 4);  // value is worth 2 points
-        tileBag.put('H', 3);  // value is worth 4 points
-        tileBag.put('I', 8);  // value is worth 1 point
-        tileBag.put('J', 1);  // value is worth 9 points
-        tileBag.put('K', 1);  // value is worth 6 points
-        tileBag.put('L', 4);  // value is worth 4 points
-        tileBag.put('M', 2);  // value is worth 3 points
-        tileBag.put('N', 7);  // value is worth 1 point
-        tileBag.put('O', 7);  // value is worth 1 point
-        tileBag.put('P', 2);  // value is worth 3 points
-        tileBag.put('Q', 1);  // value is worth 12 points
-        tileBag.put('R', 6);  // value is worth 1 point
-        tileBag.put('S', 4);  // value is worth 1 point
-        tileBag.put('T', 6);  // value is worth 1 point
-        tileBag.put('U', 5);  // value is worth 1 point
-        tileBag.put('V', 2);  // value is worth 4 points
-        tileBag.put('W', 1);  // value is worth 4 points
-        tileBag.put('X', 1);  // value is worth 9 points
-        tileBag.put('Y', 2);  // value is worth 5 points
-        tileBag.put('Z', 1);  // value is worth 11 points
-        tileBag.put('_', 2);  // value is worth 5 points
+        tileBag.put('A', 1);  // 8 tiles in bag at start.
+        tileBag.put('B', 3);  //2 tiles in bag at start.
+        tileBag.put('C', 3);  //2 tiles in bag at start.
+        tileBag.put('D', 2);  //4 tiles in bag at start.
+        tileBag.put('E', 1); //10 tiles in bag at start.
+        tileBag.put('F', 4);  //3 tiles in bag at start.
+        tileBag.put('G', 2);  //4 tiles in bag at start.
+        tileBag.put('H', 4);  //3 tiles in bag at start.
+        tileBag.put('I', 1);  //8 tiles in bag at start.
+        tileBag.put('J', 9);  //1 tiles in bag at start.
+        tileBag.put('K', 6);  //1 tiles in bag at start.
+        tileBag.put('L', 1);  //4 tiles in bag at start.
+        tileBag.put('M', 3);  //2 tiles in bag at start.
+        tileBag.put('N', 1);  //7 tiles in bag at start.
+        tileBag.put('O', 1);  //7 tiles in bag at start.
+        tileBag.put('P', 3);  //2 tiles in bag at start.
+        tileBag.put('Q', 12);  //1 tiles in bag at start.
+        tileBag.put('R', 1);  //6 tiles in bag at start.
+        tileBag.put('S', 1);  //4 tiles in bag at start.
+        tileBag.put('T', 1);  //6 tiles in bag at start.
+        tileBag.put('U', 1);  //5 tiles in bag at start.
+        tileBag.put('V', 4);  //2 tiles in bag at start.
+        tileBag.put('W', 4);  //1 tiles in bag at start.
+        tileBag.put('X', 9);  //1 tiles in bag at start.
+        tileBag.put('Y', 5);  //2 tiles in bag at start.
+        tileBag.put('Z', 11);  //1 tiles in bag at start.
+        tileBag.put('_', 5);  //2 tiles in bag at start.
 
     }
     /**
@@ -175,31 +172,24 @@ public class TileControl {
 
     // printNumberInTileBag() Helper method. Use to show current state (number) of tiles in bag.
     public void printNumberInTileBag() {
-
-        System.out.println("\nTiles remaining in the bag: (Letter / Number Count of that letter)");
-
+        System.out.println("\nTiles remaining in the bag: ");
 
         // Sort tiles alphabetically
         List<Map.Entry<Character, Integer>> tilesSorted = new ArrayList<>(tileBag.entrySet());
         tilesSorted.sort((entry1, entry2) -> Character.compare(entry1.getKey(), entry2.getKey()));
 
-        // Print tiles in groups of 5 with aligned columns
-        int count = 0;
+        // Print headers
+        System.out.printf("%-6s | %-6s%n", "Tile", "Count");
+        System.out.println("------------------");
+
+        // Print tiles and counts
         for (Map.Entry<Character, Integer> entry : tilesSorted) {
             char tile = entry.getKey();
             int tileCount = entry.getValue();
-            System.out.printf("%c: %-2d\t", tile, tileCount);
-            count++;
-            if (count == 5) {
-                System.out.println();
-                count = 0;
-            }
-        }
-        // Just adds a newline after the last tile if not printed in a group of 5, to neaten things up.
-        if (count > 0) {
-            System.out.println();
+            System.out.printf("%-6c | %-6d%n", tile, tileCount);
         }
     }
+
 
 }
 
