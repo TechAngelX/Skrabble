@@ -6,13 +6,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Initialize Board for this game's instance.
         BoardInit currentGame = new BoardInit();
-        currentGame.introHeader();
-        currentGame.customOrDefaultBoardChooser();
+//        currentGame.introHeader();
+//        currentGame.customOrDefaultBoardChooser();
         currentGame.openOrClosedGameChooser();
 
         // Creaate tilebag object, and initialize the tile bag for this game's instance.
         TileBag tileBag = new TileBag();
-        tileBag.printTileBag();
+//        tileBag.printTileBag();
+        tileBag.createHumanTileRack();
+//        tileBag.printHumanTileRack();
 
 
 
