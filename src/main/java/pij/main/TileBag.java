@@ -146,19 +146,19 @@ public class TileBag {
         }
     }
 
+    // printTileBag() A TreeMap to store counts of each tile value, sorted by tile letter
     public void printTileBag() {
         System.out.println("Tile Bag:");
 
-        // Create a map to store counts of each tile value
-        Map<String, Integer> tileCounts = new HashMap<>();
+        Map<String, Integer> tileCount = new TreeMap<>();
 
-        for (Tile tile : tileSetArray) { //Iterates over a collection of tile objects stored in tileSetArray.
+        for (Tile tile : tileSetArray) {
             String tileKey = tile.getTileLetter() + Integer.toString(tile.getTileValue());
-            tileCounts.put(tileKey, tileCounts.getOrDefault(tileKey, 0) + 1);
+            tileCount.put(tileKey, tileCount.getOrDefault(tileKey, 0) + 1);
         }
 
         // Print the count of tile objects.
-        for (Map.Entry<String, Integer> entry : tileCounts.entrySet()) {
+        for (Map.Entry<String, Integer> entry : tileCount.entrySet()) {
             String tileLetter = entry.getKey().substring(0, 1); // Extract the letter part
             int tileValue = Integer.parseInt(entry.getKey().substring(1)); // Extract the value part
 
@@ -166,7 +166,6 @@ public class TileBag {
 
         }
     }
-
 
 }
 
