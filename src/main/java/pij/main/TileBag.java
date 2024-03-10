@@ -100,9 +100,9 @@ public class TileBag {
 
     }
 
-    //Generates a rack of 7 random tiles (from the tileBag) for the human player
-    // by repeatedly calling a method called getRandomTile.
-    public HashMap<Character, Integer> tileRackHuman() {
+    //Generates a rack of 7 random tiles (from the tileBag) for the Human or Computer player.
+    // Pulls it out of bag using getRandomTile() method, and decrements tilebag. This Method called only once.
+    public HashMap<Character, Integer> createTileRack() {
         HashMap<Character, Integer> rack = new HashMap<>();
         for (int i = 0; i < 7; i++) {
             char tile = getRandomTile();
@@ -113,7 +113,7 @@ public class TileBag {
 
 
     // Gets random tile from tilebag.  Should also remove from tileBag. TODO.
-    private char getRandomTile() {
+    protected char getRandomTile() {
         List<Character> availableTiles = new ArrayList<>();
         for (Tile tile : tileSetArray) {
             availableTiles.add(tile.getTileLetter());
@@ -132,6 +132,8 @@ public class TileBag {
         removeOneTile(selectedTile);
         return selectedTile;
     }
+
+
 
     private void removeOneTile(char tile) {
         for (Tile t : tileSetArray) {
