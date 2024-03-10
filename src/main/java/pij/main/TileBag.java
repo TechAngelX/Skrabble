@@ -148,8 +148,9 @@ public class TileBag {
         }
     }
 
-    // printTileBag() A TreeMap to store counts of each tile value, sorted by tile letter
-    public void printTileBag() {
+    // wholeTileBag() A TreeMap Helper to store counts of each tile value, sorted by tile letter.
+    // Just to check for debugging. Not for game use.
+    public void wholeTileBag() {
         System.out.println("Tile Bag:");
 
         Map<String, Integer> tileCount = new TreeMap<>();

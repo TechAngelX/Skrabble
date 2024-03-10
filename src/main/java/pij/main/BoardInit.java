@@ -15,6 +15,7 @@ public class BoardInit {
     private final int MAX_BOARD_SIZE = 26;
     private String[][] board;
 
+
     // BoardInit() - Initializes default board, loads default.txt data into 2D array, prints initial board.
     public BoardInit() throws IOException {
         String filePath = DEFAULT_BOARD_FILE_PATH;
@@ -217,7 +218,7 @@ public class BoardInit {
                     if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
 
-//                        GAMEPLAY
+
                     } else {
                         System.out.println("Starting a closed game...");
 

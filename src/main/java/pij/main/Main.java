@@ -9,11 +9,15 @@ public class Main {
 //        currentGame.introHeader();
 //        currentGame.customOrDefaultBoardChooser();
         currentGame.openOrClosedGameChooser();
+        HumanPlayer humanPlayer = new HumanPlayer();
+        humanPlayer.createTileRack(new TileBag());
+        humanPlayer..
+
+
 
         // Creaate tilebag object, and initialize the tile bag for this game's instance.
         TileBag tileBag = new TileBag();
-        tileBag.printTileBag();
-        HumanPlayer humanPlayer = new HumanPlayer();
+        tileBag.wholeTileBag();
 
 
 
