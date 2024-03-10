@@ -7,7 +7,8 @@ package pij.main;
 import java.util.*;
 
 public class TileBag {
-private Map <Character, Integer> tileSetMap;
+protected Map <Character, Integer> tileSetMap;
+private  final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
 
 
     /** TileBag() Initializes a TileBag array (collection) with a set of tiles objects. Each object having its own
@@ -16,42 +17,44 @@ private Map <Character, Integer> tileSetMap;
     public TileBag() {
         tileSetMap = new HashMap<>();
 
-        tileSetMap.put('A', 8);
-        tileSetMap.put('B', 2);
-        tileSetMap.put('C', 2);
-        tileSetMap.put('D', 4);
-        tileSetMap.put('E', 10);
-        tileSetMap.put('F', 3);
-        tileSetMap.put('G', 4);
-        tileSetMap.put('H', 3);
-        tileSetMap.put('I', 8);
-        tileSetMap.put('J', 1);
-        tileSetMap.put('K', 1);
-        tileSetMap.put('L', 4);
-        tileSetMap.put('M', 2);
-        tileSetMap.put('N', 7);
-        tileSetMap.put('O', 7);
-        tileSetMap.put('P', 2);
-        tileSetMap.put('Q', 1);
-        tileSetMap.put('R', 6);
-        tileSetMap.put('S', 4);
-        tileSetMap.put('T', 6);
-        tileSetMap.put('U', 5);
-        tileSetMap.put('V', 2);
-        tileSetMap.put('W', 1);
-        tileSetMap.put('X', 1);
-        tileSetMap.put('Y', 2);
-        tileSetMap.put('Z', 1);
+        tileSetMap.put('A', 1);
+        tileSetMap.put('B', 3);
+        tileSetMap.put('C', 3);
+        tileSetMap.put('D', 2);
+        tileSetMap.put('E', 1);
+        tileSetMap.put('F', 4);
+        tileSetMap.put('G', 2);
+        tileSetMap.put('H', 4);
+        tileSetMap.put('I', 1);
+        tileSetMap.put('J', 9);
+        tileSetMap.put('K', 6);
+        tileSetMap.put('L', 1);
+        tileSetMap.put('M', 3);
+        tileSetMap.put('N', 1);
+        tileSetMap.put('O', 1);
+        tileSetMap.put('P', 3);
+        tileSetMap.put('Q', 12);
+        tileSetMap.put('R', 1);
+        tileSetMap.put('S', 1);
+        tileSetMap.put('T', 1);
+        tileSetMap.put('U', 1);
+        tileSetMap.put('V', 4);
+        tileSetMap.put('W', 4);
+        tileSetMap.put('X', 9);
+        tileSetMap.put('Y', 5);
+        tileSetMap.put('Z', 11);
         tileSetMap.put('_', 5);
+
     }
 
 
     //Generates a rack of 7 random tiles (from the tileBag) for the Human or Computer player.
     // Pulls it out of bag using getRandomTile() method, and decrements tilebag. This Method called only once.
     public Map<Character, Integer> createTileRack() {
-        TreeMap<Character, Integer> rack = new TreeMap<>();
-        for (int i = 0; i < 7; i++) {
+        TreeMap<Character, Integer> rack = new TreeMap<>(); //  The tile rack's data structure.
+        for (int i = 0; i < INITIAL_NUMBER_OF_PLAYER_TILES; i++) {
             char tile = getRandomTile();
+
             rack.put(tile, 1);
         }
         return rack;
@@ -68,15 +71,22 @@ private Map <Character, Integer> tileSetMap;
             return ' '; // TODO Move to tally up scores and create an Endgame() method.
         }
 
-        // Select a random tile from the available tiles
+        // Select a random entry (key-value pair) from the available tiles
         Random random = new Random();
         int index = random.nextInt(availableTilesInBag.size());
-        char selectedTile = (char) availableTilesInBag.keySet().toArray()[index]; // Get random key from the map
+        Map.Entry<Character, Integer> selectedEntry = (Map.Entry<Character, Integer>) availableTilesInBag.entrySet().toArray()[index];
+
+        // Retrieve the selected tile character and its score
+        char selectedTile = selectedEntry.getKey();
+        int tileScore = selectedEntry.getValue();
+
+        // Print the selected tile and its score
 
         // Remove the selected tile from the bag
         removeOneTile(selectedTile);
         return selectedTile;
     }
+
 
     private void removeOneTile(char tile) {
         // Update the count of the selected tile

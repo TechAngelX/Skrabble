@@ -1,5 +1,6 @@
 package pij.main;
 
+
 import java.util.*;
 
 public  abstract class Player {
@@ -8,21 +9,25 @@ public  abstract class Player {
 
     public Player(TileBag tileBag) {
         this.tileRack = tileBag.createTileRack();
-        this.name = "Player";
     }
     protected void setName(String name) {
     }
     public String getName() { return name;
     }
-    TileBag tileBag = new TileBag();
 
+
+    TileBag tileBag = new TileBag();
     public void printTileRack(String playerRack) {
         System.out.print(playerRack);
         StringBuilder tileString = new StringBuilder();
 
         for (Map.Entry<Character, Integer> entry : tileRack.entrySet()) {
             char tileLetter = entry.getKey();
-            int tileValue = entry.getValue();
+            int tileCount = entry.getValue();
+            int tileValue = tileBag.tileSetMap.get(tileLetter); // Retrieve value from tileSetMap
+
+
+
 
             tileString.append("[").append(tileLetter).append(tileValue).append("] ");
         }
@@ -30,9 +35,8 @@ public  abstract class Player {
         System.out.println(tileString.toString().trim()); // Remove trailing space
     }
 
-
-    // wholeTileBag() A TreeMap Helper to store counts of each tile value, sorted by tile letter.
-    // Just to check for debugging. Not for game use.
+//     wholeTileBag() A TreeMap Helper to store counts of each tile value, sorted by tile letter.
+//     Just to check for debugging. Not for game use.
 //    public void wholeTileBag(String tileBag) {
 //        System.out.println("Current contents of the whole Tile Bag:");
 //

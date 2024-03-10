@@ -12,8 +12,8 @@ public class GamePlay {
         TileBag tileBag = new TileBag(); // To access some tileBag helper methods unique only to Helper class. Not for gameplay.
 //        tileBag.wholeTileBag();
 
-        humanPlayer = new HumanPlayer();
-        computerPlayer = new ComputerPlayer();
+        humanPlayer = new HumanPlayer(tileBag);
+        computerPlayer = new ComputerPlayer(tileBag);
         humanPlayer.printTileRack("Your Tiles: ");
         computerPlayer.printTileRack("Computer's Tiles: ");
 //        tileBag.wholeTileBag();
