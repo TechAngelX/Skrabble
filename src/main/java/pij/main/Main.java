@@ -9,8 +9,8 @@ public class Main {
 
         // GAMEPLAY CLASS NOW TAKES OVER
         // -----------------------------
+GamePlay gamePlay = new GamePlay();
 
-           GamePlay game = new GamePlay();
 
 
 //        ArrayList<Character> tilesPc = readyPlayer1.tileRackComputer();

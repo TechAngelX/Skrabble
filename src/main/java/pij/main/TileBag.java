@@ -147,8 +147,8 @@ public class TileBag {
     }
 
 
-    public void printTileRack() {
-        System.out.println("Tile Bag:");
+    public void printTileRack(String name) {
+        System.out.println(name);
 
         Map<String, Integer> tileCount = new TreeMap<>();
 
