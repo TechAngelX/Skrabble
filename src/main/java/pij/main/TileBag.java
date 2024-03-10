@@ -113,7 +113,7 @@ public class TileBag {
 
 
     // Gets random tile from tilebag.  Should also remove from tileBag. TODO.
-    protected char getRandomTile() {
+    public char getRandomTile() {
         List<Character> availableTiles = new ArrayList<>();
         for (Tile tile : tileSetArray) {
             availableTiles.add(tile.getTileLetter());
@@ -133,8 +133,6 @@ public class TileBag {
         return selectedTile;
     }
 
-
-
     private void removeOneTile(char tile) {
         for (Tile t : tileSetArray) {
             if (t.getTileLetter() == tile) {
@@ -145,6 +143,27 @@ public class TileBag {
                 }
                 break;
             }
+        }
+    }
+
+
+    public void printTileRack() {
+        System.out.println("Tile Bag:");
+
+        Map<String, Integer> tileCount = new TreeMap<>();
+
+        for (Tile tile : tileSetArray) {
+            String tileKey = tile.getTileLetter() + Integer.toString(tile.getTileValue());
+            tileCount.put(tileKey, tileCount.getOrDefault(tileKey, 0) + 1);
+        }
+
+        // Print the count of tile objects.
+        for (Map.Entry<String, Integer> entry : tileCount.entrySet()) {
+            String tileLetter = entry.getKey().substring(0, 1); // Extract the letter part
+            int tileValue = Integer.parseInt(entry.getKey().substring(1)); // Extract the value part
+
+            System.out.println(entry.getValue() + " x [" + tileLetter + tileValue + "]");
+
         }
     }
 

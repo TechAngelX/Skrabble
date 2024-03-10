@@ -4,19 +4,22 @@ import java.util.HashMap;
 
 public class HumanPlayer extends Player {
 
-    @Override
-    protected void setName(String human) {
-        super.setName("humanPlayer");
-    }
-    @Override
-    public HashMap<Character, Integer> createTileRack(TileBag tileBag) {
-        return super.createTileRack(tileBag);
+    private HashMap<Character, Integer> tileRack;
+
+    public HumanPlayer(HashMap<Character, Integer> tileRack) {
+        this.tileRack = tileRack;
     }
 
+    // Other m
+
     @Override
-    public void printTileRack(String playerRack) {
-        super.setName("humanTileRack");
+    protected void setName(String name) {
+        super.setName("humanPlayer");
     }
 }
+
+
+
+
 
 

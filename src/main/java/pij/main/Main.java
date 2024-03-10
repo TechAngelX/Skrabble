@@ -4,15 +4,14 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BoardInit game = new BoardInit(); // Initialize Board for this game's instance.
-        game.start();
+        BoardInit start = new BoardInit(); // Initialize Board for this game's instance.
+        start.start();
 
         // GAMEPLAY CLASS NOW TAKES OVER
         // -----------------------------
 
-        // Creaate tilebag object, and initialize the tile bag for this game's instance.
-        TileBag tileBag = new TileBag();
-        tileBag.wholeTileBag();
+           GamePlay game = new GamePlay();
+
 
 //        ArrayList<Character> tilesPc = readyPlayer1.tileRackComputer();
 //        System.out.print("OPEN GAME: The computer's tiles:" );

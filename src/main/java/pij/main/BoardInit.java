@@ -299,10 +299,10 @@ public class BoardInit {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
 
-
+    // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException { // Needed as loadBoard might throw exception.
-        introHeader();
-        customOrDefaultBoardChooser();
+//        introHeader();
+//        customOrDefaultBoardChooser();
         openOrClosedGameChooser();
     }
 }
