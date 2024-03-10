@@ -12,10 +12,8 @@ public class Main {
 
         // Creaate tilebag object, and initialize the tile bag for this game's instance.
         TileBag tileBag = new TileBag();
-//        tileBag.printTileBag();
-        tileBag.createHumanTileRack();
-//        tileBag.printHumanTileRack();
-
+        tileBag.printTileBag();
+        HumanPlayer humanPlayer = new HumanPlayer();
 
 
 
