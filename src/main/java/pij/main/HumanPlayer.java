@@ -12,5 +12,11 @@ public class HumanPlayer extends Player {
     public HashMap<Character, Integer> createTileRack(TileBag tileBag) {
         return super.createTileRack(tileBag);
     }
+
+    @Override
+    public void printTileRack(String playerRack) {
+        super.setName("humanTileRack");
+    }
 }
+
 

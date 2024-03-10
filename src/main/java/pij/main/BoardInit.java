@@ -89,14 +89,14 @@ public class BoardInit {
     }
 
     // introHeader() -  Prints the game introduction header.
-    public void introHeader() {
+    private void introHeader() {
         System.out.println("============                   ============");
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
 
     // customOrDefaultBoardChooser() - prompts the user to choose loading a custom board, or use the default board.
-    public void customOrDefaultBoardChooser() throws IOException {
+    private void customOrDefaultBoardChooser() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
@@ -206,7 +206,7 @@ public class BoardInit {
     }
 
     // openOrClosedGameChooser(): Prompts user to choose either an open, or closed game type.
-    public void openOrClosedGameChooser() {
+    private void openOrClosedGameChooser() {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.print("Please enter your choice (o/c): ");
 
@@ -297,6 +297,13 @@ public class BoardInit {
     // isValidIndex () Helper method to ensure user-provided coordinates for accessing elements in the board array are within the valid range.
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
+    }
+
+
+    public void start() throws IOException { // Needed as loadBoard might throw exception.
+        introHeader();
+        customOrDefaultBoardChooser();
+        openOrClosedGameChooser();
     }
 }
 

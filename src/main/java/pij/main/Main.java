@@ -4,29 +4,15 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // Initialize Board for this game's instance.
-        BoardInit currentGame = new BoardInit();
-//        currentGame.introHeader();
-//        currentGame.customOrDefaultBoardChooser();
-        currentGame.openOrClosedGameChooser();
-        HumanPlayer humanPlayer = new HumanPlayer();
-        humanPlayer.createTileRack(new TileBag());
-        humanPlayer..
+        BoardInit game = new BoardInit(); // Initialize Board for this game's instance.
+        game.start();
 
-
+        // GAMEPLAY CLASS NOW TAKES OVER
+        // -----------------------------
 
         // Creaate tilebag object, and initialize the tile bag for this game's instance.
         TileBag tileBag = new TileBag();
         tileBag.wholeTileBag();
-
-
-
-
-
-
-
-
-
 
 //        ArrayList<Character> tilesPc = readyPlayer1.tileRackComputer();
 //        System.out.print("OPEN GAME: The computer's tiles:" );
@@ -34,8 +20,6 @@ public class Main {
 //            System.out.print(tile + " ");
 //        }
 //
-
-
 //
 //        System.out.println(currentGame.setElement(0,1,"R1"));
 //        System.out.println(currentGame.setElement(1,1,"I1"));
@@ -45,16 +29,6 @@ public class Main {
 
 //        System.out.println(currentGame.toString());
 
-        //     currentGame.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
-
-
-//      BELOW METHODS AND CODE ARE ALL ON THE OLD DEPRECATED BOARDINITOLDTMP CLASS. I WILL SLOWLY MIGRATE THEM OVER.
-//        currentGame.printDefaultBoard();
-
-
-
-//
-//
-
+//     currentGame.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     }}
