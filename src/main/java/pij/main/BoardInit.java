@@ -302,7 +302,7 @@ public class BoardInit {
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException { // Needed as loadBoard might throw exception.
 //        introHeader();
-//        customOrDefaultBoardChooser();
+        customOrDefaultBoardChooser();
         openOrClosedGameChooser();
     }
 }

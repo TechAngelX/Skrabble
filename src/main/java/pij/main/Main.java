@@ -9,18 +9,11 @@ public class Main {
 
         // GAMEPLAY CLASS NOW TAKES OVER
         // -----------------------------
-GamePlay gamePlay = new GamePlay();
+GamePlay currentGame = new GamePlay();
 
 
 
-//        ArrayList<Character> tilesPc = readyPlayer1.tileRackComputer();
-//        System.out.print("OPEN GAME: The computer's tiles:" );
-//        for (char tile : tilesPc) {
-//            System.out.print(tile + " ");
-//        }
-//
-//
-//        System.out.println(currentGame.setElement(0,1,"R1"));
+//   System.out.println(currentGame.setElement(0,1,"R1"));
 //        System.out.println(currentGame.setElement(1,1,"I1"));
 //        System.out.println(currentGame.setElement(2,1,"C3"));
 //        System.out.println(currentGame.setElement(3,1,"K4"));

@@ -1,63 +1,35 @@
 package pij.main;
 
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
+public class Player {
+    private final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
 
-public  abstract class Player {
-    private Map<Character, Integer> tileRack; // Use TreeMap for sorted output
-    private String name; //subclasses will be hardcoded "humanPlayer" or "computerPlayer".
+    private List<Tile> tileRack;
+    private TileBag tileBag;
 
     public Player(TileBag tileBag) {
-        this.tileRack = tileBag.createTileRack();
-    }
-    protected void setName(String name) {
-    }
-    public String getName() { return name;
+        this.tileBag = tileBag;
+        this.tileRack = new ArrayList<>(); // Initialize the player's tileRack
+
     }
 
-
-    TileBag tileBag = new TileBag();
-    public void printTileRack(String playerRack) {
-        System.out.print(playerRack);
-        StringBuilder tileString = new StringBuilder();
-
-        for (Map.Entry<Character, Integer> entry : tileRack.entrySet()) {
-            char tileLetter = entry.getKey();
-            int tileCount = entry.getValue();
-            int tileValue = tileBag.tileSetMap.get(tileLetter); // Retrieve value from tileSetMap
-
-
-
-
-            tileString.append("[").append(tileLetter).append(tileValue).append("] ");
+    //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
+    protected void intializePlayerTileRack() {
+        for (int i = 0; i < 7; i++) {
+            Tile tile = tileBag.getRandomTile();
+            if (tile != null) {
+                tileRack.add(tile);
+            }
         }
-
-        System.out.println(tileString.toString().trim()); // Remove trailing space
     }
 
-//     wholeTileBag() A TreeMap Helper to store counts of each tile value, sorted by tile letter.
-//     Just to check for debugging. Not for game use.
-//    public void wholeTileBag(String tileBag) {
-//        System.out.println("Current contents of the whole Tile Bag:");
-//
-//        Map<String, Integer> tileCount = new TreeMap<>();
-//
-//        for (Tile tile : tileSetMap) {
-//            String tileKey = tile.getTileLetter() + Integer.toString(tile.getTileValue());
-//            tileCount.put(tileKey, tileCount.getOrDefault(tileKey, 0) + 1);
-//        }
-//
-//        // Print the count of tile objects.
-//        for (Map.Entry<String, Integer> entry : tileCount.entrySet()) {
-//            String tileLetter = entry.getKey().substring(0, 1); // Extract the letter part
-//            int tileValue = Integer.parseInt(entry.getKey().substring(1)); // Extract the value part
-//
-//            System.out.println(entry.getValue() + " x [" + tileLetter + tileValue + "]");
-//
-//        }
-//    }
-
+      public void printTileRack(String name) {
+        System.out.print(name + ": ");
+        for (Tile tile : tileRack) {
+            System.out.print("[" + tile.getTileLetter() + tile.getTileValue() + "] ");
+        }
+        System.out.println(); // Add a new line after printing all tiles
     }
-
-
-
+}
