@@ -8,6 +8,8 @@ public class GamePlay {
     public TileBag tileBag;
     public  HumanPlayer humanPlayer;
     public  ComputerPlayer computerPlayer;
+    private static final String WORD_LIST = "src/resources/wordlist.txt";
+
     public GamePlay() {
 
         tileBag = new TileBag();
@@ -27,9 +29,9 @@ public class GamePlay {
     }
 
     public void enterWordAndTile() {
-        System.out.println("Please enter your move in the format: \"word,square\"\n" +
-                "For example, for suitable tile rack and board configuration, a downward move\n" +
-                "could be HI,f4 and a rightward move could be HI,4f.");
+        System.out.print("Please enter your move in the format: \"word,square\"\n" +
+                "For example, for suitable tile rack and board configuration, a downward movecould\n" +
+                "be HI,f4 and a rightward move could be HI,4f.\t>> ");
 
         String input = scanner.nextLine();
 
@@ -41,19 +43,20 @@ public class GamePlay {
         }
 
         String word = strings[0].trim();
-        String tile = strings[1].trim();
+        String tile = strings[1].trim().toUpperCase();
 
         // TODO - Maybe Create a map (optional, if needed?)
         // Map<String, String> tileEntry = new HashMap<>();
         // tileEntry.put("word", word);
-        // tileEntry.put("square", square);
+        // tileEntry.put("tile", tile);
 
         System.out.println("Entered word: " + word);
         System.out.println("Entered tile: " + tile);
 
-
         scanner.close();
+
     }
+
 
     }
 
