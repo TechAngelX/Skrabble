@@ -9,7 +9,6 @@ public class Main {
 
         // GAMEPLAY CLASS NOW TAKES OVER
         // -----------------------------
-GamePlay currentGame = new GamePlay();
 
 
 
