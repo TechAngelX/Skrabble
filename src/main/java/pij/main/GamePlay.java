@@ -26,10 +26,36 @@ public class GamePlay {
 
     }
 
-    public void enterTile() {
-        System.out.println("Please enter your move in the format: \"word,square\" (without the quotes)\n" +
+    public void enterWordAndTile() {
+        System.out.println("Please enter your move in the format: \"word,square\"\n" +
                 "For example, for suitable tile rack and board configuration, a downward move\n" +
-                "could be \"HI,f4\" and a rightward move could be \"HI,4f\".");
-        String tileEntry = scanner.nextLine();
+                "could be HI,f4 and a rightward move could be HI,4f.");
+
+        String input = scanner.nextLine();
+
+        String[] strings = input.split(",");
+
+        if (strings.length != 2) {
+            System.out.println("Invalid input format. Please enter in the format \"word,square\"");
+            return;
+        }
+
+        String word = strings[0].trim();
+        String tile = strings[1].trim();
+
+        // TODO - Maybe Create a map (optional, if needed?)
+        // Map<String, String> tileEntry = new HashMap<>();
+        // tileEntry.put("word", word);
+        // tileEntry.put("square", square);
+
+        System.out.println("Entered word: " + word);
+        System.out.println("Entered tile: " + tile);
+
+
+        scanner.close();
     }
-}
+
+    }
+
+
+
