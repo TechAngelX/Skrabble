@@ -1,8 +1,6 @@
 package pij.main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 // In-Game AI and Logic
@@ -57,6 +55,14 @@ public class GamePlay {
                 System.out.println("Invalid input. The first part must be a word.");
                 continue;
             }
+            boolean isValid = isValidWord(word);
+
+            if (isValid) {
+                System.out.println("Yeah, word is in dictionarity");
+            }
+            else
+                System.out.println("WOrd does not exisst in dictiuonary");
+
 
             // Check if the second part is in the correct format
 
@@ -79,6 +85,22 @@ public class GamePlay {
         }
         scanner.close();
     }
+
+    private boolean isValidWord(String word) {
+        try (Scanner wordListScanner = new Scanner(new File(WORD_LIST))) {
+            while (wordListScanner.hasNextLine()) {
+                String dictionaryWord = wordListScanner.nextLine().trim().toUpperCase();
+                if (dictionaryWord.equals(word.toUpperCase())) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: Word list file not found: " + WORD_LIST);
+        }
+
+        return false;
+    }
+
 
 
     /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
