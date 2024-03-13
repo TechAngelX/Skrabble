@@ -22,8 +22,72 @@ public class TileBag {
         for (int i = 0; i < 10; i++) {
             tileList.add(new Tile('E', 1));
         }
-
-        // TODO Add more tiles as needed.
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile('F', 4));
+        }
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile('G', 2));
+        }
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile('H', 4));
+        }
+        for (int i = 0; i < 8; i++) {
+            tileList.add(new Tile('I', 1));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('J', 9));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('K', 6));
+        }
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile('L', 1));
+        }
+        for (int i = 0; i < 2; i++) {
+            tileList.add(new Tile('M', 3));
+        }
+        for (int i = 0; i < 7; i++) {
+            tileList.add(new Tile('N', 1));
+        }
+        for (int i = 0; i < 7; i++) {
+            tileList.add(new Tile('O', 1));
+        }
+        for (int i = 0; i < 2; i++) {
+            tileList.add(new Tile('P', 3));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('Q', 12));
+        }
+        for (int i = 0; i < 6; i++) {
+            tileList.add(new Tile('R', 1));
+        }
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile('S', 1));
+        }
+        for (int i = 0; i < 6; i++) {
+            tileList.add(new Tile('T', 1));
+        }
+        for (int i = 0; i < 5; i++) {
+            tileList.add(new Tile('U', 1));
+        }
+        for (int i = 0; i < 2; i++) {
+            tileList.add(new Tile('V', 4));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('W', 4));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('X', 9));
+        }
+        for (int i = 0; i < 2; i++) {
+            tileList.add(new Tile('Y', 5));
+        }
+        for (int i = 0; i < 1; i++) {
+            tileList.add(new Tile('Z', 11));
+        }
+        for (int i = 0; i < 5; i++) {
+            tileList.add(new Tile('_', 5)); // Wildcard
+        }
     }
 
     public void remainingTilesInBag() {
@@ -39,7 +103,7 @@ public class TileBag {
             int count = entry.getValue();
             System.out.println(count + " x [" + tileKey + "]");
         }
-            }
+    }
 
     public Tile getRandomTile() {
         if (tileList.isEmpty()) {

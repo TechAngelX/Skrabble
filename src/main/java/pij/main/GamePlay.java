@@ -82,6 +82,7 @@ public class GamePlay {
             System.out.println("Entered word: " + word);
             System.out.println("Entered direction: "+ enteredDirection+" " + direction);
             break;
+
         }
         scanner.close();
     }
