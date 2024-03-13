@@ -4,15 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // class BoardInit - Initializes the board (custom or default), and checks min/max board sizes.
 public class BoardInit {
 
-    private static final String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
-    private static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
-    private final int MIN_BOARD_SIZE = 11;
-    private final int MAX_BOARD_SIZE = 26;
+    protected static final String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
+    protected static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
+    protected final int MIN_BOARD_SIZE = 11;
+    protected final int MAX_BOARD_SIZE = 26;
     private String[][] board;
     GamePlay gamePlay = new GamePlay();
 
@@ -306,6 +308,33 @@ public class BoardInit {
 //        introHeader();
         customOrDefaultBoardChooser();
         openOrClosedGameChooser();
+    }
+
+    /** This boardSize data structure is ONLY used to determine the board size for the GamePlay class,
+     so that horizontal and vertical words can be corrcctly read onto the board.
+     **/
+    public Map<Character, Integer> boardSizeDimensions() {
+        Map<Character, Integer> boardSize = new HashMap<>();
+        for (char c = 'A'; c <= 'Z'; c++) {
+            boardSize.put(c, c - 'A' + 1);
+        }
+        return boardSize;
+    }
+
+    // Helper Methods: Not for game play usage, but to assist with code writing/debugging.
+    // __________________________________________________________________________________
+
+    // getBoardSize() Helper method that extracts the board size from the first line of the default board file amd prints.
+    //TODO - incorporate for custom board size.
+    public int getBoardSize() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH))) {
+            String firstLine = reader.readLine();
+            int boardSize = Integer.parseInt(firstLine.trim());
+            System.out.println("This game's board size: " + boardSize);
+            return boardSize;
+        } catch (IOException e) {
+            throw e; // Re-throw the IOException for handling in the calling method
+        }
     }
 }
 

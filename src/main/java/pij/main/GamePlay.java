@@ -1,5 +1,8 @@
 package pij.main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 // In-Game AI and Logic
@@ -9,8 +12,9 @@ public class GamePlay {
     public  HumanPlayer humanPlayer;
     public  ComputerPlayer computerPlayer;
     private static final String WORD_LIST = "src/resources/wordlist.txt";
+    BoardInit boardInit; // To access boardsize dimensions, and other Boardinit methods and constants.
 
-    public GamePlay() {
+    public GamePlay() throws IOException {
 
         tileBag = new TileBag();
         humanPlayer = new HumanPlayer(tileBag);
@@ -19,12 +23,11 @@ public class GamePlay {
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
 
-//        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
+
 
         humanPlayer.printTileRack("Your Tiles: ");
         computerPlayer.printTileRack("Computer's Tiles: ");
 
-//        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
 
     }
 
@@ -62,7 +65,8 @@ public class GamePlay {
                 continue;
             }
 
-            // Check for letter/number direction
+
+            // Check for letter/number direction, for pretty print
             if (Character.isLetter(direction.charAt(0))) {
                 direction = "(Vertical)";
             } else {
@@ -71,13 +75,18 @@ public class GamePlay {
 
             System.out.println("Entered word: " + word);
             System.out.println("Entered direction: "+ enteredDirection+" " + direction);
-            break; // Exit the loop as valid input is received
+            break;
         }
         scanner.close();
     }
 
 
-    }
+    /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
+  _________________________________________________________________________________
+     */
+    //        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
+
+}
 
 
 
