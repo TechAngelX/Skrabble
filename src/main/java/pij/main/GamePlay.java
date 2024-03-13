@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 // In-Game AI and Logic
@@ -30,10 +28,10 @@ public class GamePlay {
 
     }
 
-    public void enterWordAndTile() {
+    public void enterWordAndDirection() {
         while (true) {
             System.out.print("Please enter your move in the format: \"word,square\"\n" +
-                    "For example, for suitable tile rack and board configuration, a downward movecould\n" +
+                    "For example, for suitable direction rack and board configuration, a downward movecould\n" +
                     "be HI,f4 and a rightward move could be HI,4f.\n>> ");
 
             String input = scanner.nextLine();
@@ -46,7 +44,7 @@ public class GamePlay {
             }
 
             String word = strings[0].trim();
-            String tile = strings[1].trim().toUpperCase();
+            String direction = strings[1].trim().toUpperCase();
 
             // Check if the first part is a word
             if (!word.matches("[a-zA-Z]+")) {
@@ -55,18 +53,18 @@ public class GamePlay {
             }
 
             // Check if the second part is in the correct format
-            if (!tile.matches("[a-zA-Z]\\d+")) {
-                System.out.println("Invalid input. The second part must contain one letter and one integer.");
+
+            if (!direction.matches("[a-pA-P]\\d{0,2}|1?[0-6],[a-pA-P]|1?[0-6][a-pA-P]")) {
+                System.out.println("Invalid input. The second part must either contain a letter up to and including 'p' followed by up to two digits, or a number up to 16 followed by a letter up to 'p'.");
                 continue;
             }
 
             System.out.println("Entered word: " + word);
-            System.out.println("Entered tile: " + tile);
+            System.out.println("Entered direction: " + direction);
             break; // Exit the loop as valid input is received
         }
         scanner.close();
     }
-
 
 
     }

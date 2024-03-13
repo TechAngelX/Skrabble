@@ -218,7 +218,7 @@ public class BoardInit {
                 if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
                     if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
-                        gamePlay.enterWordAndTile();
+                        gamePlay.enterWordAndDirection();
 
 
                     } else {
