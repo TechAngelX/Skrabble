@@ -45,6 +45,9 @@ public class GamePlay {
 
             String word = strings[0].trim();
             String direction = strings[1].trim().toUpperCase();
+            String enteredDirection = direction;
+
+
 
             // Check if the first part is a word
             if (!word.matches("[a-zA-Z]+")) {
@@ -59,8 +62,15 @@ public class GamePlay {
                 continue;
             }
 
+            // Check for letter/number direction
+            if (Character.isLetter(direction.charAt(0))) {
+                direction = "(Vertical)";
+            } else {
+                direction = "(Horizontal)";
+            }
+
             System.out.println("Entered word: " + word);
-            System.out.println("Entered direction: " + direction);
+            System.out.println("Entered direction: "+ enteredDirection+" " + direction);
             break; // Exit the loop as valid input is received
         }
         scanner.close();
