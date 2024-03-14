@@ -32,4 +32,5 @@ public class Player {
         }
         System.out.println(); // Add a new line after printing all tiles
     }
+
 }

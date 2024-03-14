@@ -11,7 +11,7 @@ public class Main {
         // -----------------------------
 
 
-        start.getBoardSize();
+        start.getCustomBoardSize();
 //   System.out.println(currentGame.setElement(0,1,"R1"));
 //        System.out.println(currentGame.setElement(1,1,"I1"));
 //        System.out.println(currentGame.setElement(2,1,"C3"));
@@ -20,6 +20,5 @@ public class Main {
 
 //        System.out.println(currentGame.toString());
 
-//     currentGame.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     }}

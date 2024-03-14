@@ -4,17 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 // class BoardInit - Initializes the board (custom or default), and checks min/max board sizes.
 public class BoardInit {
 
-    protected static final String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
+    protected static String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
     protected static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
+
     protected final int MIN_BOARD_SIZE = 11;
     protected final int MAX_BOARD_SIZE = 26;
+    protected  int customBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
+
     private String[][] board;
     GamePlay gamePlay = new GamePlay();
 
@@ -208,6 +209,7 @@ public class BoardInit {
 
     }
 
+
     // openOrClosedGameChooser(): Prompts user to choose either an open, or closed game type.
     private void openOrClosedGameChooser() {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
@@ -236,7 +238,7 @@ public class BoardInit {
         }
     }
 
-    // setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.
+    /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
             board[row][col] = value;
@@ -298,10 +300,7 @@ public class BoardInit {
     }
 
 
-    // isValidIndex () Helper method to ensure user-provided coordinates for accessing elements in the board array are within the valid range.
-    private boolean isValidIndex(int row, int col) {
-        return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
-    }
+
 
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException { // Needed as loadBoard might throw exception.
@@ -310,32 +309,31 @@ public class BoardInit {
         openOrClosedGameChooser();
     }
 
-    /** This boardSize data structure is ONLY used to determine the board size for the GamePlay class,
-     so that horizontal and vertical words can be corrcctly read onto the board.
+
+// Helper Methods: **Internal Use Only** These methods provide utility functions
+// for code writing and debugging, and are not intended for game play logic.
+// ______________________________________________________________________________
+        public void getCustomBoardSize() {
+        System.out.println("This games custom board size is: "+customBoardSize);
+    }
+
+// isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
+// in the board array are within the valid range.
+    private boolean isValidIndex(int row, int col) {
+        return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
+    }
+
+    /**
+     * boardSizeDimensions This boardSize data structure is ONLY used to determine the board size for the GamePlay class,
+     * so that horizontal and vertical words can be corrcctly read onto the board.
      **/
-    public Map<Character, Integer> boardSizeDimensions() {
-        Map<Character, Integer> boardSize = new HashMap<>();
-        for (char c = 'A'; c <= 'Z'; c++) {
-            boardSize.put(c, c - 'A' + 1);
-        }
-        return boardSize;
-    }
-
-    // Helper Methods: Not for game play usage, but to assist with code writing/debugging.
-    // __________________________________________________________________________________
-
-    // getBoardSize() Helper method that extracts the board size from the first line of the default board file amd prints.
-    //TODO - incorporate for custom board size.
-    public int getBoardSize() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH))) {
-            String firstLine = reader.readLine();
-            int boardSize = Integer.parseInt(firstLine.trim());
-            System.out.println("This game's board size: " + boardSize);
-            return boardSize;
-        } catch (IOException e) {
-            throw e; // Re-throw the IOException for handling in the calling method
-        }
-    }
+//    public Map<Character, Integer> boardSizeDimensions() {
+//        Map<Character, Integer> boardkSize = new HashMap<>();
+//        for (char c = 'A'; c <= 'Z'; c++) {
+//            boardkSize.put(c, c - 'A' + 1);
+//        }
+//        return boardkSize;
+//    }
 }
 
 

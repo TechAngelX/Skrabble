@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 // In-Game AI and Logic
 public class GamePlay {
-    Scanner scanner = new Scanner (System.in);
+    Scanner scanner = new Scanner(System.in);
     public TileBag tileBag;
-    public  HumanPlayer humanPlayer;
-    public  ComputerPlayer computerPlayer;
+    public HumanPlayer humanPlayer;
+    public ComputerPlayer computerPlayer;
     private static final String WORD_LIST = "src/resources/wordlist.txt";
     BoardInit boardInit; // To access boardsize dimensions, and other Boardinit methods and constants.
 
@@ -20,7 +20,6 @@ public class GamePlay {
 
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
-
 
 
         humanPlayer.printTileRack("Your Tiles: ");
@@ -49,7 +48,6 @@ public class GamePlay {
             String enteredDirection = direction;
 
 
-
             // Check if the first part is a word
             if (!word.matches("[a-zA-Z]+")) {
                 System.out.println("Invalid input. The first part must be a word.");
@@ -57,11 +55,12 @@ public class GamePlay {
             }
             boolean isValid = isValidWord(word);
 
+
             if (isValid) {
-                System.out.println("Yeah, word is in dictionarity");
-            }
-            else
-                System.out.println("WOrd does not exisst in dictiuonary");
+                word = word.toUpperCase();
+            } else
+                word = word.toUpperCase();
+            System.out.println("Error. '"+word+ "' does not exist in dictionary");
 
 
             // Check if the second part is in the correct format
@@ -80,7 +79,7 @@ public class GamePlay {
             }
 
             System.out.println("Entered word: " + word);
-            System.out.println("Entered direction: "+ enteredDirection+" " + direction);
+            System.out.println("Entered direction: " + enteredDirection + " " + direction);
             break;
 
         }
@@ -103,9 +102,10 @@ public class GamePlay {
     }
 
 
+//        setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
-  _________________________________________________________________________________
+     _________________________________________________________________________________
      */
     //        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
 
