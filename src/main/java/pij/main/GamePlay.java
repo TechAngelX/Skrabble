@@ -25,10 +25,53 @@ public class GamePlay {
         humanPlayer.printTileRack("Your Tiles: ");
         computerPlayer.printTileRack("Computer's Tiles: ");
 
+    }
+    // gameInPlay() The 'meat and veg' of the game. Controls game flow and logic.
+    // ==========================================================================
+    public void gameInPlay() { // TODO - Also create a 'gameIsFinished' method.
+        while (true) {
+            // Human player's turn
+            // -------------------
+            String humanPlacement = humanPlayer.takeTurn(this); // Pass GamePlay for board access (indirectly)
+
+            // Validate and potentially place the word on the board
+            boolean humanSuccess = placeWord(humanPlacement);
+
+            // Handle human's turn outcome
+            if (humanSuccess) {
+                // TODO Update scores, tile bags, etc.
+
+            } else {
+                // TODO - Check board size
+                System.out.println("Invalid placement. Try again.");
+            }
+
+            // Computer player's turn (similar logic)
+            // ---------------------------------------
+            String computerPlacement = computerPlayer.takeTurn(this);
+            boolean computerSuccess = placeWord(computerPlacement);
+
+            // Handle computer's turn outcome
+            if (computerSuccess) {
+                // Update scores, tile bags, etc.
+                // ...
+            } else {
+                System.out.println("Computer placed an invalid word."); // Or handle appropriately
+            }
+
+            // TODO Check for game end conditions (e.g., empty tile bag). If Tilebacg empty, tot up score and call method gameFinished()
+
+        }
 
     }
 
-    public void enterWordAndDirection() {
+
+}
+
+
+
+
+public void enterWordAndDirection() {
         while (true) {
             System.out.print("Please enter your move in the format: \"word,square\"\n" +
                     "For example, for suitable direction rack and board configuration, a downward movecould\n" +
@@ -102,7 +145,6 @@ public class GamePlay {
     }
 
 
-//        setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
      _________________________________________________________________________________
