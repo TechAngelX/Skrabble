@@ -16,9 +16,10 @@ public class BoardInit {
 
     protected final int MIN_BOARD_SIZE = 11;
     protected final int MAX_BOARD_SIZE = 26;
-    protected  int customBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
+    protected  int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
 
     private String[][] board;
+    GamePlay gamePlay = new GamePlay();
 
 
     // BoardInit() - Initializes default board, loads default.txt data into 2D array, prints initial board.
@@ -28,7 +29,9 @@ public class BoardInit {
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
         String firstLine = reader.readLine();
 
+
         int boardSize = Integer.parseInt(firstLine.trim());
+        currentGameBoardSize = boardSize;
         if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
             throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
         }
@@ -145,6 +148,8 @@ public class BoardInit {
             String firstLine = reader.readLine();
 
             int boardSize = Integer.parseInt(firstLine.trim());
+            currentGameBoardSize = boardSize;
+
             if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
                 throw new RuntimeException("Invalid Board size. Board must have a minimum of 11, and a maximum 26 elements.");
             }
@@ -311,14 +316,14 @@ public class BoardInit {
     }
 
 
-// Helper Methods: **Internal Use Only** These methods provide utility functions
+    // Helper Methods: **Internal Use Only** These methods provide utility functions
 // for code writing and debugging, and are not intended for game play logic.
 // ______________________________________________________________________________
-        public void getCustomBoardSize() {
-        System.out.println("This games custom board size is: "+customBoardSize);
+    public void getCustomBoardSize() {
+        System.out.println("This games current board size is: "+ currentGameBoardSize);
     }
 
-// isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
+    // isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
 // in the board array are within the valid range.
     private boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;

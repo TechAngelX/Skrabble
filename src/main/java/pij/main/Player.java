@@ -3,16 +3,15 @@ package pij.main;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Player {
     private final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
 
-    protected TileBag tileBag;
-    protected List<Tile> tileRack;
+    private List<Tile> tileRack;
+    private TileBag tileBag;
 
     public Player(TileBag tileBag) {
         this.tileBag = tileBag;
-        this.tileRack = new ArrayList<>(); // Initialize the player's tileRack (either homan or computer).
+        this.tileRack = new ArrayList<>(); // Initialize the player's tileRack
 
     }
 
@@ -26,25 +25,12 @@ public class Player {
         }
     }
 
-    // printTileRack() Prints tile rack (7 tiles) for either the humanPlayer or computerPlayer, as per overridden subclasses.
-      public void printTileRack(String name) {
+    public void printTileRack(String name) {
+        System.out.print(name + ": ");
         for (Tile tile : tileRack) {
             System.out.print("[" + tile.getTileLetter() + tile.getTileValue() + "] ");
         }
         System.out.println(); // Add a new line after printing all tiles
     }
-
-
-    public abstract String takeTurn(GamePlay gameInPlay); // TODO Implement in the subclasses
-
-
-
-
-
-
-
-
-
-
 
 }

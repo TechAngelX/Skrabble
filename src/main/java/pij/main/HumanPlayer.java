@@ -1,7 +1,8 @@
 package pij.main;
 
+import java.util.Scanner;
 
-public class HumanPlayer<GamePlay> extends Player {
+public class HumanPlayer extends Player {
     public HumanPlayer(TileBag tileBag) {
         super(tileBag);
     }
@@ -23,7 +24,6 @@ public class HumanPlayer<GamePlay> extends Player {
                 continue; // Restart the loop to prompt the user again
             }
 
-
             String word = strings[0].trim();
             String direction = strings[1].trim().toUpperCase();
             String enteredDirection = direction;
@@ -34,7 +34,7 @@ public class HumanPlayer<GamePlay> extends Player {
                 continue;
             }
 
-            // Use gamePlay object for validation. (isValidWord in GamePlay class checks the dictionary wordlist).
+            // Check if word is valid in dictionary wordlist.
             boolean isValidWord = gameInPlay.isValidWord(word);
 
             if (isValidWord) {
@@ -44,14 +44,14 @@ public class HumanPlayer<GamePlay> extends Player {
                 continue; // Check, and/or restart the loop if the word is invalid
             }
 
-            // Check if the second part is in the correct format
+            // Check if the second part (directions) is in the correct format
             if (!direction.matches("[a-pA-P]\\d{0,2}|1?[0-6],[a-pA-P]|1?[0-6][a-pA-P]")) {
                 System.out.println("Invalid input. The second part must either contain a letter up to and including 'p' followed by up to two digits, or a number up to 16 followed by a letter up to 'p'.");
                 continue;
             }
 
-            // Check Validate placement on the board (using GamePlay object)
-            if (!gameInPlay.canPlaceWord(word, direction)) {
+            // Check direction and validate placement on the board (using GamePlay object)
+            if (!gameInPlay.canPlaceWord(word)) {
                 System.out.println("Invalid placement. The word cannot be placed on the board in that direction.");
                 continue;
             }
