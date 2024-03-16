@@ -17,7 +17,6 @@ public class BoardInit {
     protected  int customBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
 
     private String[][] board;
-    GamePlay gamePlay = new GamePlay();
 
 
     // BoardInit() - Initializes default board, loads default.txt data into 2D array, prints initial board.
@@ -222,7 +221,6 @@ public class BoardInit {
                 if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
                     if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
-                        gamePlay.enterWordAndDirection();
 
 
                     } else {

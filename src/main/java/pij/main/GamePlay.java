@@ -35,7 +35,7 @@ public class GamePlay {
             String humanPlacement = humanPlayer.takeTurn(this); // Pass GamePlay for board access (indirectly)
 
             // Validate and potentially place the word on the board
-            boolean humanSuccess = placeWord(humanPlacement);
+            boolean humanSuccess = enterWordAndDirection(humanPlacement);
 
             // Handle human's turn outcome
             if (humanSuccess) {
@@ -48,16 +48,16 @@ public class GamePlay {
 
             // Computer player's turn (similar logic)
             // ---------------------------------------
-            String computerPlacement = computerPlayer.takeTurn(this);
-            boolean computerSuccess = placeWord(computerPlacement);
+//            String computerPlacement = computerPlayer.takeTurn(this);
+//            boolean computerSuccess = placeWord(computerPlacement);
 
             // Handle computer's turn outcome
-            if (computerSuccess) {
-                // Update scores, tile bags, etc.
-                // ...
-            } else {
-                System.out.println("Computer placed an invalid word."); // Or handle appropriately
-            }
+//            if (computerSuccess) {
+//                // Update scores, tile bags, etc.
+//                // ...
+//            } else {
+//                System.out.println("Computer placed an invalid word."); // Or handle appropriately
+//            }
 
             // TODO Check for game end conditions (e.g., empty tile bag). If Tilebacg empty, tot up score and call method gameFinished()
 
@@ -71,7 +71,7 @@ public class GamePlay {
 
 
 
-public void enterWordAndDirection() {
+private void enterWordAndDirection(String humanPlacement) {
         while (true) {
             System.out.print("Please enter your move in the format: \"word,square\"\n" +
                     "For example, for suitable direction rack and board configuration, a downward movecould\n" +

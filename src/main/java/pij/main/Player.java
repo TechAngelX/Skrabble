@@ -26,8 +26,8 @@ public class Player {
         }
     }
 
+    // printTileRack() Prints tile rack (7 tiles) for either the humanPlayer or computerPlayer, as per overridden subclasses.
       public void printTileRack(String name) {
-        System.out.print(name + ": ");
         for (Tile tile : tileRack) {
             System.out.print("[" + tile.getTileLetter() + tile.getTileValue() + "] ");
         }
@@ -35,7 +35,7 @@ public class Player {
     }
 
 
-    public abstract String takeTurn(GamePlay gameInPlay); // TODO Implement in the  subclasses
+    public abstract String takeTurn(GamePlay gameInPlay); // TODO Implement in the subclasses
 
 
 
