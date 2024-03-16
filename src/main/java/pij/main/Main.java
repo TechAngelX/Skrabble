@@ -7,7 +7,7 @@ public class Main {
         BoardInit start = new BoardInit(); // Initialize Board for this game's instance.
         start.start();
 
-        // GAMEPLAY CLASS NOW TAKES OVER
+        // GAMEPLAY CLASS NOW TAKES OVER.
         // -----------------------------
 
 
