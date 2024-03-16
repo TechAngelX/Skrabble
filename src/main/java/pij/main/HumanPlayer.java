@@ -1,8 +1,7 @@
 package pij.main;
 
-import java.util.Scanner;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer<GamePlay> extends Player {
     public HumanPlayer(TileBag tileBag) {
         super(tileBag);
     }
@@ -23,6 +22,7 @@ public class HumanPlayer extends Player {
                 System.out.println("Invalid input format. Please enter in the format \"word,square\"");
                 continue; // Restart the loop to prompt the user again
             }
+
 
             String word = strings[0].trim();
             String direction = strings[1].trim().toUpperCase();
