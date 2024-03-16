@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // class BoardInit - Initializes the board (custom or default), and checks min/max board sizes.
@@ -222,7 +224,7 @@ public class BoardInit {
                 if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
                     if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
-                        gamePlay.enterWordAndDirection();
+
 
 
                     } else {
@@ -327,13 +329,13 @@ public class BoardInit {
      * boardSizeDimensions This boardSize data structure is ONLY used to determine the board size for the GamePlay class,
      * so that horizontal and vertical words can be corrcctly read onto the board.
      **/
-//    public Map<Character, Integer> boardSizeDimensions() {
-//        Map<Character, Integer> boardkSize = new HashMap<>();
-//        for (char c = 'A'; c <= 'Z'; c++) {
-//            boardkSize.put(c, c - 'A' + 1);
-//        }
-//        return boardkSize;
-//    }
+    public Map<Character, Integer> boardSizeDimensions() {
+        Map<Character, Integer> boardSize = new HashMap<>();
+        for (char c = 'A'; c <= 'Z'; c++) {
+            boardSize.put(c, c - 'A' + 1);
+        }
+        return boardSize;
+    }
 }
 
 
