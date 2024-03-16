@@ -74,7 +74,7 @@ private void enterWordAndDirection(String humanPlacement) {
             System.out.print("Please enter your move in the format: \"word,square\"\n" +
                     "For example, for suitable direction rack and board configuration, a downward movecould\n" +
                     "be HI,f4 and a rightward move could be HI,4f.\n>> ");
-
+            .
             String input = scanner.nextLine();
 
             String[] strings = input.split(",");
