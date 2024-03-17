@@ -20,15 +20,21 @@ public class GamePlay {
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
 
-
+            }
+    public void openGameShowTiles() {
+        System.out.println("OPEN GAME:\n------------");
+        computerPlayer.printTileRack("Computer's Tiles: ");
+        humanPlayer.printTileRack("Your Tiles: ");
+    }
+        public void closedGameShowTiles() {
+        humanPlayer.printTileRack("Your Tiles: ");
     }
 
     // gameInPlay() This is the 'meat and veg' of the game, where main game logic takes place.
     // =======================================================================================
     public void gameInPlay(boolean isOpenGame) {
         if (isOpenGame) {
-        computerPlayer.printTileRack("Computer's Tiles: ");
-        humanPlayer.printTileRack("Your Tiles: ");
+            openGameShowTiles();
         }
     else
             humanPlayer.printTileRack("Your Tiles: ");
