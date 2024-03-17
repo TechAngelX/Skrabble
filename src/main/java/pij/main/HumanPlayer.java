@@ -69,4 +69,14 @@ public class HumanPlayer extends Player {
         }
         scanner.close();
     }
+
+    @Override
+    public int getScore() {
+        return super.getScore();
+    }
+
+    @Override
+    public void setScore(int score) {
+        super.setScore(score);
+    }
 }

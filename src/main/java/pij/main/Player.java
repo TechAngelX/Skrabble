@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player {
     private final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
+    protected int score = 0;
 
     private List<Tile> tileRack;
     private TileBag tileBag;
@@ -14,6 +15,7 @@ public class Player {
         this.tileRack = new ArrayList<>(); // Initialize the player's tileRack
 
     }
+
 
     //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
     protected void intializePlayerTileRack() {
@@ -33,4 +35,14 @@ public class Player {
         System.out.println(); // Add a new line after printing all tiles
     }
 
-}
+    public int getScore() {
+        return score;
+    }
+
+    // Setter method for score
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+  }
+

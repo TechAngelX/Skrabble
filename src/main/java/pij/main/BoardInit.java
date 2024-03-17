@@ -125,7 +125,7 @@ public class BoardInit {
       // user to select either an open/closed game.
             new BoardInit();
             System.out.println(this);
-            openOrClosedGameChooser();
+            gameConfig.isOpenGame();
 
 
         }
@@ -216,37 +216,13 @@ public class BoardInit {
 
 // Now that initialized, Print this game instances' loaded custom board, then prompt user to select open or closed game.
         System.out.println(this);
-        openOrClosedGameChooser();
+        gameConfig.isOpenGame();
     }
 
 
-    // openOrClosedGameChooser(): Prompts user to choose either an open, or closed game type.
-    private boolean openOrClosedGameChooser() {
-        System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
-        System.out.print("Please enter your choice (o/c): ");
+//     isOpenGame(): Prompts user to choose either an open, or closed game type.
 
-        boolean isOpenGame = false;
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                if (scanner.hasNextLine()) {
-                    String input = scanner.nextLine().toLowerCase().trim();
-                    if (input.equals("o") || input.equals("c")) {
-                        isOpenGame = input.equals("o");
-                        System.out.println("Starting " + (isOpenGame ? "an open" : "a closed") + " game..."+"\n"); // Some Ternary syntactic sugar.
-                        gameConfig.gameInPlay(isOpenGame); // Takes user choice (open or closed) and passes to the gameInPlay method.
-                        break;
-                    } else {
-                        System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Handle exception appropriately
-        }
-
-        return isOpenGame;
-    }
 
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, int col, String value) {
@@ -309,14 +285,10 @@ public class BoardInit {
         return builder.toString();
     }
 
-
-
-
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException { // Needed as loadBoard might throw exception.
 //        introHeader();
         customOrDefaultBoardChooser();
-        openOrClosedGameChooser();
     }
 
 
