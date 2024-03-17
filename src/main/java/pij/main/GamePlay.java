@@ -23,9 +23,15 @@ public class GamePlay {
 
     }
 
-    public void gameInPlay() {
-        humanPlayer.printTileRack("Your Tiles: ");
+    // gameInPlay() This is the 'meat and veg' of the game, where main game logic takes place.
+    // =======================================================================================
+    public void gameInPlay(boolean isOpenGame) {
+        if (isOpenGame) {
         computerPlayer.printTileRack("Computer's Tiles: ");
+        humanPlayer.printTileRack("Your Tiles: ");
+        }
+    else
+            humanPlayer.printTileRack("Your Tiles: ");
 
         humanPlayer.enterWordAndDirection(this);
     }

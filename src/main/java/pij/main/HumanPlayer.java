@@ -11,7 +11,7 @@ public class HumanPlayer extends Player {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Please enter your move in the format: \"word,square\"\n" +
+            System.out.print("\nPlease enter your move in the format: \"word,square\"\n" +
                     "For example, for suitable direction rack and board configuration, a downward movecould\n" +
                     "be HI,f4 and a rightward move could be HI,4f.\n>> ");
 
