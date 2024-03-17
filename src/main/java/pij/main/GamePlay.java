@@ -61,48 +61,47 @@ public class GamePlay {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    protected boolean isOpenGame() throws IOException {
+    // isOpenGame(): Prompts the user to choose either an open or closed game type,
+    // validates their input, and returns true for an open game, false for a closed game.
+    public boolean isOpenGame() throws IOException {
+        // Prompt the user for game type:
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.print("Please enter your choice (o/c): ");
 
-        boolean userChoice = false;
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            if (scanner.hasNextLine()) {
+        // Validate user input and determine game type:
+        boolean isOpenGame = false;
+        while (true) {
+            try (Scanner scanner = new Scanner(System.in)) {
                 String input = scanner.nextLine().toLowerCase().trim();
-                userChoice = input.equals("o");
-                if (userChoice || input.equals("c")) {
-                    System.out.println("Starting " + (userChoice ? "an open" : "a closed") + " game...\n"); // Some Ternary syntactic sugar.
-
+                if (input.equals("o")) {
+                    isOpenGame = true;
+                    break;
+                } else if (input.equals("c")) {
+                    isOpenGame = false;
+                    break;
                 } else {
                     System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
                 }
+            } catch (Exception e) {
+                // Handle exception appropriately (e.g., print an error message)
+                System.err.println("Error getting user input: " + e.getMessage());
             }
-        } catch (Exception e) {
-            // Handle exception appropriately (e.g., print an error message)
-            System.err.println("Error getting user input: " + e.getMessage());
         }
-        return userChoice;
 
+        // Display game type and tiles:
+        if (isOpenGame) {
+            System.out.println("Starting an open game...\n");
+            openGameShowTiles();
+        } else {
+            System.out.println("Starting a closed game...\n");
+            closedGameShowTiles();
+        }
+
+        return isOpenGame;
     }
 
 
-
-
-
-
-
-    private boolean endGameCriteriaMet() {
+    public boolean endGameCriteriaMet() {
     // Test Logic - replace with checks for game end conditions (e.g., empty tile bag).
     // If Tilebacg empty, tot up score and call method endGame()
     int num1 = 4;
