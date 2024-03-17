@@ -20,11 +20,13 @@ public class GamePlay {
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
 
-        humanPlayer.printTileRack("Your Tiles: ");
-        computerPlayer.printTileRack("Computer's Tiles: ");
+
     }
 
     public void gameInPlay() {
+        humanPlayer.printTileRack("Your Tiles: ");
+        computerPlayer.printTileRack("Computer's Tiles: ");
+
         humanPlayer.enterWordAndDirection(this);
     }
 
@@ -44,17 +46,61 @@ public class GamePlay {
 
         return false;
     }
-    public boolean canPlaceWord(String word) {
-        // TODO
-        // This method should check if the provided word can be placed on the board in the given direction
-        // considering the current board dimensions (16 default, or any size from 11 to 26).
 
-        if (1 < word.length()) { // TODO  - REMOVE THIS WHEN PROPER LOGIC WORKED OUT.
-//        if (boardInit.getCustomBoardSize() < word.length()) {
+
+
+    public boolean canPlaceWord(String word, int startingRow, int startingCol, String direction) {
+        // Check word length against board boundaries
+        if (word.length() > boardInit.currentGameBoardSize) {
             return false; // Word too long for the board
-        } else
-            return true; // Placeholder for now, replace with full validation
+        }
+
+        // Check for edge cases
+        if ((direction.equals("horizontal") && startingCol + word.length() > boardInit.currentGameBoardSize) ||
+                (direction.equals("vertical") && startingRow + word.length() > boardInit.currentGameBoardSize)) {
+            return false; // Word would go beyond the board
+        }
+
+        // Placeholder for additional validation based on board state and game rules
+        // ...
+
+        // If validation passes, simulate placement using setElement:
+        int currentRow = startingRow;
+        int currentCol = startingCol;
+
+        for (char letter : word.toCharArray()) {
+            try {
+                boardInit.setElement(currentRow, currentCol, String.valueOf(letter));
+            } catch (IndexOutOfBoundsException e) {
+                return false; // Placement would go out of bounds
+            }
+
+            // Update coordinates for the next letter
+            if (direction.equals("horizontal")) {
+                currentCol++;
+            } else {
+                currentRow++;
+            }
+        }
+
+        // If simulation completes successfully, placement is valid
+        return true;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //        setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?

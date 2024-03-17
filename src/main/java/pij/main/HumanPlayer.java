@@ -51,7 +51,7 @@ public class HumanPlayer extends Player {
             }
 
             // Check direction and validate placement on the board (using GamePlay object)
-            if (!gameInPlay.canPlaceWord(word)) {
+            if (!gameInPlay.canPlaceWord(word,4,32,"jhhj")) {
                 System.out.println("Invalid placement. The word cannot be placed on the board in that direction.");
                 continue;
             }

@@ -121,8 +121,12 @@ public class BoardInit {
         if (userBoardChoice.equals("l")) {
             loadCustomBoard();
         } else {
+      // If user does not choose load board, logic moves to print 'this' game instances' (default) board, then prompts
+      // user to select either an open/closed game.
             new BoardInit();
             System.out.println(this);
+            openOrClosedGameChooser();
+
 
         }
     }
@@ -210,9 +214,9 @@ public class BoardInit {
             e.printStackTrace(); // TODO Write messages/code to Handle IOException appropriately
         }
 
-// Now that initialized, Print the initial loaded custom board
+// Now that initialized, Print this game instances' loaded custom board, then prompt user to select open or closed game.
         System.out.println(this);
-
+        openOrClosedGameChooser();
     }
 
 
@@ -228,11 +232,11 @@ public class BoardInit {
                 if (openClosedOption.equals("o") || openClosedOption.equals("c")) {
                     if (openClosedOption.equals("o")) {
                         System.out.println("Starting an open game...");
-
-
-
+                        gamePlay.gameInPlay();
                     } else {
                         System.out.println("Starting a closed game...");
+                        gamePlay.gameInPlay();
+
 
                     }
                     break;
