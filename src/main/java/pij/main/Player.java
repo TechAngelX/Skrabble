@@ -27,13 +27,31 @@ public class Player {
         }
     }
 
-    public void printTileRack(String name) {
-        System.out.print(name + ": ");
+    /**
+     * printTileRack() :  Prints the player's tile rack to screen..
+     *
+     * @param playerTiles The name of the player whose tiles will be printed.
+     * @param gameType A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
+     *
+     * If game is Open Type, it prints OPEN GAME and user tiles.
+     */
+
+
+
+    public void printPlayerTileRack(String playerTiles, boolean gameType) {
+        StringBuilder tempRackBuilder = new StringBuilder(); // Placeholder for tile representation
         for (Tile tile : tileRack) {
-            System.out.print("[" + tile.getTileLetter() + tile.getTileValue() + "] ");
+            tempRackBuilder.append("[").append(tile.getTileLetter()).append(tile.getTileValue()).append("] ");
         }
-        System.out.println(); // Add a new line after printing all tiles
+
+        String tempRack = tempRackBuilder.toString(); // Collect tile representations
+
+        // Ternary Syntactic Sugar. If bool gameType is true, prints OPEN GAME. Implement in the subclasses.
+        System.out.print(gameType ? "OPEN GAME: " + playerTiles + tempRack : playerTiles + tempRack);
+        System.out.println(); // Add a newline for readability
     }
+
+
 
     public int getScore() {
         return score;

@@ -16,7 +16,6 @@ public class HumanPlayer extends Player {
                     "be HI,f4 and a rightward move could be HI,4f.\n>> ");
 
             String input = scanner.nextLine();
-
             String[] strings = input.split(",");
 
             if (strings.length != 2) {
@@ -73,6 +72,11 @@ public class HumanPlayer extends Player {
     @Override
     public int getScore() {
         return super.getScore();
+    }
+
+    @Override
+    public void printPlayerTileRack(String playerTiles, boolean gameType) {
+        super.printPlayerTileRack(playerTiles, gameType);
     }
 
     @Override

@@ -17,7 +17,6 @@ public class GamePlay {
         tileBag = new TileBag();
         humanPlayer = new HumanPlayer(tileBag);
         computerPlayer = new ComputerPlayer(tileBag);
-
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
             }
@@ -32,6 +31,7 @@ public class GamePlay {
         while (true) {
             if (isOpenGame()) { //i.e., if this choice is open...
                 openGameShowTiles();
+
                 System.out.println("next open"); // test print.
             } else
                 closedGameShowTiles();
@@ -203,16 +203,46 @@ public class GamePlay {
     }
 
 
-    public void openGameShowTiles() {
-        System.out.println("OPEN GAME:\n----------");
-        computerPlayer.printTileRack("Computer's Tiles:\t");
-        humanPlayer.printTileRack("Your Tiles:\t\t\t");
+    public void openGameShowTiles() throws IOException {
+        computerPlayer.printPlayerTileRack("Computer's Tiles:  ",true);
+        humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ",true  );
     }
     public void closedGameShowTiles() {
-        humanPlayer.printTileRack("Your Tiles: ");
+        humanPlayer.printPlayerTileRack("Your Tiles:\t",false  );
     }
 
 
+//    public boolean takeTurn(HumanPlayer humanPlayer) throws IOException {
+//        // Display the game state
+//        System.out.println("Your turn!");
+//        boardInit.toString(); // Print the current board state
+//        humanPlayer.printTileRack("Your Tiles:\t\t\t",true  );
+//
+//        // Get user input for their move
+//        humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
+//
+//        // Validate the user input (word placement, etc.)
+//        // ... Implement logic to validate user input based on game rules ...
+//
+//        // If valid move, play the move and update game state
+//        if (/* move is valid */) {
+//            // Place the word on the board
+//            // ... Implement logic to place word on board ...
+//
+//            // Remove used tiles from player's rack
+//            humanPlayer.removeFromTileRack(/* tiles used in the word */);
+//
+//            // Update player's score
+//            // ... Implement logic to update player score ...
+//
+//            // Draw new tiles for the player
+//            humanPlayer.drawTiles(tileBag);
+//            return true;
+//        } else {
+//            System.out.println("Invalid move. Please try again.");
+//            return false;
+//        }
+//    }
 
 
 
