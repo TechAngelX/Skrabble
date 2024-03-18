@@ -91,6 +91,12 @@ public class GamePlay {
         humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         //  TODO in this takeTurn method:
         //  Place the word on the board//
+        boardInstance.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
+        for (String[] strings : boardInstance.board) {
+            
+        }
+
+
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
@@ -157,6 +163,7 @@ public class GamePlay {
     public void openGameShowTiles() throws IOException {
         computerPlayer.printPlayerTileRack("Computer's Tiles:  ", true);
         humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ", true);
+
     }
 
     // openGameSjowTiles() : Just prints human tiles
@@ -167,7 +174,6 @@ public class GamePlay {
 
 
 
-//       boardInit.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
      _________________________________________________________________________________

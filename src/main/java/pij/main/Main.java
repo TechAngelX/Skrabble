@@ -15,13 +15,6 @@ public class Main {
         // -----------------------------
 
 
-
-
-
-
-
-
-
 //   System.out.println(currentGame.setElement(0,1,"R1"));
 //        System.out.println(currentGame.setElement(1,1,"I1"));
 //        System.out.println(currentGame.setElement(2,1,"C3"));

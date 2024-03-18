@@ -18,7 +18,7 @@ public class BoardInit {
     protected final int MAX_BOARD_SIZE = 26;
     protected  int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
 
-    private String[][] board;
+    protected String[][] board;
     GamePlay gameConfig = new GamePlay();
 
 
@@ -176,7 +176,6 @@ public class BoardInit {
                     StringBuilder currentElement = new StringBuilder();
 
                     if (elementsFromTextFile[j].equals("{")) {
-                        // Handle curly braces
                         currentElement.append("{");
                         j++; // Move to the next character after '{'
 
@@ -187,7 +186,6 @@ public class BoardInit {
 
                         currentElement.append("}");
                     } else if (elementsFromTextFile[j].equals("(")) {
-                        // Handle parentheses
                         currentElement.append("(");
                         j++; // Move to the next character after '('
 
@@ -202,13 +200,13 @@ public class BoardInit {
                         currentElement.append(elementsFromTextFile[j]);
                     }
 
-                    // Store only the first three characters
+                    // Store only first three characters
                     this.board[i][columnIndex] = currentElement.substring(0, Math.min(3, currentElement.length()));
 
-                    columnIndex++; // Move to the next column index
-                    j++; // Move to the next character
+                    columnIndex++; // Move to next column index
+                    j++; // Move to next character
                 }
-                i++; // Move to the next row
+                i++; // Move to next row
             }
         } catch (IOException e) {
             e.printStackTrace(); // TODO Write messages/code to Handle IOException appropriately
@@ -290,13 +288,13 @@ public class BoardInit {
     // Helper Methods: **Internal Use Only** These methods provide utility functions
 // for code writing and debugging, and are not intended for game play logic.
 // ______________________________________________________________________________
-    public void getCustomBoardSize() {
+    public void getCustomBoardSizeHelper() {
         System.out.println("This games current board size is: "+ currentGameBoardSize);
     }
 
     // isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
 // in the board array are within the valid range.
-    private boolean isValidIndex(int row, int col) {
+    protected boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
 
