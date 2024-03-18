@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GamePlay {
@@ -8,6 +9,7 @@ public class GamePlay {
     public TileBag tileBag;
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
+    String[][] board;
     BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
 
     public GamePlay() throws IOException {
@@ -25,6 +27,7 @@ public class GamePlay {
 
     public boolean gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
         boardInstance = new BoardInit(); // Here we start this games' board instance.
+        this.board = boardInstance.board;
         boolean isOpenGame = isOpenGame();
         while (true) {
             if (isOpenGame) { //i.e., if this choice is open...
@@ -90,17 +93,15 @@ public class GamePlay {
     public void takeTurn(HumanPlayer humanPlayer) throws IOException {
         humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         //  TODO in this takeTurn method:
+        System.out.println("\nYour turn! ");
         //  Place the word on the board//
         boardInstance.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
-        for (String[] strings : boardInstance.board) {
-            
-        }
-
-
+        System.out.println(boardInstance.toString());
+//        boardInstance.getCustomBoardSizeHelper(); // DELETE
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
-        System.out.println("\nYour turn! ");
+
 //        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
     }
 
@@ -129,10 +130,10 @@ public class GamePlay {
         // Test scores for example.
         humanPlayer.setScore(216);
         computerPlayer.setScore(203);
-
-        System.out.println("\nGame Over!");
-        System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
-        System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
+//
+//        System.out.println("\nGame Over!");
+//        System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
+//        System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
 
         int humanScore = humanPlayer.getScore();
         int computerScore = computerPlayer.getScore();
@@ -147,8 +148,8 @@ public class GamePlay {
             } else {
                 winner = computerPlayer.toString();
             }
-            System.out.println("`\nThe " + winner + " wins!");
-            System.out.println("Thanks for playing SkraBBKle\n====================+++====");
+//            System.out.println("`\nThe " + winner + " wins!");
+//            System.out.println("Thanks for playing SkraBBKle\n====================+++====");
 
 
         }

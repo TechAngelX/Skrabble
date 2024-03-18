@@ -123,13 +123,15 @@ public class BoardInit {
         } else {
       // If user does not choose load board, logic moves to print 'this' game instances' (default) board, then prompts
       // user to select either an open/closed game.
-            new BoardInit();
             System.out.println(this);
+
             gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
 
 
         }
     }
+
+
 
     // loadCustomBoard() - Checks/parses filename, initializes custom board, loads filename data into 2D array, prints initial board.
     private void loadCustomBoard() throws IOException {
@@ -243,57 +245,49 @@ public class BoardInit {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        // Calculate the maximum width needed for each column
-        int[] maxWidths = new int[board[0].length];
-        for (String[] row : board) {
-            for (int j = 0; j < row.length; j++) {
-                maxWidths[j] = Math.max(maxWidths[j], row[j].length());
-            }
-        }
-
         // Print alphabetic board TOP column headers based on size (e.g., a-p if board size is 16).
+        printColumnHeaders(builder);
+
+        // Print the board content with even spacing
+        printBoardContent(builder);
+
+        // Print BOTTOM alphabetic board column headers
+        printColumnHeaders(builder);
+
+        return builder.toString();
+    }
+    private void printColumnHeaders(StringBuilder builder) {
         builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
             builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
         }
         builder.append("\n");
-
-        // Print the board content with even spacing
+    }
+    private void printBoardContent(StringBuilder builder) {
         for (int i = 0; i < board.length; i++) {
             builder.append(String.format("%-5d", i + 1)); // Print row number
             for (int j = 0; j < board[i].length; j++) {
-                builder.append(String.format("%-4s\uFEFF", board[i][j])); // Adjust the formatting with BOM standard
+                builder.append(String.format("%-4s", board[i][j])); // Adjust the formatting
             }
-            // Print row headers at the end of the board
-            builder.append(String.format("%-5d\n", i + 1));
+            builder.append(String.format("%-5d\n", i + 1)); // Print row number at the end of the row
         }
-
-        // Print BOTTOM alphabetic board column headers
-        builder.append("      "); // Add an extra space to align with elements
-        for (int i = 0; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i);
-            builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
-        }
-        return builder.toString();
     }
 
+
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
-    public void start() throws IOException { // Needed as loadBoard might throw exception.
-//        introHeader();
+    public void start() throws IOException {
+    //  introHeader();
         customOrDefaultBoardChooser();
     }
 
-
     // Helper Methods: **Internal Use Only** These methods provide utility functions
-// for code writing and debugging, and are not intended for game play logic.
-// ______________________________________________________________________________
-    public void getCustomBoardSizeHelper() {
-        System.out.println("This games current board size is: "+ currentGameBoardSize);
-    }
+    // for code writing and debugging, and are not intended for game play logic.
+    // ______________________________________________________________________________
+
 
     // isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
-// in the board array are within the valid range.
+    // in the board array are within the valid range.
     protected boolean isValidIndex(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
