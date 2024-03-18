@@ -14,6 +14,8 @@ public interface WordValidator {
     boolean isWordInDictionary(String word, String WORD_LIST) throws FileNotFoundException;
 
 
+    public boolean isDirectionValid(String direction);
+
     default boolean canPlaceWord(String word, int row, int col, BoardInit board) {
         // Check for word going off the board
         if (row < 0 || col < 0 || row + word.length() > board.currentGameBoardSize || col + word.length() > board.currentGameBoardSize) {

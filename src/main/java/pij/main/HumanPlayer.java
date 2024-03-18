@@ -10,6 +10,30 @@ public class HumanPlayer extends Player  implements WordValidator {
     }
 
 
+    @Override
+    public boolean isDirectionValid(String direction) {
+        if (direction == null || direction.isEmpty()) { // Check if null.
+            return false;
+        }
+        char firstChar = direction.charAt(0);
+
+        // Check if the first character is a digit, if it's a digit, check if the next character is a letter.
+        if (Character.isDigit(firstChar)) {
+            if (direction.length() > 1 && Character.isLetter(direction.charAt(1))) {
+                // if true, continue with logic.
+                return true;
+            }
+        } else if (Character.isLetter(firstChar)) {
+            // Check if the first character is a letter, if it's a letter, check if the next character is a digit.
+            if (direction.length() > 1 && Character.isDigit(direction.charAt(1))) {
+                // if true, continue with logic.
+                return true;
+            }
+        }
+        // If none of the conditions are met, return false
+        return false;
+    }
+
     /**
      *  enterWordAndDirection()  Prompts the human player for their move and validates the input in "word,square" format.
      *
@@ -46,11 +70,18 @@ public class HumanPlayer extends Player  implements WordValidator {
 
                      String word = strings[0].trim();
                      String direction = strings[1].trim();
+                     //
+                     if (!isDirectionValid(direction)) {
+                         System.out.println("Invalid input format. \nPlease enter in the format 'word,square'. Square must be, for example,: H4 or 7D. If you are stuck, press ',' to pass.");
+                        continue;
+                     }
 
+                     // Check Word is in Dictionary
                      if (!isWordInDictionary(word, WORD_LIST)) { // Overridden method from WordValidator class
                          System.out.println(" \"" + word + "\" is not a valid word. Please try again.");
                          continue;
                      }
+
                      // If word in dictionary, exit loop
                      break;
                  }
