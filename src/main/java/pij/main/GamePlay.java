@@ -31,7 +31,6 @@ public class GamePlay {
         while (true) {
             if (isOpenGame()) { //i.e., if this choice is open...
                 openGameShowTiles();
-
                 System.out.println("next open"); // test print.
             } else
                 closedGameShowTiles();
@@ -40,6 +39,7 @@ public class GamePlay {
 
             // Human player's turn
             // -------------------
+            takeTurnTest();
 
             // takeTurn(), etc... WHen human finished their turn (finished placing tile on board and dding to
             // their score, call method to check if game conditions have finished.
@@ -56,7 +56,6 @@ public class GamePlay {
            // their score, call method to check if game conditions have finished.
 
 
-
         return false;
     }
 
@@ -64,31 +63,29 @@ public class GamePlay {
     // isOpenGame(): Prompts the user to choose either an open or closed game type,
     // validates their input, and returns true for an open game, false for a closed game.
     public boolean isOpenGame() throws IOException {
-        // Prompt the user for game type:
+        boolean isOpenGame = false;
+
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.print("Please enter your choice (o/c): ");
 
-        // Validate user input and determine game type:
-        boolean isOpenGame = false;
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
         while (true) {
-            try (Scanner scanner = new Scanner(System.in)) {
-                String input = scanner.nextLine().toLowerCase().trim();
-                if (input.equals("o")) {
-                    isOpenGame = true;
-                    break;
-                } else if (input.equals("c")) {
-                    isOpenGame = false;
-                    break;
-                } else {
-                    System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
-                }
-            } catch (Exception e) {
-                // Handle exception appropriately (e.g., print an error message)
-                System.err.println("Error getting user input: " + e.getMessage());
+            input = scanner.nextLine().toLowerCase().trim();
+            if (input.equals("o")) {
+                isOpenGame = true;
+                break;
+            } else if (input.equals("c")) {
+                isOpenGame = false;
+                break;
+            } else {
+                System.out.print("Invalid entry. Please enter 'o' for open or 'c' for closed game: ");
             }
         }
 
-        // Display game type and tiles:
+        scanner.close();
+
         if (isOpenGame) {
             System.out.println("Starting an open game...\n");
             openGameShowTiles();
@@ -97,11 +94,18 @@ public class GamePlay {
             closedGameShowTiles();
         }
 
+
         return isOpenGame;
     }
 
 
-    public boolean endGameCriteriaMet() {
+   public void takeTurnTest () {
+        System.out.println(humanPlayer + " is takling turn");
+
+    }
+
+
+            public boolean endGameCriteriaMet() {
     // Test Logic - replace with checks for game end conditions (e.g., empty tile bag).
     // If Tilebacg empty, tot up score and call method endGame()
     int num1 = 4;
@@ -203,13 +207,6 @@ public class GamePlay {
     }
 
 
-    public void openGameShowTiles() throws IOException {
-        computerPlayer.printPlayerTileRack("Computer's Tiles:  ",true);
-        humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ",true  );
-    }
-    public void closedGameShowTiles() {
-        humanPlayer.printPlayerTileRack("Your Tiles:\t",false  );
-    }
 
 
 //    public boolean takeTurn(HumanPlayer humanPlayer) throws IOException {
@@ -243,6 +240,19 @@ public class GamePlay {
 //            return false;
 //        }
 //    }
+
+
+// openGameShowTiles() : Explicitly prints OPEN GAME: and computers tiles, as well as human tiles
+    public void openGameShowTiles() throws IOException {
+        computerPlayer.printPlayerTileRack("Computer's Tiles:  ",true);
+        humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ",true  );
+    }
+    // openGameSjowTiles() : Just prints human tiles
+    public void closedGameShowTiles() {
+        humanPlayer.printPlayerTileRack("Your Tiles:\t",false  );
+    }
+
+
 
 
 
