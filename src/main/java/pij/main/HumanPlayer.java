@@ -7,7 +7,7 @@ public class HumanPlayer extends Player {
         super(tileBag);
     }
 
-    public void enterWordAndDirection(GamePlay gameInPlay) {
+    public void enterWordAndDirection(GamePlay gamePlay) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -33,28 +33,6 @@ public class HumanPlayer extends Player {
                 continue;
             }
 
-            // Check if word is valid in dictionary wordlist.
-            boolean isValidWord = gameInPlay.isValidWord(word);
-
-            if (isValidWord) {
-                word = word.toUpperCase();
-            } else {
-                System.out.println("Error. '" + word + "' does not exist in dictionary");
-                continue; // Check, and/or restart the loop if the word is invalid
-            }
-
-            // Check if the second part (directions) is in the correct format
-            if (!direction.matches("[a-pA-P]\\d{0,2}|1?[0-6],[a-pA-P]|1?[0-6][a-pA-P]")) {
-                System.out.println("Invalid input. The second part must either contain a letter up to and including 'p' followed by up to two digits, or a number up to 16 followed by a letter up to 'p'.");
-                continue;
-            }
-
-            // Check direction and validate placement on the board (using GamePlay object)
-            if (!gameInPlay.canPlaceWord(word,4,32,"jhhj")) {
-                System.out.println("Invalid placement. The word cannot be placed on the board in that direction.");
-                continue;
-            }
-
             // Check for letter/number direction, for pretty print
             if (Character.isLetter(direction.charAt(0))) {
                 direction = "(Vertical)";
@@ -68,6 +46,10 @@ public class HumanPlayer extends Player {
         }
         scanner.close();
     }
+
+
+
+
 
     @Override
     public int getScore() {

@@ -7,6 +7,11 @@ public class ComputerPlayer extends Player {
     }
 
 
+    public void printPlayerTileRack(String playerTiles, boolean gameType) {
+        super.printPlayerTileRack(playerTiles, gameType);
+    }
+
+
     @Override
     public int getScore() {
         return super.getScore();

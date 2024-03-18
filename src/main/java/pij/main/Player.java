@@ -28,7 +28,7 @@ public class Player {
     }
 
     /**
-     * printTileRack() :  Prints the player's tile rack to screen..
+     * printPlayerTileRack() :  Prints the player's tile rack to screen..
      *
      * @param playerTiles The name of the player whose tiles will be printed.
      * @param gameType A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
