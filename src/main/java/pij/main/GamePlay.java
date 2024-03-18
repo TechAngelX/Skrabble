@@ -88,14 +88,14 @@ public class GamePlay {
     }
 
     public void takeTurn(HumanPlayer humanPlayer) throws IOException {
+        humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         //  TODO in this takeTurn method:
         //  Place the word on the board//
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
-        System.out.print("\nIt's your turn! ");
-        humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
-        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
+        System.out.println("\nYour turn! ");
+//        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
     }
 
 
