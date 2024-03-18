@@ -21,5 +21,10 @@ public class ComputerPlayer extends Player {
     public void setScore(int score) {
         super.setScore(score);
     }
+
+    @Override
+    public String toString() {
+        return "Computer Player";
+    }
 }
 

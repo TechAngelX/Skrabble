@@ -39,9 +39,9 @@ public interface WordValidator {
 
 
 
-    default boolean canPlaceWord(HumanPlayer word, int row, int col, BoardInit board) {
+    default boolean canPlaceWord(String word, int row, int col, BoardInit board) {
         // Check for word going off the board
-        if (row < 0 || col < 0 || row + word.length() > board.currentGameBoardSize || col + word.length() > board.currentGameBoardSize) {
+        if (row < 0 || col < 0 || row +  word.length() > board.currentGameBoardSize || col + word.length() > board.currentGameBoardSize) {
             System.out.println("The word '" + word + "' is too large for the board.");
             System.out.println("Please try again with a smaller word.");
             return false;
@@ -52,8 +52,9 @@ public interface WordValidator {
         //  - Verify if adjacent tiles on the board match the corresponding letters in the placed word
         //      (both horizontally and vertically)
 
-        // Assuming these checks are implemented in helper methods (not shown here)
-        return isValidPlacement(word, row, col, board);  // Call helper method for full validation
+        return true;
+
+//        return isValidPlacement(word, row, col, board);
     }
 
 

@@ -125,7 +125,7 @@ public class BoardInit {
       // user to select either an open/closed game.
             new BoardInit();
             System.out.println(this);
-            gameConfig.isOpenGame();
+            gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
 
 
         }
@@ -216,13 +216,8 @@ public class BoardInit {
 
 // Now that initialized, Print this game instances' loaded custom board, then prompt user to select open or closed game.
         System.out.println(this);
-        gameConfig.isOpenGame();
+        gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
     }
-
-
-//     isOpenGame(): Prompts user to choose either an open, or closed game type.
-
-
 
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, int col, String value) {

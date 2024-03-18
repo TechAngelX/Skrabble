@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -10,7 +8,7 @@ public class GamePlay {
     public TileBag tileBag;
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
-    BoardInit boardInit; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
+    BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
 
     public GamePlay() throws IOException {
         tileBag = new TileBag();
@@ -24,38 +22,36 @@ public class GamePlay {
     // =======================================================================================
     // Old info for reference: https://github.com/Birkbeck/pij-2023-24-coursework-TechGits/commit/ade26d95c356a7c5c67760dc6f87f31b0531b7a7
 
+
     public boolean gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
-        boardInit = new BoardInit(); // Here we start this games' board instance.
-        boolean isOpenGame = isOpenGame(); // Call once and store result
+        boardInstance = new BoardInit(); // Here we start this games' board instance.
+        boolean isOpenGame = isOpenGame();
         while (true) {
-            if (isOpenGame()) { //i.e., if this choice is open...
+            if (isOpenGame) { //i.e., if this choice is open...
                 openGameShowTiles();
-                System.out.println("next open"); // test print.
             } else
                 closedGameShowTiles();
-            System.out.println("next closed"); // test print.
 
 
             // Human player's turn
             // -------------------
-            takeTurn();
+            takeTurn(humanPlayer);
 
             // takeTurn(), etc... WHen human finished their turn (finished placing tile on board and dding to
             // their score, call method to check if game conditions have finished.
 
 
-            if (endGameCriteriaMet()) ;
-            break;
+            if (endGameCriteriaMet()) {
+                break;
+            }
+
+            // Computer player's turn (similar logic)
+            // ---------------------------------------
+
+            // takeTurn(), etc... When computer finished its turn (finished placing tile on board and adding to
+            // their score, call method to check if game conditions have finished.
         }
-
-        // Computer player's turn (similar logic)
-        // ---------------------------------------
-
-        // takeTurn(), etc... When computer finished its turn (finished placing tile on board and adding to
-        // their score, call method to check if game conditions have finished.
-
-
-        return false;
+        return true;
     }
 
 
@@ -67,7 +63,6 @@ public class GamePlay {
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
         System.out.print("Please enter your choice (o/c): ");
 
-        Scanner scanner = new Scanner(System.in);
         String input;
 
         while (true) {
@@ -83,20 +78,14 @@ public class GamePlay {
             }
         }
 
-        scanner.close();
-
         if (isOpenGame) {
             System.out.println("Starting an open game...\n");
-            openGameShowTiles();
         } else {
             System.out.println("Starting a closed game...\n");
-            closedGameShowTiles();
         }
-
 
         return isOpenGame;
     }
-
 
     public void takeTurn(HumanPlayer humanPlayer) throws IOException {
         //  TODO in this takeTurn method:
@@ -136,8 +125,8 @@ public class GamePlay {
         computerPlayer.setScore(203);
 
         System.out.println("Game Over!");
-        System.out.println("The " + humanPlayer + " scored " + humanPlayer.getScore() + " points.");
-        System.out.println("The " + computerPlayer + " scored " + computerPlayer.getScore() + " points.");
+        System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
+        System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
 
         int humanScore = humanPlayer.getScore();
         int computerScore = computerPlayer.getScore();
@@ -153,7 +142,7 @@ public class GamePlay {
                 winner = computerPlayer.toString();
             }
             System.out.println("`\nThe " + winner + " wins!");
-            System.out.println("Thanks for playing SkraBBKle\n========================");
+            System.out.println("Thanks for playing SkraBBKle\n====================+++====");
 
 
         }
@@ -178,7 +167,7 @@ public class GamePlay {
 
 
 
-       boardInit.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
+//       boardInit.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
 
     /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
      _________________________________________________________________________________
@@ -186,7 +175,7 @@ public class GamePlay {
     //        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
 
 
-}}
+}
 
 
 

@@ -11,9 +11,9 @@ public class HumanPlayer extends Player {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("\nPlease enter your move in the format: \"word,square\"\n" +
-                    "For example, for suitable direction rack and board configuration, a downward movecould\n" +
-                    "be HI,f4 and a rightward move could be HI,4f.\n>> ");
+            System.out.print("\nPlease enter your move in the format: \"word,square (without the quotes)\"\n" +
+                    "For example, for suitable direction rack and board configuration, a downward move could\n" +
+                    "be DOG,f4 and a rightward move could be DOG,4f.\n>> ");
 
             String input = scanner.nextLine();
             String[] strings = input.split(",");
@@ -64,5 +64,10 @@ public class HumanPlayer extends Player {
     @Override
     public void setScore(int score) {
         super.setScore(score);
+    }
+
+    @Override
+    public String toString() {
+        return "Human Player";
     }
 }
