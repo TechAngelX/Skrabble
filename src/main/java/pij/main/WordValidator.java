@@ -19,7 +19,7 @@ public interface WordValidator {
         boolean isValidWord = isWordInDictionary(word, WORD_LIST);
 
         if (!isValidWord) {
-            System.out.println("Error. '" + word + "' does not exist in dictionary");
+            System.out.println("Sorry. '" + word + "' does not exist in dictionary");
             return false; // Terminate processing if word is invalid
         }
 

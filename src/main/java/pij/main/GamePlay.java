@@ -93,7 +93,7 @@ public class GamePlay {
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
-        System.out.println("It's your turn!");
+        System.out.print("\nIt's your turn! ");
         humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
     }
@@ -124,7 +124,7 @@ public class GamePlay {
         humanPlayer.setScore(216);
         computerPlayer.setScore(203);
 
-        System.out.println("Game Over!");
+        System.out.println("\nGame Over!");
         System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
         System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
 
