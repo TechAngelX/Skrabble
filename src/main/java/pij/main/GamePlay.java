@@ -1,7 +1,6 @@
 package pij.main;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GamePlay {
@@ -10,9 +9,10 @@ public class GamePlay {
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
     String[][] board;
-    BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
+    private BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
 
-    public GamePlay() throws IOException {
+    public GamePlay(BoardInit boardInstance) throws IOException {
+        this.boardInstance = boardInstance;
         tileBag = new TileBag();
         humanPlayer = new HumanPlayer(tileBag);
         computerPlayer = new ComputerPlayer(tileBag);
@@ -25,10 +25,9 @@ public class GamePlay {
     // Old info for reference: https://github.com/Birkbeck/pij-2023-24-coursework-TechGits/commit/ade26d95c356a7c5c67760dc6f87f31b0531b7a7
 
 
-    public boolean gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
-        boardInstance = new BoardInit(); // Here we start this games' board instance.
-        this.board = boardInstance.board;
-        boolean isOpenGame = isOpenGame();
+    public void gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
+this.board = boardInstance.board;
+boolean isOpenGame = isOpenGame();
         while (true) {
             if (isOpenGame) { //i.e., if this choice is open...
                 openGameShowTiles();
@@ -54,7 +53,6 @@ public class GamePlay {
             // takeTurn(), etc... When computer finished its turn (finished placing tile on board and adding to
             // their score, call method to check if game conditions have finished.
         }
-        return true;
     }
 
 
@@ -96,8 +94,7 @@ public class GamePlay {
         System.out.println("\nYour turn! ");
         //  Place the word on the board//
         boardInstance.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
-        System.out.println(boardInstance.toString());
-//        boardInstance.getCustomBoardSizeHelper(); // DELETE
+//        System.out.println(boardInstance.toString());
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);

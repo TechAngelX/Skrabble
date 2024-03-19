@@ -17,13 +17,14 @@ public class BoardInit {
     protected final int MIN_BOARD_SIZE = 11;
     protected final int MAX_BOARD_SIZE = 26;
     protected  int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
-
+    private GamePlay gameConfig;
     protected String[][] board;
-    GamePlay gameConfig = new GamePlay();
 
 
     // BoardInit() - Constructor to Initialize board, loads data into 2D array, formats and prints initial board.
     public BoardInit() throws IOException {
+        this.gameConfig = new GamePlay(this);
+
         String filePath = DEFAULT_BOARD_FILE_PATH;
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
