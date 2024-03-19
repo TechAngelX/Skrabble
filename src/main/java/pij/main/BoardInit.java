@@ -230,14 +230,20 @@ public class BoardInit {
         }
     }
 
+
+
     public void setRow(int row, String string) {
         try {
             String[] values = string.split("");
             if (values.length == board[0].length) {
                 System.arraycopy(values, 0, board[row], 0, values.length);
             }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace(); // TODO handle exception more better/appropriately
+        } catch (NumberFormatException e) {
+            System.err.println("Error: Invalid format in the input string. Make sure all characters in the string are valid.");
+            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error: Invalid row index or the input string does not match the board dimensions.");
+            e.printStackTrace();
         }
     }
 

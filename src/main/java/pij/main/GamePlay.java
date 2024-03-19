@@ -92,9 +92,10 @@ boolean isOpenGame = isOpenGame();
         humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         //  TODO in this takeTurn method:
         System.out.println("\nYour turn! ");
-        //  Place the word on the board//
-        boardInstance.setElement(5,4,"(-5)"); // Possibly use this method to input tiles onto the board after board init?
-//        System.out.println(boardInstance.toString());
+        boardInstance.setElement(2,2,"(-Z)"); // Possibly use this method to input tiles onto the board after board init?
+
+
+        System.out.println(boardInstance.toString());
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
