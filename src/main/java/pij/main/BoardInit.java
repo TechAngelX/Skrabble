@@ -11,7 +11,7 @@ import java.util.Scanner;
 // class BoardInit - Initializes the board (custom or default), and checks min/max board sizes.
 public class BoardInit {
 
-    protected static String LOAD_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
+    protected static String CUSTOM_BOARD_DIR_PATH = "src/resources/"; // Directory for custom board files.
     protected static final String DEFAULT_BOARD_FILE_PATH = "src/resources/defaultBoard.txt"; // dir and rel path for default board.
 
     protected final int MIN_BOARD_SIZE = 11;
@@ -22,13 +22,12 @@ public class BoardInit {
     GamePlay gameConfig = new GamePlay();
 
 
-    // BoardInit() - Initializes default board, loads default.txt data into 2D array, prints initial board.
+    // BoardInit() - Constructor to Initialize board, loads data into 2D array, formats and prints initial board.
     public BoardInit() throws IOException {
         String filePath = DEFAULT_BOARD_FILE_PATH;
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
         String firstLine = reader.readLine();
-
 
         int boardSize = Integer.parseInt(firstLine.trim());
         currentGameBoardSize = boardSize;
@@ -81,7 +80,6 @@ public class BoardInit {
                     // Handle regular characters without curly braces or parentheses
                     currentElement.append(elementsFromTextFile[j]);
                 }
-
                 // Store only the first three characters
                 board[i][columnIndex] = currentElement.substring(0, Math.min(3, currentElement.length()));
 
@@ -90,11 +88,8 @@ public class BoardInit {
             }
             i++; // Move to the next row
         }
-
         reader.close();
-
-
-    }
+   }
 
     // introHeader() -  Prints the game introduction header.
     private void introHeader() {
@@ -103,54 +98,53 @@ public class BoardInit {
         System.out.println("============                   ============");
     }
 
-    // customOrDefaultBoardChooser() - prompts the user to choose loading a custom board, or use the default board.
-    private void customOrDefaultBoardChooser() throws IOException {
+    // isCustomBoard() : Prompts the user to load a custom board, or use the default board.
+    // Sets flag (true/false) which will determine whether the createTheBoard() method loads a custom or default board.
+    private boolean isCustomBoard() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Would you like to _l_oad a board or use the _d_ef board?\n");
         System.out.print("Please enter your choice (l/d): ");
 
-        String userBoardChoice;
+        String boardChoice;
         while (true) {
-            userBoardChoice = scanner.nextLine().toLowerCase();
-            if (userBoardChoice.equals("l") || userBoardChoice.equals("d")) {
+            boardChoice = scanner.nextLine().toLowerCase();
+            if (boardChoice.equals("l") || boardChoice.equals("d")) {
                 break;
             } else {
                 System.out.print("Invalid entry. Please enter your choice (l/d): ");
             }
         }
-        if (userBoardChoice.equals("l")) {
-            loadCustomBoard();
+        if (boardChoice.equals("l")) {
+            return true; //  Passes this true value to createTheBoard
         } else {
-      // If user does not choose load board, logic moves to print 'this' game instances' (default) board, then prompts
-      // user to select either an open/closed game.
-            System.out.println(this);
-
-            gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
-
-
+            return false; // Ditto
         }
     }
 
+    // createTheBoard() : Checks/parses filename based on if user selected custom or default board.
+    // Initializes the board, loads data into 2D array, prints initial board.
 
-
-    // loadCustomBoard() - Checks/parses filename, initializes custom board, loads filename data into 2D array, prints initial board.
-    private void loadCustomBoard() throws IOException {
-        String tmpCustomFilePath;
+    private void createTheBoard() throws IOException {
+        String filePathCustomOrDefault;
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            System.out.print("Please enter the file name of the board: ");
-            String lBoardName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
-            tmpCustomFilePath = LOAD_BOARD_DIR_PATH + lBoardName + ".txt";
+        if (isCustomBoard()) {
+            while (true) {
+                System.out.print("Please enter the file name of the board: ");
+                String customBoardFileName = scanner.nextLine().toLowerCase().replaceAll("^([^.]+).*", "$1");
+                filePathCustomOrDefault = CUSTOM_BOARD_DIR_PATH + customBoardFileName + ".txt";
 
-            File file = new File(tmpCustomFilePath);
-            if (file.exists() && file.isFile()) {
-                break;
-            } else {
-                System.out.println(lBoardName + ".txt" + ", is not a valid file. ");
+                File file = new File(filePathCustomOrDefault);
+                if (file.exists() && file.isFile()) {
+                    break;
+                } else {
+                    System.out.println(customBoardFileName + ".txt" + ", is not a valid file. ");
+                }
             }
+        } else {
+            filePathCustomOrDefault = DEFAULT_BOARD_FILE_PATH;
         }
-        try (BufferedReader reader = new BufferedReader(new FileReader(tmpCustomFilePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePathCustomOrDefault))) {
             String firstLine = reader.readLine();
 
             int boardSize = Integer.parseInt(firstLine.trim());
@@ -214,10 +208,16 @@ public class BoardInit {
             e.printStackTrace(); // TODO Write messages/code to Handle IOException appropriately
         }
 
-// Now that initialized, Print this game instances' loaded custom board, then prompt user to select open or closed game.
+        // Now that initialized, Print this game instances' loaded custom board, then prompt user to select open or closed game.
         System.out.println(this);
         gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
     }
+
+
+
+
+
+
 
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, int col, String value) {
@@ -277,8 +277,8 @@ public class BoardInit {
 
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException {
-    //  introHeader();
-        customOrDefaultBoardChooser();
+    //  introHeader(); // Undo later when things are working.
+        createTheBoard();
     }
 
     // Helper Methods: **Internal Use Only** These methods provide utility functions
