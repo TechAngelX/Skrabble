@@ -90,7 +90,7 @@ public class BoardInit {
             i++; // Move to the next row
         }
         reader.close();
-   }
+    }
 
     // introHeader() -  Prints the game introduction header.
     private void introHeader() {
@@ -215,23 +215,70 @@ public class BoardInit {
     }
 
 
-
-
-
-
-
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
-            board[row][col] = value;
-            return ""; // Example return value
+            board[row][col] = value; // Update the board element with the value
+
+// =================================================================
+// LEFT OFF HERE... TRY AND IDENTIFY ELEMENTS NOT APPEARING ON BOARD.
+// =================================================================
+//***************************************************************
+            return value; // (Optional) return the updated value
+
         } else {
-            return ""; // Example return value
+            return null; // (Optional) return null for invalid index or null board
         }
     }
 
 
 
+    // placeWordOnBoard() : Responsible for taking input from a human player (a word and its direction),
+    // parsing it, and placing the word onto the current instances' game board accordingly.
+    public void placeWordOnBoard(GamePlay gamePlay, HumanPlayer humanPlayer) throws IOException {
+        String wordAndDirection = humanPlayer.enterWordAndDirection(gamePlay);
+        if (wordAndDirection == null) {
+            // Handles passing turn, for example, if user enters ',' - nothing to be placed on board.
+            return;
+        }
+
+        // Extract word AND direction from wordAndDirection - e.g., doG,4C
+        String[] twoParts = wordAndDirection.split(",");
+        String word = twoParts[0].trim();
+        String direction = twoParts[1].trim();
+
+        // Split the word into characters and puts them into an array. - e.g., d,o,G
+        String[] wordAsArray = word.split("");
+
+        // Variables to track row and column based on direction e.g., 4C is row 4, and C is column C.
+        int row = 0;
+        int col = 0;
+
+        // TODO Logic based on direction - need to work on
+        if (direction.equalsIgnoreCase("vertical")) {
+        } else if (direction.equalsIgnoreCase("horizontal")) {
+            // Update col for each letter, row stays the same
+            col++; // Initial offset for horizontal placement (we can adjust if needed)
+        } else {
+            // Handle invalid direction (possibly throw exception or display error)
+            return;
+        }
+
+        // Loop through each character and update the board
+        for (int i = 0; i < wordAsArray.length; i++) {
+            String letter = wordAsArray[i];
+            setElement(row, col, letter); // Update board using setElement() method
+            if (direction.equalsIgnoreCase("vertical")) {
+                row++;
+            } else {
+                col++;
+            }
+        }
+    }
+
+
+// The setRow() method utilizes System.arraycopy() to copy characters from the 'values' array (word letter characters extracted from the input string)
+// into positions on the array. For example, given 'DiNT, H4', the 'D' would be placed in row 4, column H.
     public void setRow(int row, String string) {
         try {
             String[] values = string.split("");
@@ -268,6 +315,7 @@ public class BoardInit {
         for (int i = 0; i < board[0].length; i++) {
             char columnHeader = (char) ('a' + i);
             builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
+
         }
         builder.append("\n");
     }
@@ -284,7 +332,7 @@ public class BoardInit {
 
     // start() A clean method for main method to call to start game. Also, may implement a while (!game.isGameOver() loop.
     public void start() throws IOException {
-    //  introHeader(); // Undo later when things are working.
+        //  introHeader(); // Undo later when things are working.
         createTheBoard();
     }
 

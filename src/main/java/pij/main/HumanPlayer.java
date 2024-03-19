@@ -35,58 +35,66 @@ public class HumanPlayer extends Player  implements WordValidator {
     }
 
     /**
-     *  enterWordAndDirection()  Prompts the human player for their move and validates the input in "word,square" format.
-     *
+     * enterWordAndDirection()  Prompts the human player for their move and validates the input in "word,square" format.
+     * <p>
      * The method validates the user input for:
-     *   - Correct format (word and square separated by a comma)
-     *   - Valid word using the provided dictionary (replace `isWordInDictionary`)
-     *     *
+     * - Correct format (word and square separated by a comma)
+     * - Valid word using the provided dictionary (replace `isWordInDictionary`)
+     * *
+     *
      * @param gamePlay A reference to the current GamePlay object.
+     * @return
      * @throws FileNotFoundException If there's an issue accessing the word dictionary (replace `WORD_LIST` with your actual path).
      */
-         public void enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
+    public String enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
 
-             try (Scanner scanner = new Scanner(System.in)) {
-                 System.out.print("Enter your move in the format: 'word,square'. For example, downward (vertical) move could be DOG,K6 \n" +
-                         "and a rightward (horizontal) move could be DOG 6K. When choosing your word, Upper-case letters are formed from \n" +
-                         "standard tiles. Lower-case letters formed from blank tiles [_5]. If you are stuck, press \",\" to pass.\n\n");
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Enter your move in the format: 'word,square'. For example, downward (vertical) move could be DOG,K6 \n" +
+                    "and a rightward (horizontal) move could be DOG 6K. When choosing your word, Upper-case letters are formed from \n" +
+                    "standard tiles. Lower-case letters formed from blank tiles [_5]. If you are stuck, press \",\" to pass.\n\n");
 
-                 while (true) {
-                     System.out.print("Enter 'word,square' or ',' to pass:\n>> ");
+            while (true) {
+                System.out.print("Enter 'word,square' or ',' to pass:\n>> ");
+                if (!scanner.hasNextLine()) {
+                    //; // TODO Possible cause of tile printing error? hasNext consuming next input?
+                    //=============================================================================
+                    System.out.println("No further input detected. Exiting loop.");
+                    break;
+                }
+                String input = scanner.nextLine();
 
-                     String input = scanner.nextLine();
+                if (input.equals(",")) {
+                    System.out.println("Passed move. Over to Computer");
+                    return null;
+                }
 
-                     if (input.equals(",")) {
-                         System.out.println("Passed move. Over to Computer");
-                         break; // Exit the loop for a pass
-                     }
+                String[] strings = input.split(",");
 
-                     String[] strings = input.split(",");
+                if (strings.length != 2) {
+                    System.out.println("Invalid input format. Please enter in the format \"word,square\"");
+                    continue;
+                }
 
-                     if (strings.length != 2) {
-                         System.out.println("Invalid input format. Please enter in the format \"word,square\"");
-                         continue;
-                     }
+                String word = strings[0].trim();
+                String direction = strings[1].trim();
 
-                     String word = strings[0].trim();
-                     String direction = strings[1].trim();
-                     //
-                     if (!isDirectionValid(direction)) {
-                         System.out.println("Invalid input format. \nPlease enter in the format 'word,square'. Square must be, for example,: H4 or 7D. If you are stuck, press ',' to pass.");
-                        continue;
-                     }
+                if (!isDirectionValid(direction)) {
+                    System.out.println("Invalid input format. \nPlease enter in the format 'word,square'. Square must be, for example,: H4 or 7D. If you are stuck, press ',' to pass.");
+                    continue;
+                }
+                // Check Word is in Dictionary
+                if (isWordInDictionary(word, WORD_LIST)) {
+                    return word + "," + direction;
+                } else {
+                    System.out.println(" \"" + word + "\" is not a valid word. Please try again.");
+                    return null;
+                }
+            }
+        }
 
-                     // Check Word is in Dictionary
-                     if (!isWordInDictionary(word, WORD_LIST)) { // Overridden method from WordValidator class
-                         System.out.println(" \"" + word + "\" is not a valid word. Please try again.");
-                         continue;
-                     }
-
-                     // If word in dictionary, exit loop
-                     break;
-                 }
-             }
-         }
+        // Added return statement to ensure method always returns a value
+        return null;
+    }
 
     // isWordInDictionary() : Simply checks whether user-inputted word (first half of the word,square string) is in dictionary.
     @Override

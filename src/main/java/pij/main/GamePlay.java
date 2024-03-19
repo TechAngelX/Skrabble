@@ -26,8 +26,8 @@ public class GamePlay {
 
 
     public void gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
-this.board = boardInstance.board;
-boolean isOpenGame = isOpenGame();
+        this.board = boardInstance.board;
+        boolean isOpenGame = isOpenGame();
         while (true) {
             if (isOpenGame) { //i.e., if this choice is open...
                 openGameShowTiles();
@@ -43,7 +43,7 @@ boolean isOpenGame = isOpenGame();
             // their score, call method to check if game conditions have finished.
 
 
-            if (endGameCriteriaMet()) {
+            if (isEndGameCriteriaMet()) {
                 break;
             }
 
@@ -92,9 +92,9 @@ boolean isOpenGame = isOpenGame();
         humanPlayer.enterWordAndDirection(this); // Call method from HumanPlayer to get user input
         //  TODO in this takeTurn method:
         System.out.println("\nYour turn! ");
-        boardInstance.setElement(2,2,"(-Z)"); // Possibly use this method to input tiles onto the board after board init?
+//        boardInstance.setElement(2,2,"(-Z)");
 
-
+        boardInstance.placeWordOnBoard(this, humanPlayer);
         System.out.println(boardInstance.toString());
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
@@ -107,7 +107,7 @@ boolean isOpenGame = isOpenGame();
 
     // ENDING THE GAME
     // ===============
-    public boolean endGameCriteriaMet() {
+    public boolean isEndGameCriteriaMet() {
         // Test Logic - replace with checks for game end conditions (e.g., empty tile bag).
         // If Tilebacg empty, tot up score and call method endGame()
         int num1 = 4;
@@ -169,8 +169,6 @@ boolean isOpenGame = isOpenGame();
     public void closedGameShowTiles() {
         humanPlayer.printPlayerTileRack("Your Tiles:\t", false);
     }
-
-
 
 
 
