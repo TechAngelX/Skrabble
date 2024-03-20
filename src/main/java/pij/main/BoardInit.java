@@ -16,7 +16,7 @@ public class BoardInit {
 
     protected final int MIN_BOARD_SIZE = 11;
     protected final int MAX_BOARD_SIZE = 26;
-    protected  int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
+    protected int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
     private GamePlay gameConfig;
     protected String[][] board;
 
@@ -46,6 +46,10 @@ public class BoardInit {
                 // Handle potential extra lines in the file (e.g., log warning or throw an exception)
                 break;
             }
+
+
+
+
 
             String[] elementsFromTextFile = line.split("");
 
@@ -98,6 +102,8 @@ public class BoardInit {
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
+
+
 
     // isCustomBoard() : Prompts the user to load a custom board, or use the default board.
     // Sets flag (true/false) which will determine whether the createTheBoard() method loads a custom or default board.
@@ -347,6 +353,9 @@ public class BoardInit {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
 
+
+
+
     /**
      * boardSizeDimensions This boardSize data structure is ONLY used to determine the board size for the GamePlay class,
      * so that horizontal and vertical words can be corrcctly read onto the board.
@@ -358,6 +367,11 @@ public class BoardInit {
         }
         return boardSize;
     }
+
+    public int currentGameBoardSize() {
+        return currentGameBoardSize;
+    }
 }
+
 
 

@@ -89,7 +89,14 @@ public class GamePlay {
     }
 
     public void takeTurn(HumanPlayer humanPlayer) throws IOException {
-        humanPlayer.enterWordAndDirection(this); //
+        humanPlayer.enterWordAndDirection(this);
+        MoveValidator moveValidator = new MoveValidator(boardInstance, humanPlayer);
+
+        // passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
+//        moveValidator.isWithinBoard(humanPlayer.word, humanPlayer.direction, boardInstance.board);
+
+
+
         //  TODO in this takeTurn method:
         System.out.println("\nYour turn! ");
 //        boardInstance.setElement(2,2,"(-Z)");

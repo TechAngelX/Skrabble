@@ -8,10 +8,11 @@ import java.util.Scanner;
 
     public class WordValidator {
         private static final String WORD_LIST = "src/resources/wordlist.txt";
-        private HumanPlayer humanPlayer;
+        private final HumanPlayer humanPlayer;
 
         public WordValidator(HumanPlayer humanPlayer) {
             this.humanPlayer = humanPlayer;
+
 
         }
 
@@ -42,15 +43,15 @@ import java.util.Scanner;
                 String word = strings[0].trim();
                 String direction = strings[1].trim();
 
-                // Calls isDirectionValid() and applies logic.
-                if (!isDirectionValid(direction)) {
-                    System.out.println("Invalid input format. \nPlease enter in the format 'word,square'. Square (representing the board co-ordinates), must be \n" +
+                // Calls areCoordinatesValid() and applies logic.
+                if (!areCoordinatesValid(direction)) {
+                    System.out.println(" Co-ordinates entered incorrectly. \nPlease enter in the format 'word,square'. Square (representing the board co-ordinates), must be \n" +
                             "a letter and number, or vice versa. For example,: H4 or 7D. If you are stuck, enter comma ',' to pass.");
                     continue;
                 }
                 // Calls isWordInDictionary() and applies logic.
                 if (isWordInDictionary(word, WORD_LIST)) {
-                    return word + "," + direction; // Variables for us to use outside this class..
+                    return word + "," + direction; // IMPORTANT: Variables for us to use outside this class.
                 } else {
                     System.out.println(" \"" + word + "\" not in the dictionary. Please try again.");
                     // No return here, so the loop will continue prompting for input.
@@ -74,6 +75,7 @@ import java.util.Scanner;
             }
             return false;
         }
+
 
         // isWordInTileRack() : Iterates through the letter of each user-entered word and checks if a match. Ignores blanks [_].
         public boolean isWordInTileRack(String word) {
@@ -114,7 +116,7 @@ import java.util.Scanner;
     }
 
         // isDirectionValid() : Checks second part of the string (e.g., H4), and determines if user entered a digit or character.            if (Character.isDigit(firstChar)) {
-        public boolean isDirectionValid(String direction) {
+        public boolean areCoordinatesValid(String direction) {
             if (direction == null || direction.isEmpty()) { // Check if null.
                 return false;
             }
