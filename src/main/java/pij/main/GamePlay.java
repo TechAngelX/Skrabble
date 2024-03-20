@@ -18,6 +18,7 @@ public class GamePlay {
         computerPlayer = new ComputerPlayer(tileBag);
         humanPlayer.intializePlayerTileRack();
         computerPlayer.intializePlayerTileRack();
+        this.scanner = new Scanner(System.in);
     }
 
     // gameInPlay() This is the 'meat and veg' of the game, where main game logic takes place.
@@ -37,7 +38,8 @@ public class GamePlay {
 
             // Human player's turn
             // -------------------
-            takeTurn(humanPlayer);
+            humansTurn(humanPlayer);
+
 
             // takeTurn(), etc... WHen human finished their turn (finished placing tile on board and dding to
             // their score, call method to check if game conditions have finished.
@@ -88,12 +90,12 @@ public class GamePlay {
         return isOpenGame;
     }
 
-    public void takeTurn(HumanPlayer humanPlayer) throws IOException {
+    public void humansTurn(HumanPlayer humanPlayer) throws IOException {
         humanPlayer.enterWordAndDirection(this);
         MoveValidator moveValidator = new MoveValidator(boardInstance, humanPlayer);
 
         // passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
-        moveValidator.isWithinBoard(humanPlayer.word, humanPlayer.direction, boardInstance.board);
+        moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 
 
 
@@ -109,6 +111,7 @@ public class GamePlay {
 
 //        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
     }
+
 
 
 
@@ -183,7 +186,9 @@ public class GamePlay {
      _________________________________________________________________________________
      */
     //        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
-
+    public Scanner getScanner() {
+        return scanner;
+    }
 
 }
 

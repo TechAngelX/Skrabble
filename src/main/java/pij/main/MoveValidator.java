@@ -43,7 +43,7 @@ public class MoveValidator {
         }
 
         // Check if word length exceeds board dimensions
-        if (row != -1 && col != -1 && (col + word.length()) > currentGameBoardSize) {
+        if (row != -1 && col != -1 && (word != null && col + word.length() > currentGameBoardSize)) {
             return false;
         } else if (col != -1 && (row + word.length()) > currentGameBoardSize) {
             return false;

@@ -13,7 +13,6 @@ import java.util.Scanner;
         public WordValidator(HumanPlayer humanPlayer) {
             this.humanPlayer = humanPlayer;
 
-
         }
 
         // enterWordAndDirection() : Prompts the human player for their word/move, and calls various methods to validate if the
@@ -50,7 +49,7 @@ import java.util.Scanner;
                     continue;
                 }
                 // Calls isWordInDictionary() and applies logic.
-                if (isWordInDictionary(word, WORD_LIST)) {
+                if (isWordInDictionary(word)) {
                     return word + "," + direction; // IMPORTANT: Variables for us to use outside this class.
                 } else {
                     System.out.println(" \"" + word + "\" not in the dictionary. Please try again.");
@@ -64,7 +63,7 @@ import java.util.Scanner;
 
 
         // isWordInDictionary() : Self-explanatory. Checks the first part of string (before comma ',')  is in wordlist.txt.
-        public boolean isWordInDictionary(String word, String WORD_LIST) throws FileNotFoundException {
+        public boolean isWordInDictionary(String word) throws FileNotFoundException {
             try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine().trim();
