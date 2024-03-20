@@ -225,11 +225,6 @@ public class BoardInit {
     public String setElement(int row, int col, String value) {
         if (isValidIndex(row, col) && board != null) {
             board[row][col] = value; // Update the board element with the value
-
-// =================================================================
-// LEFT OFF HERE... TRY AND IDENTIFY ELEMENTS NOT APPEARING ON BOARD.
-// =================================================================
-//***************************************************************
             return value; // (Optional) return the updated value
 
         } else {
@@ -318,18 +313,18 @@ public class BoardInit {
     }
     private void printColumnHeaders(StringBuilder builder) {
         builder.append("      "); // Add an extra space to align with elements
-        for (int i = 0; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i);
+        for (int i = 1; i < board[0].length; i++) {
+            char columnHeader = (char) ('a' + i -1);
             builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
 
         }
         builder.append("\n");
     }
     private void printBoardContent(StringBuilder builder) {
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 1; i < board.length; i++) {
             builder.append(String.format("%-5d", i + 1)); // Print row number
-            for (int j = 0; j < board[i].length; j++) {
-                builder.append(String.format("%-4s", board[i][j])); // Adjust the formatting
+            for (int j = 1; j < board[i].length; j++) {
+                builder.append(String.format("%-4s", board[i-1][j-1])); // Adjust the formatting
             }
             builder.append(String.format("%-5d\n", i + 1)); // Print row number at the end of the row
         }

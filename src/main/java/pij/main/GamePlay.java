@@ -93,7 +93,7 @@ public class GamePlay {
         MoveValidator moveValidator = new MoveValidator(boardInstance, humanPlayer);
 
         // passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
-//        moveValidator.isWithinBoard(humanPlayer.word, humanPlayer.direction, boardInstance.board);
+        moveValidator.isWithinBoard(humanPlayer.word, humanPlayer.direction, boardInstance.board);
 
 
 
@@ -102,7 +102,7 @@ public class GamePlay {
 //        boardInstance.setElement(2,2,"(-Z)");
 
 //        boardInstance.placeWordOnBoard(this, humanPlayer);
-        System.out.println(boardInstance.toString());
+//        System.out.println(boardInstance.toString());
         //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
         //  Update player's score
         //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);

@@ -21,32 +21,29 @@ public class MoveValidator {
         this.direction = humanPlayer.getDirection(); // Access direction using getter
     }
 
+
     protected boolean isWithinBoard(String word, String direction, String[][] board) {
         int row = -1; // initialized for indices.
         int col = -1;
 
-        // Split the direction string into characters
         char char1 = direction.charAt(0);
         char char2 = direction.charAt(1);
 
-        // Determine row and col based on characters
+        // Determine col and row based on letters and numbers (ignoring the other)
         if (Character.isLetter(char1)) {
-            col = char1 - 'A'; // Becase 'A'  starts from columne 1
-            System.out.println("letter is: "+col); // Test Prints
+            col = Character.toLowerCase(char1) - 'a' + 1; // Non-zero-based indexing, lowercase
         } else if (Character.isDigit(char1)) {
-            row = Character.getNumericValue(char1) - 1; // Because row numbering starts from 1
-            System.out.println("letter is: "+row); // Test Prints
-
+            row = Character.getNumericValue(char1) - 1; // Row starts from 1
         }
 
         if (Character.isLetter(char2)) {
-            col = char2 - 'A';
+            col = Character.toLowerCase(char2) - 'A' + 1; // Non-zero-based indexing, lowercase
         } else if (Character.isDigit(char2)) {
-            row = Character.getNumericValue(char2) - 1;
+            row = Character.getNumericValue(char2) - 1; // Row starts from 1, ignore col
         }
 
         // Check if word length exceeds board dimensions
-        if (row != -1 && (col + word.length()) > currentGameBoardSize) {
+        if (row != -1 && col != -1 && (col + word.length()) > currentGameBoardSize) {
             return false;
         } else if (col != -1 && (row + word.length()) > currentGameBoardSize) {
             return false;
