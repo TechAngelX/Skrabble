@@ -7,7 +7,7 @@ public class Player {
     private final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
     protected int score = 0;
 
-    private List<Tile> tileRack;
+    protected List<Tile> tileRack;
     private TileBag tileBag;
 
     public Player(TileBag tileBag) {
@@ -35,6 +35,7 @@ public class Player {
      *
      * If game is Open Type, it prints OPEN GAME and user tiles.
      */
+
 
 
 

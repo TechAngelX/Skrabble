@@ -2,100 +2,61 @@ package pij.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-public class HumanPlayer extends Player  implements WordValidator {
+public class HumanPlayer extends Player   {
+    WordValidator wordValidator = new WordValidator(this);
     public HumanPlayer(TileBag tileBag) {
         super(tileBag);
     }
+/** HUMAN PLAYER VALIDATION
+ * ========================
+ *  This class handles user interaction and word validation for the human player. *It includes methods for validating player
+ *  moves and interacting with the game board. It performs the following checks:
+ *
+ * This class handles user interaction and word validation for the human player. It performs the following checks:
+ * HumanPlayer performs five validation checks, utilizing methods from the WordValidator class:
+ *
+ *     enterWordAndDirection(): Prompts the human player for their move and validates the input in "word,square" format.
+ *     isWordInDictionary(): Checks if the first part of the string (before comma ',') is present in the wordlist.txt.
+ *     isWordInTileRack(): Iterates through the letters of each user-entered word and checks for a match in the tile rack. Blanks [_] are ignored.
+ *     isDirectionValid(): Checks the second part of the string (e.g., H4) and determines if the user entered a digit or character.
+ *  */
 
-    // isDirectionValid() : Implemented from WordValidator class. Prompts the human player for their move and validates the input
-    // in "word,square" format.
-    @Override
-    public boolean isDirectionValid(String direction) {
-        if (direction == null || direction.isEmpty()) { // Check if null.
+     public String enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
+        WordValidator wordValidator = new WordValidator(this);
+        return wordValidator.enterWordAndDirection(gamePlay);
+    }
+
+
+    public boolean isWordInDictionary(String word) throws FileNotFoundException {
+        if (word.isEmpty()) {
+            System.out.println("Word not in dict");
             return false;
-        }
-        char firstChar = direction.charAt(0);
+        } else {
+            System.out.println("word IS in dict.");
 
-        // Check if the first character is a digit, if it's a digit, check if the next character is a letter.
-        if (Character.isDigit(firstChar)) {
-            if (direction.length() > 1 && Character.isLetter(direction.charAt(1))) {
-                // if true, continue with logic.
-                return true;
-            }
-        } else if (Character.isLetter(firstChar)) {
-            // Check if the first character is a letter, if it's a letter, check if the next character is a digit.
-            if (direction.length() > 1 && Character.isDigit(direction.charAt(1))) {
-                // if true, continue with logic.
-                return true;
-            }
+
+            return true;
         }
-        // If none of the conditions are met, return false
-        return false;
     }
 
-
-    // enterWordAndDirection() : Prompts the human player for their word/move, and calls various methods to validate if the
-    // word is in dictionary, in their tilerack, and if in correct "word,square" format.
-    public String enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter your move in the format: 'word,square'. For example, downward (vertical) move could be DOG,K6 \n" +
-                    "and a rightward (horizontal) move could be DOG 6K. When choosing your word, Upper-case letters are formed from \n" +
-                    "standard tiles. Lower-case letters formed from blank tiles [_5]. If you are stuck, press \",\" to pass.\n\n");
-
-            while (true) {
-                System.out.print("Enter 'word,square' or ',' to pass:\n>> ");
-                if (!scanner.hasNextLine()) {
-                    break;
-                }
-                String input = scanner.nextLine();
-                if (input.equals(",")) {
-                    System.out.println("Passed move. Over to Computer");
-                    return null;
-                }
-                String[] strings = input.split(",");
-                if (strings.length != 2) {
-                    System.out.println("Invalid input format. Please enter in the format \"word,square\"");
-                    continue;
-                }
-                String word = strings[0].trim();
-                String direction = strings[1].trim();
-
-                // Calls isDirectionValid() and applies logic.
-                if (!isDirectionValid(direction)) {
-                    System.out.println("Invalid input format. \nPlease enter in the format 'word,square'. Square must be, for example,: H4 or 7D. If you are stuck, press ',' to pass.");
-                    continue;
-                }
-                // Calls isWordInDictionary() and applies logic.
-                if (isWordInDictionary(word, WORD_LIST)) {
-                    return word + "," + direction; // Variables for us to use outside this class..
-                } else {
-                    System.out.println(" \"" + word + "\" not in the dictionary. Please try again.");
-                    // No return here, so the loop will continue prompting for input.
-                }
-            }
+    public String isWordInTileRack(String word) throws FileNotFoundException {
+        if (wordValidator.isWordInTileRack(word)) {
+            return "Word is in tile rack.";
+        } else {
+            return "Word is NOT in your tile rack.";
         }
-        // This statement is unreachable because the loop will continue until a valid word is entered.
-        return null;
     }
 
-
-    // Implemented isWordInDictionary here to comply with WordValidator interface
-    @Override
-    public boolean isWordInDictionary(String word, String WORD_LIST) throws FileNotFoundException {
-        try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.equalsIgnoreCase(word)) {
-                    return true;
-                }
-            }
+    public String isDirectionValid(String word) throws FileNotFoundException {
+        if (wordValidator.isDirectionValid(word)) {
+            return "THat is a valid move.";
+        } else {
+            return "That is an illegal move.";
         }
-        return false;
     }
-
-
     @Override
     public int getScore() {
         return super.getScore();
