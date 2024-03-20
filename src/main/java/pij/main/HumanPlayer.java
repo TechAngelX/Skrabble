@@ -34,23 +34,24 @@ public class HumanPlayer extends Player {
             return null;
         }
 
-        System.out.print("Enter your move in the format: 'word,square'. For example, downward (vertical) move could be DOG,K6 \n" +
-                "and a rightward (horizontal) move could be DOG 6K. When choosing your word, Upper-case letters are formed from \n" +
-                "standard tiles. Lower-case letters formed from blank tiles [_5]. If you are stuck, press \",\" to pass.\n\n");
-
         while (true) {
-            System.out.print("Enter 'word,square' or ',' to pass:\n>> ");
+            System.out.print("Enter your move in the format: 'word,square' (without the quotes). For example, for a suitable tile rack" +
+                    "\nand board configuration, a downward move could be \"HI,f4\" and a rightward move could be \"HI,4f\". " +
+                    "\n\nIn the word, upper-case letters are standard tiles and lower-case letters are wildcards." +
+                    "\nEntering \",\" passes the turn.\n>> ");
+
             if (!scanner.hasNextLine()) {
                 break;
             }
             String input = scanner.nextLine();
             if (input.equals(",")) {
                 System.out.println("Passed move. Over to Computer");
+                playerPassCount++;
                 return null;
             }
             String[] strings = input.split(",");
             if (strings.length != 2) {
-                System.out.println("Invalid input format. Please enter in the format \"word,square\"");
+                System.out.println("Illegal Word Format");
                 continue;
             }
             String word = strings[0].trim();
@@ -59,8 +60,7 @@ public class HumanPlayer extends Player {
             setDirection(direction);
 
             if (!wordValidator.areCoordinatesValid(direction)) {
-                System.out.println("Co-ordinates entered incorrectly. \nPlease enter in the format 'word,square'. Square (representing the board co-ordinates), must be \n" +
-                        "a letter and number, or vice versa. For example,: H4 or 7D. If you are stuck, enter comma ',' to pass.");
+                System.out.println("Illegal Word Format");
                 continue;
             }
             if (wordValidator.isWordInDictionary(word)) {
@@ -99,6 +99,14 @@ public class HumanPlayer extends Player {
         } else {
             return "That is an illegal move.";
         }
+    }
+
+    public int calculateScore(String word) {
+        int score = 0;
+        for (char letter : word.toCharArray()) {
+            score += Player.getPointsSwitchCase(letter);
+        }
+        return score;
     }
 
     public String getWord() {

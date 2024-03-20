@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
+    protected final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
+    protected final int PLAYER_RACK_IS_EMPTY= 0;
+    protected final int TWO_PASS_COUNTS_IN_SUCCESSION = 2; // More than two passes in a row meets criteria to trigger endGame()
+    protected  int playerPassCount = 0;
+
     protected int score = 0;
 
     protected List<Tile> tileRack;
@@ -35,6 +39,103 @@ public class Player {
      *
      * If game is Open Type, it prints OPEN GAME and user tiles.
      */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void removeTile(String letter) {
+            // Find the index of the tile to remove
+            int index = -1;
+            for (int i = 0; i < tileRack.size(); i++) {
+                if (tileRack.get(i).getTileLetter() == letter.charAt(0)) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index == -1) {
+                System.out.println("Tile '" + letter + "' not found in your rack.");
+                return;
+            }
+
+            // Remove the tile at the index from the tile rack
+            tileRack.remove(index);
+
+            System.out.println("Tile '" + letter + "' removed from your rack.");
+        }
+
+
+    public static int getPointsSwitchCase(char letter) {
+        int score = 0;
+        switch (letter) {
+            // Cases for score 1
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'L':
+            case 'N':
+            case 'O':
+            case 'R':
+            case 'S':
+            case 'T':
+            case 'U':
+                score = 1;
+                break;
+            // Cases for score 2
+            case 'D':
+            case 'G':
+                score = 2;
+                break;
+            // Cases for score 3
+            case 'B':
+            case 'C':
+            case 'M':
+            case 'P':
+                score = 3;
+                break;
+            // Cases for score 4
+            case 'F':
+            case 'H':
+            case 'V':
+            case 'W':
+                score = 4;
+                break;
+            // Cases for higher scores
+            case 'Y':
+                score = 5;
+                break;
+            case '_':
+                score = 5; // Our friend, the wildcard.
+                break;
+            case 'K':
+                score = 6;
+                break;
+            case 'J':
+            case 'X':
+                score = 9;
+                break;
+
+            case 'Z':
+                score = 11;
+                break;
+            case 'Q':
+                score = 12;
+            default:
+                score = 0; // Handle unexpected characters
+        }
+        return score;
+    }
+
 
 
 

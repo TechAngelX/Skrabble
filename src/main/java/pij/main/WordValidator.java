@@ -17,49 +17,6 @@ import java.util.Scanner;
 
         // enterWordAndDirection() : Prompts the human player for their word/move, and calls various methods to validate if the
         // word is in dictionary, in their tilerack, and if in correct "word,square" format.
-        public String enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter your move in the format: 'word,square'. For example, downward (vertical) move could be DOG,K6 \n" +
-                    "and a rightward (horizontal) move could be DOG 6K. When choosing your word, Upper-case letters are formed from \n" +
-                    "standard tiles. Lower-case letters formed from blank tiles [_5]. If you are stuck, press \",\" to pass.\n\n");
-
-            while (true) {
-                System.out.print("Enter 'word,square' or ',' to pass:\n>> ");
-                if (!scanner.hasNextLine()) {
-                    break;
-                }
-                String input = scanner.nextLine();
-                if (input.equals(",")) {
-                    System.out.println("Passed move. Over to Computer");
-                    return null;
-                }
-                String[] strings = input.split(",");
-                if (strings.length != 2) {
-                    System.out.println("Invalid input format. Please enter in the format \"word,square\"");
-                    continue;
-                }
-                String word = strings[0].trim();
-                String direction = strings[1].trim();
-
-                // Calls areCoordinatesValid() and applies logic.
-                if (!areCoordinatesValid(direction)) {
-                    System.out.println(" Co-ordinates entered incorrectly. \nPlease enter in the format 'word,square'. Square (representing the board co-ordinates), must be \n" +
-                            "a letter and number, or vice versa. For example,: H4 or 7D. If you are stuck, enter comma ',' to pass.");
-                    continue;
-                }
-                // Calls isWordInDictionary() and applies logic.
-                if (isWordInDictionary(word)) {
-                    return word + "," + direction; // IMPORTANT: Variables for us to use outside this class.
-                } else {
-                    System.out.println(" \"" + word + "\" not in the dictionary. Please try again.");
-                    // No return here, so the loop will continue prompting for input.
-                }
-            }
-        }
-        // This statement is unreachable because the loop will continue until a valid word is entered.
-        return null;
-    }
 
 
         // isWordInDictionary() : Self-explanatory. Checks the first part of string (before comma ',')  is in wordlist.txt.

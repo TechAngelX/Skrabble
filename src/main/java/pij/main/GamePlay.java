@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class GamePlay {
-    Scanner scanner = new Scanner(System.in);
     public TileBag tileBag;
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
+    Scanner scanner = new Scanner(System.in);
     String[][] board;
     private BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
 
@@ -23,38 +23,44 @@ public class GamePlay {
 
     // gameInPlay() This is the 'meat and veg' of the game, where main game logic takes place.
     // =======================================================================================
-    // Old info for reference: https://github.com/Birkbeck/pij-2023-24-coursework-TechGits/commit/ade26d95c356a7c5c67760dc6f87f31b0531b7a7
-
-
     public void gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
         this.board = boardInstance.board;
         boolean isOpenGame = isOpenGame();
         while (true) {
             if (isOpenGame) { //i.e., if this choice is open...
                 openGameShowTiles();
-            } else
-                closedGameShowTiles();
+            } else closedGameShowTiles();
 
-
-            // Human player's turn
-            // -------------------
+    // Human player's turn
+    // -------------------
             humansTurn(humanPlayer);
-
-
-            // takeTurn(), etc... WHen human finished their turn (finished placing tile on board and dding to
-            // their score, call method to check if game conditions have finished.
-
 
             if (isEndGameCriteriaMet()) {
                 break;
             }
 
-            // Computer player's turn (similar logic)
-            // ---------------------------------------
+    // Computer player's turn (similar logic)
+    // ---------------------------------------
+//            computersTurn(humanPlayer);
 
-            // takeTurn(), etc... When computer finished its turn (finished placing tile on board and adding to
-            // their score, call method to check if game conditions have finished.
+            if (isEndGameCriteriaMet()) {
+                break;
+            }
+
         }
+    }
+
+    // openGameShowTiles() : Explicitly prints OPEN GAME: and computers tiles, as well as human tiles,
+    // based on if user presses 'O'.
+    public void openGameShowTiles() throws IOException {
+        computerPlayer.printPlayerTileRack("Computer's Tiles:  ", true);
+        humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ", true);
+    }
+
+    // closedGameSjowTiles() : Just prints human tiles for a closed game
+    // based on if user presses 'c'.
+    public void closedGameShowTiles() {
+        humanPlayer.printPlayerTileRack("Your Tiles:\t", false);
     }
 
 
@@ -82,66 +88,115 @@ public class GamePlay {
         }
 
         if (isOpenGame) {
-            System.out.println("Starting an open game...\n");
         } else {
-            System.out.println("Starting a closed game...\n");
         }
 
         return isOpenGame;
     }
 
+    /**
+     * humansTurn() : Handles the human player's turn during gameplay.
+     * =====================================================================================
+     * This method guides the human player through their turn, including the following steps:
+     * 1. Prompts the player to enter a word and direction for placement on the board.
+     * 2. Validates the entered word and direction according to brief's rules. (hopefully!)
+     * 3. If the input is valid, places the word on the game board. (again, hopefully - work in progress)
+     * 4. Updates the human player's score based on the points earned from the placed word.
+     * 5. Displays the updated game board state after the player's turn.
+     * 6. Draw another random tile into player's tile rack, and deprecate a tile from the tileBag. (unseen by human player).
+     *
+     * @param humanPlayer The HumanPlayer object representing the current player.
+     * @throws IOException If there are issues with user input during the turn.
+     */
     public void humansTurn(HumanPlayer humanPlayer) throws IOException {
         humanPlayer.enterWordAndDirection(this);
         MoveValidator moveValidator = new MoveValidator(boardInstance, humanPlayer);
 
-        // passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
+    // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
         moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 
-
-
-        //  TODO in this takeTurn method:
-        System.out.println("\nYour turn! ");
-//        boardInstance.setElement(2,2,"(-Z)");
+    // boardInstance.setElement(2,2,"(-Z)");
+        humanPlayer.getScore();
 
 //        boardInstance.placeWordOnBoard(this, humanPlayer);
 //        System.out.println(boardInstance.toString());
-        //  Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
-        //  Update player's score
-        //  Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
+//        Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
+//        Update player's score
+//         Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
 
 //        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
     }
 
+    public void placeHumanTile(String word, String direction) {
 
+        // Convert direction to row and column (assuming A1 is top-left)
+        int row = Integer.parseInt(direction.substring(0, 1)) - 1;
+        int col = direction.charAt(1) - 'A';
 
+        // Loop through each letter in the word and place it on the board
+        for (int i = 0; i < word.length(); i++) {
+            String letter = word.substring(i, i + 1);
+            boardInstance.setElement(row, col, letter);
 
-    // ENDING THE GAME
-    // ===============
-    public boolean isEndGameCriteriaMet() {
-        // Test Logic - replace with checks for game end conditions (e.g., empty tile bag).
-        // If Tilebacg empty, tot up score and call method endGame()
-        int num1 = 4;
-        int num2 = 5;
-        if (num1 < num2) {
-            endGame();
-            return true;
+            if (direction.equalsIgnoreCase("vertical")) {
+                row++;
+            } else if (direction.equalsIgnoreCase("horizontal")) {
+                col++;
+            } else {
+                // Handle invalid direction within the loop (more robust) - but commented out for now
+                // return;
+            }
 
-        } else {
-            System.out.println("game continues");
-            return false;
+            // Remove tile from player's rack (assuming removeTile method exists)
+            humanPlayer.removeTile(letter);
         }
+
+        // Update player score (assuming calculateScore method exists)
+        humanPlayer.setScore(humanPlayer.getScore() + humanPlayer.calculateScore(word));
+
+        System.out.println("Word placed (without validation).");
+        // Update game state (e.g., check for game end)
     }
 
-    // endGame() My initial draft of what the code to end the game would look like.
-    // ===================================================================================
+
+// ENDING THE GAME
+// ===============
+    /**
+     * isEndGameCriteriaMet() : Determines if the game has reached its end state. (This method is Unfinished / Work In Progress).
+     * =====================================================================================
+     * This method checks for the predefined criteria that signify the end of the SkraBBKle game.
+     * If criteria met, it calls the endGame() method.
+     */
+    public boolean isEndGameCriteriaMet() {
+        // Check for both conditions (empty tile bag AND either one of the players' rack is empty)
+        if ((tileBag.tilesInBag.isEmpty() && humanPlayer.tileRack.isEmpty()) ||
+                (tileBag.tilesInBag.isEmpty() && computerPlayer.tileRack.isEmpty())) {
+            endGame();
+            return true;
+        }
+        // Check for repeated passing by either player
+        if (humanPlayer.playerPassCount == humanPlayer.TWO_PASS_COUNTS_IN_SUCCESSION ||
+                computerPlayer.playerPassCount == computerPlayer.TWO_PASS_COUNTS_IN_SUCCESSION) {
+            endGame();
+            return true;
+        }
+        // Othewise, Game continues
+        return false;
+    }
+
+    /** endGame( Ends the game and displays the final scores and winner.
+     * =====================================================================================
+     * Sets the scores for both human and computer players.Displays the scores, and announces the winner.
+     * If scores are equalt, it announces a draw.  (Unfinished / WOrk In Progress).
+     */
     public void endGame() {
-        // Test scores for example.
+        // Example test score for hypothetical end of game situation. (setScore parameters will not be manually set).
         humanPlayer.setScore(216);
         computerPlayer.setScore(203);
-//
-//        System.out.println("\nGame Over!");
-//        System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
-//        System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
+
+        System.out.println("\nGame Over!");
+        System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
+        System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
 
         int humanScore = humanPlayer.getScore();
         int computerScore = computerPlayer.getScore();
@@ -156,34 +211,17 @@ public class GamePlay {
             } else {
                 winner = computerPlayer.toString();
             }
-//            System.out.println("`\nThe " + winner + " wins!");
-//            System.out.println("Thanks for playing SkraBBKle\n====================+++====");
-
-
+                System.out.println("`\nThe " + winner + " wins!");
+            System.out.println("Thanks for playing SkraBBKle\n====================+++====");
         }
     }
 
 
 
 
-
-
-    // openGameShowTiles() : Explicitly prints OPEN GAME: and computers tiles, as well as human tiles
-    public void openGameShowTiles() throws IOException {
-        computerPlayer.printPlayerTileRack("Computer's Tiles:  ", true);
-        humanPlayer.printPlayerTileRack("Your Tiles:\t\t  ", true);
-
-    }
-
-    // openGameSjowTiles() : Just prints human tiles
-    public void closedGameShowTiles() {
-        humanPlayer.printPlayerTileRack("Your Tiles:\t", false);
-    }
-
-
-
-    /** Helper Methods: Not for game play usage, but to assist with code writing/debugging.
-     _________________________________________________________________________________
+    /**
+     * Helper Methods: Not for game play usage, but to assist with code writing/debugging.
+     * _________________________________________________________________________________
      */
     //        tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
     public Scanner getScanner() {
