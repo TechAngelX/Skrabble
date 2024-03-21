@@ -234,10 +234,10 @@ public class BoardInit {
 
 
 
-    // placeWordOnBoard() : Responsible for taking input from a human player (a word and its direction),
+    // placeWordOnBoard() : Responsible for taking input from a  player (a word and its direction),
     // parsing it, and placing the word onto the current instances' game board accordingly.
-    public void placeWordOnBoard(GamePlay gamePlay, HumanPlayer humanPlayer) throws IOException {
-        String wordAndDirection = humanPlayer.enterWordAndDirection(gamePlay);
+    public void placeWordOnBoard(GamePlay gamePlay, Player player) throws IOException {
+        String wordAndDirection = player.enterWordAndDirection();
         if (wordAndDirection == null) {
             // Handles passing turn, for example, if user enters ',' - nothing to be placed on board.
             return;

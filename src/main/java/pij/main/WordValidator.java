@@ -8,19 +8,28 @@ import java.util.Scanner;
 
 public class WordValidator {
         protected  final String WORD_LIST = "src/resources/wordlist.txt";
-        private final Player player;
+        private final Map<String, Boolean> dictionary;
 
-        public WordValidator(Player player) {
-            this.player = player;
+    public WordValidator() throws FileNotFoundException {
+        this.dictionary = loadDictionary();
+    }
 
+    private Map<String, Boolean> loadDictionary() throws FileNotFoundException {
+        Map<String, Boolean> dictionary = new HashMap<>();
+        try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                dictionary.put(line.toLowerCase(), true); // Store words in lowercase for case-insensitive comparison
+            }
         }
-
-
-
-
-
+        return dictionary;
+    }
 
     // isWordInDictionary() : Checks the first part of string (before comma ',')  is in wordlist.txt.
+
+
+
+
 
     public boolean isWordInDictionary(String word) throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
@@ -37,21 +46,22 @@ public class WordValidator {
 
 
 
+
     // isWordInTileRack() : Iterates through the letter of each user-entered word and checks if a match. Ignores blanks [_].
-        public boolean isWordInTileRack(String word, String direction) {
+    public boolean isWordInTileRack(String word, String direction, Player player) {
         Map<Character, Integer> tileCounts = new HashMap<>();
         boolean wildcardPresent = false; // Track if wildcard is present
 
-        // Count the number of each letter tile in the tile rack
-        for (Tile tile : player.tileRack) {
+        // Access tileRack directly from the player object
+        for (Tile tile : player.getTileRack()) {
             char firstTileLetter = tile.getTileLetter();
             if (firstTileLetter == '_') {
                 wildcardPresent = true;
             } else {
                 tileCounts.put(firstTileLetter, tileCounts.getOrDefault(firstTileLetter, 0) + 1);
             }
-
         }
+
         // Convert the word to uppercase for consistency
         word = word.toUpperCase();
 
@@ -65,18 +75,20 @@ public class WordValidator {
                 wildcardPresent = false; // Consume the wildcard
             } else {
                 // If the letter is not available and there are no wildcard tiles, return false
-                System.out.println("You cannot make this word out of your tiles.");
+                System.out.println("With tiles [XX] [XX][XXX], you cannot play word '"+word+"',"+direction.toUpperCase()+",");
                 return false;
             }
         }
-        // If the loop completes, the word can be formed from the tiles
-            System.out.println("You have placed word: '"+word+"' at position "+direction.toUpperCase()+".");
+        // If the loop completes, the word can be formed from the tiles. Break out of validation check and
+        // go back to the respective Player subclass.
         return true;
     }
 
 
 
-        // isDirectionValid() : Checks second part of the string (e.g., H4), and determines if user entered a digit or character.            if (Character.isDigit(firstChar)) {
+
+
+    // isDirectionValid() : Checks second part of the string (e.g., H4), and determines if user entered a digit or character.            if (Character.isDigit(firstChar)) {
         public boolean areCoordinatesValid(String direction) {
             if (direction == null || direction.isEmpty()) { // Check if null.
                 return false;

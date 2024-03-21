@@ -5,18 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
-    private String word;
-    private String direction;
+    private String word = ""; private String direction;
     private final WordValidator wordValidator;
-    public HumanPlayer(TileBag tileBag) {
+    public HumanPlayer(TileBag tileBag) throws FileNotFoundException {
         super(tileBag);
-        this.wordValidator = new WordValidator(this);
-        this.word = "";
+        this.wordValidator = new WordValidator();
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 
     /** enterWordAndDirection() : Prompts the human player for their move and validates the input in "word,square" format.
      * Example: "DOG,K6" for downward (vertical) move or "DOG 6K" for rightward (horizontal) move.
@@ -27,56 +22,44 @@ public class HumanPlayer extends Player {
      * @return The validated move in the format "word,direction".
      * @throws FileNotFoundException If the word list file is not found.
      */
-    public String enterWordAndDirection(GamePlay gamePlay) throws FileNotFoundException {
-        Scanner scanner = gamePlay.getScanner();
-        if (scanner == null) {
-            System.out.println("Scanner is not available.");
-            return null;
-        }
-
+    public String enterWordAndDirection(Scanner scanner) throws FileNotFoundException {
         while (true) {
-            System.out.print("Enter your move in the format: 'word,square' (without the quotes). For example, for a suitable tile rack" +
-                    "\nand board configuration, a downward move could be \"HI,f4\" and a rightward move could be \"HI,4f\". " +
-                    "\n\nIn the word, upper-case letters are standard tiles and lower-case letters are wildcards." +
-                    "\nEntering \",\" passes the turn.\n>> ");
+            System.out.print("Enter your move in the format: 'word,square' (without the quotes) or enter ',' to pass: ");
+            String input = scanner.nextLine().trim();
 
-
-
-            if (!scanner.hasNextLine()) {
-                break;
-            }
-            String input = scanner.nextLine();
             if (input.equals(",")) {
                 System.out.println("Passed move. Over to Computer");
                 playerPassCount++;
                 return null;
             }
-            String[] strings = input.split(",");
-            if (strings.length != 2) {
-                System.out.println("Illegal Word Format");
+
+            String[] parts = input.split(",");
+            if (parts.length != 2) {
+                System.out.println("Invalid format. Please enter word and direction separated by comma.");
                 continue;
             }
-            String word = strings[0].trim();
-            String direction = strings[1].trim();
 
-            setDirection(direction);
+            String word = parts[0];
+            String direction = parts[1].trim();
 
             if (wordValidator.isWordInDictionary(word)) {
-                // Word is valid in the dictionary, check for tile rack next
-                if (wordValidator.isWordInTileRack(word,direction)) {
-
-
+                if (wordValidator.isWordInTileRack(word, direction, this)) {
+                    setDirection(direction);
+                    System.out.println("Valid move: " + word + " at position " + direction.toUpperCase());
+                    System.out.println("You have placed word: '" + word + "' at position " + direction.toUpperCase() + ".");
+                    return word + "," + direction;
                 } else {
-                    System.out.println("INVALID TILE: HUMAN");
-//                    printMyileRackHelper("With tiles "+ printMyileRackHelper(""));
+                    System.out.println("You don't have the tiles to form the word: " + word);
                 }
-//                    System.out.println("WANKR ! With the FUCKIN tiles " +             printPlayerTileRackClean("");
-//                    + ", you cannot HP key,e3play word "+word+","+direction);                }
             } else {
-                System.out.println("\"" + word + "\" not in the dictionary. Please try again.");
+                System.out.println("Word not found in dictionary: " + word);
             }
         }
-        return null;
+
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
 
@@ -88,7 +71,7 @@ public class HumanPlayer extends Player {
      * @throws FileNotFoundException If the word list file is not found.
      */
     public String isWordInTileRack(String word) throws FileNotFoundException {
-        if (wordValidator.isWordInTileRack(word,direction)) {
+        if (wordValidator.isWordInTileRack(word,direction,this)) {
             return "Word is in tile rack.";
         } else {
             return "Word is NOT in your tile rack.";

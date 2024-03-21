@@ -144,7 +144,9 @@ public class Player {
         return score;
     }
 
-
+    public List<Tile> getTileRack() {
+        return tileRack;
+    }
 
 
 // printPlayerTileRack() : Builds the nice brackets [ ] around the first and second character. A for loop iterates though
@@ -189,6 +191,10 @@ public class Player {
 
     public String toString() {
         return super.toString();
+    }
+
+    public String enterWordAndDirection() {
+            return null;
     }
 }
 
