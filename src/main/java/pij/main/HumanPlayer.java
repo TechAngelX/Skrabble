@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
-    private final String word = "";
-    private String direction;
+    protected  String word = "";
+    protected String direction;
     private final WordValidator wordValidator;
 
     public HumanPlayer(TileBag tileBag) throws FileNotFoundException {
@@ -13,20 +13,26 @@ public class HumanPlayer extends Player {
         this.wordValidator = new WordValidator();
     }
 
-
     /**
      * enterWordAndDirection() : Prompts the human player for their move and validates the input in "word,square" format.
      * Example: "DOG,K6" for downward (vertical) move or "DOG 6K" for rightward (horizontal) move.
      * Upper-case letters are formed from standard tiles, while lower-case letters are formed from blank tiles.
      * If the player is stuck, they can press "," to pass.
      *
-     * @param gamePlay The current game instance.
+     * @param scanner The Scanner object used for user input.
      * @return The validated move in the format "word,direction".
      * @throws FileNotFoundException If the word list file is not found.
      */
-    public String enterWordAndDirection(Scanner scanner, Gameplay gamePlay) throws FileNotFoundException {
+    public String enterWordAndDirection(Scanner scanner) throws FileNotFoundException {
         while (true) {
-            System.out.print("Enter your move in the format: 'word,square' (without the quotes) or enter ',' to pass: ");
+            System.out.print("____________________________________________________________________________________________________\n" +
+                    "Enter your move in the format: 'word,square' (without the quotes). EXAMPLE: for a suitable tile rack\n" +
+                    "and board configuration, downward move could be \"DOG,f4\" and a rightward move could be 'DOG,4f'.\n" +
+                    "Upper-case letters are standard tiles and lower-case letters represent wildcards [_] in your tile \n" +
+                    "rack. If you're stuck, entering \",\" on its own passes the turn.\n" +
+                    "____________________________________________________________________________________________________\n" +
+                    ">> ");
+
             String input = scanner.nextLine().trim();
 
             if (input.equals(",")) {
@@ -36,7 +42,7 @@ public class HumanPlayer extends Player {
 
             String[] parts = input.split(",");
             if (parts.length != 2) {
-                System.out.println("Invalid format. Please enter word and direction separated by comma.");
+                System.out.println("Invalid format. Entires must be seperated by a comma ',' for word and direction.\n");
                 continue;
             }
 
@@ -46,14 +52,12 @@ public class HumanPlayer extends Player {
             if (wordValidator.isWordInDictionary(word)) {
                 if (wordValidator.isWordInTileRack(word, direction, this)) {
                     setDirection(direction);
-                    System.out.println("Valid move: " + word + " at position " + direction.toUpperCase());
-                    System.out.println("You have  HUMANPLAYER placed word: '" + word + "' at position " + direction.toUpperCase() + ".");
+                    setWord(word);
                     return word + "," + direction;
                 } else {
-                    System.out.println("You don't have the tiles to form the word: " + word);
                 }
             } else {
-                System.out.println("Word not found in dictionary: " + word);
+                System.out.println("The word '"+word+"' is not found in dictionary." );
             }
         }
 
@@ -62,6 +66,11 @@ public class HumanPlayer extends Player {
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
 
     public void setPlayerPassCount() {
         playerPassCount++;

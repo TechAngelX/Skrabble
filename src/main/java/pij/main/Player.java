@@ -1,36 +1,27 @@
 package pij.main;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     protected final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
     protected final int PLAYER_RACK_IS_EMPTY= 0;
     protected final int TWO_PASS_COUNTS_IN_SUCCESSION = 2; // More than two passes in a row meets criteria to trigger endGame()
     protected  int playerPassCount = 0;
-
+    protected String word;
+    protected String direction;
     protected int score;
 
     protected List<Tile> tileRack;
     private TileBag tileBag;
-
     public Player(TileBag tileBag) {
         this.tileBag = tileBag;
         this.tileRack = new ArrayList<>(); // Initialize the player's tileRack
-
     }
 
-    // setPlayerPassCount() / PlayerPassCount() : To keep track of how many times a user passed on a move.
-    public void setPlayerPassCount(int playerPassCount) {
-        this.playerPassCount = playerPassCount;
-    }
-
-    public int getPlayerPassCount(Player player) {
-        return playerPassCount;
-    }
-
-    //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
-
+      //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
 
     protected String intializePlayerTileRack() {
         StringBuilder cleanTileRackBuilder = new StringBuilder();
@@ -45,30 +36,7 @@ public class Player {
         String cleanTileRackPrinter = cleanTileRackBuilder.toString();
         return cleanTileRackPrinter;
     }
-
-    /**
-     * printPlayerTileRack() :  Prints the player's tile rack to screen..
-     *
-     * @param playerTiles The name of the player whose tiles will be printed.
-     * @param gameType A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
-     *
-     * If game is Open Type, it prints OPEN GAME and user tiles.
-     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void removeTile(String letter) {
+            public void removeTile(String letter) {
             // Find the index of the tile to remove
             int index = -1;
             for (int i = 0; i < tileRack.size(); i++) {
@@ -151,11 +119,17 @@ public class Player {
         }
         return score;
     }
-
     public List<Tile> getTileRack() {
         return tileRack;
     }
-
+    /**
+     * printPlayerTileRack() :  Prints the player's tile rack to screen..
+     *
+     * @param playerTiles The name of the player whose tiles will be printed.
+     * @param gameType A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
+     *
+     * If game is Open Type, it prints OPEN GAME and user tiles.
+     */
 
 // printPlayerTileRack() : Builds the nice brackets [ ] around the first and second character. A for loop iterates though
 // the string (first and second character together), then places brackets around them.
@@ -167,7 +141,7 @@ public class Player {
 
         String tempRack = tempRackBuilder.toString(); // Collect tile representations
 
-        // Ternary Syntactic Sugar. If bool gameType is true, prints OPEN GAME. Implement in the subclasses.
+// Ternary Syntactic Sugar. If bool gameType is true, prints OPEN GAME. Implement in the subclasses.
         System.out.print(gameType ? "OPEN GAME: " + playerTiles + tempRack : playerTiles + tempRack);
         System.out.println(""); // Maybe add a blank line for readability
     }
@@ -184,25 +158,25 @@ public class Player {
         return cleanTileRackPrinter.toString(); // Returns just the formatted string
     }
 
-
-
-
-    public int getScore() {
-        return score;
+// Getters and Setters - Typically, there would be two usages each of these.
+//--------------------
+    protected String getWord() { return word;
+    }
+    protected void setWord(String word) { this.word = word;
+    }
+    protected String getDirection() { return direction;
+    }
+    protected void setDirection(String direction) { this.direction = direction;
+    }
+    protected int getScore() { return score;
+    }
+    protected void setScore(int score) { this.score = score;
+    }
+// setPlayerPassCount() / PlayerPassCount() : To keep track of how many times a user passed on a move.
+    protected int getPlayerPassCount(Player player) { return playerPassCount;
+    }
+    protected void setPlayerPassCount(int playerPassCount) { this.playerPassCount = playerPassCount;
     }
 
-    // Setter method for score
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-
-    public String toString() {
-        return super.toString();
-    }
-
-    public String enterWordAndDirection() {
-            return null;
-    }
 }
 

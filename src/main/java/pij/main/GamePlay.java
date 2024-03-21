@@ -3,6 +3,7 @@ package pij.main;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class GamePlay {
     public TileBag tileBag;
@@ -154,17 +155,22 @@ public class GamePlay {
      * @param humanPlayer The HumanPlayer object representing the current player.
      * @throws IOException If there are issues with user input during the turn.
      */
-    public void humansTurn(HumanPlayer humanPlayer) throws IOException {
+   public void humansTurn(HumanPlayer humanPlayer) throws IOException {
 
 
-        humanPlayerLastMove = humanPlayer.enterWordAndDirection(scanner, this);
+        humanPlayerLastMove = humanPlayer.enterWordAndDirection(scanner);
         if (humanPlayerLastMove == null) {
-            System.out.println("Human player passed the turn.");
+            System.out.println("Human player passed the turn."); // test print
         }
         if (!humanPlayerLastMove.equals("humanPassFlagged")) { // Check if the move is not a pass
             // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
-            System.out.println("You ALSO IN GAMEINIT CLASS, have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
+            System.out.println("You have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
 
+            boardInstance.placeWordOnBoard(humanPlayer);
+            boardInstance.setElement(2,"B","W");
+            moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
+
+            
             boardInstance.placeWordOnBoard(humanPlayer);
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 //            humanPlayer.getScore();
@@ -183,6 +189,11 @@ public class GamePlay {
 // ======================
       public void computersTurn(ComputerPlayer computerPlayer) throws IOException {
         System.out.println("OK Computer. It's the Computer's turn!");
+
+          // Just to bit of fun to add atmosphere to the AI. set maxTime to 0 (secondds) to turn effect off.
+          computerPlayer.randomAIWaitTime(4);
+
+
 
 //        // 1. Check if the computer can pass (no valid moves)
 ////        if (!computerPlayer.hasValidMoves(board, boardInstance.boardSize)) {

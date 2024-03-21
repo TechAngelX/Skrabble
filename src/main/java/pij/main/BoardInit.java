@@ -222,7 +222,7 @@ public class BoardInit {
 
 
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
-    public String setElement(int row, int col, String value) {
+    public String setElement(int row, String col, String value) {
         if (isValidIndex(row, col) && board != null) {
             board[row][col] = value; // Update the board element with the value
             return value; // (Optional) return the updated value
@@ -237,48 +237,43 @@ public class BoardInit {
     // placeWordOnBoard() : Responsible for taking input the (validated) input from aplayer (a word and its direction),
     // parsing it, and placing the word onto the current instances' game board accordingly.
     public void placeWordOnBoard(Player player) throws IOException {
-        String wordAndDirection = player.enterWordAndDirection();
-        if (wordAndDirection == null) {
-            // Handles passing turn, for example, if user enters ',' - nothing to be placed on board.
-            return;
-        }
+        String word = player.getWord(); // Get the word from the player
+        String direction = player.getDirection(); // Get the direction from the player
 
-        // Extract word AND direction from wordAndDirection - e.g., doG,4C
-        String[] twoParts = wordAndDirection.split(",");
-        String word = twoParts[0].trim();
-        String direction = twoParts[1].trim();
-
-
-
-        // Split the word into characters and put them into an array. - e.g., d,o,G
-        String[] wordAsArray = word.split("");
-
-        // Variables to track row and column based on direction e.g., 4C is row 4, and C is column C.
-        int row = 0;
-        int col = 0;
-
-        // Logic based on direction
-        if (direction.equalsIgnoreCase("vertical")) {
-            // Randomly select a starting column within the valid range
-            col = (int) (Math.random() * (currentGameBoardSize - wordAsArray.length));
-        } else if (direction.equalsIgnoreCase("horizontal")) {
-            // Randomly select a starting row within the valid range
-            row = (int) (Math.random() * (currentGameBoardSize - wordAsArray.length));
+        // Split the direction into its components (row and column)
+        int row;
+        String col;
+        if (Character.isDigit(direction.charAt(0))) {
+            row = Integer.parseInt(direction); // If the first character is a digit, set it as the row
+            col = direction.substring(1); // The column is the rest of the string
         } else {
-            // Handle invalid direction (possibly throw exception or display error)
-            return;
+            col = direction.substring(0, direction.length() - 1); // The column is the first character
+            row = Integer.parseInt(direction.substring(direction.length() - 1)); // The row is the last character
         }
 
-        // Loop through each character and update the board
-        for (String letter : wordAsArray) {
-            setElement(row, col, letter); // Update the board using setElement() method
-            if (direction.equalsIgnoreCase("vertical")) {
-                row++;
-            } else {
-                col++;
+        // Place the word on the board based on the row, column, and direction
+        if (direction.endsWith("H")) {
+            // If the direction ends with 'H', it's horizontal
+            for (int i = 0; i < word.length(); i++) {
+                char letter = word.charAt(i);
+                board[row - 1][col.charAt(0) - 'a' + i] = String.valueOf(letter);
             }
+        } else if (direction.endsWith("V")) {
+            // If the direction ends with 'V', it's vertical
+            for (int i = 0; i < word.length(); i++) {
+                char letter = word.charAt(i);
+                board[row - 1 + i][col.charAt(0) - 'a'] = String.valueOf(letter);
+            }
+
+
+        // Display the updated board
+        System.out.println("board fat " + board.toString());
         }
+
+
     }
+
+
 
 
 
@@ -348,8 +343,14 @@ public class BoardInit {
 
     // isValidIndex() Helper method to ensure user-provided coordinates for accessing elements
     // in the board array are within the valid range.
-    protected boolean isValidIndex(int row, int col) {
-        return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
+    protected boolean isValidIndex(int row, String col) {
+        try {
+            int colIndex = Integer.parseInt(col);
+            return row >= 0 && row < board.length && colIndex >= 0 && colIndex < board[0].length;
+        } catch (NumberFormatException e) {
+            // Handle the case where col cannot be parsed to an integer
+            return false;
+        }
     }
 
 
