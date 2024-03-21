@@ -234,7 +234,7 @@ public class BoardInit {
 
 
 
-    // placeWordOnBoard() : Responsible for taking input the (validated) input from a player (a word and its direction),
+    // placeWordOnBoard() : Responsible for taking input the (validated) input from aplayer (a word and its direction),
     // parsing it, and placing the word onto the current instances' game board accordingly.
     public void placeWordOnBoard(Player player) throws IOException {
         String wordAndDirection = player.enterWordAndDirection();
@@ -279,7 +279,8 @@ public class BoardInit {
     }
 
 
-// The setRow() method utilizes System.arraycopy() to copy characters from the 'values' array (word letter characters extracted from the input string)
+
+    // The setRow() method utilizes System.arraycopy() to copy characters from the 'values' array (word letter characters extracted from the input string)
 // into positions on the array. For example, given 'DiNT, H4', the 'D' would be placed in row 4, column H.
     public void setRow(int row, String string) {
         try {

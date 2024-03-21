@@ -20,6 +20,14 @@ public class Player {
 
     }
 
+    // setPlayerPassCount() / PlayerPassCount() : To keep track of how many times a user passed on a move.
+    public void setPlayerPassCount(int playerPassCount) {
+        this.playerPassCount = playerPassCount;
+    }
+
+    public int getPlayerPassCount(Player player) {
+        return playerPassCount;
+    }
 
     //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
 

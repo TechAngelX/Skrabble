@@ -29,8 +29,8 @@ public class HumanPlayer extends Player {
 
             if (input.equals(",")) {
                 System.out.println("Passed move. Over to Computer");
-                playerPassCount++;
-                return null;
+                setPlayerPassCount(); // A flag to count that the player passed on a move.
+                return "humanPassFlagged";
             }
 
             String[] parts = input.split(",");
@@ -60,6 +60,10 @@ public class HumanPlayer extends Player {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public void setPlayerPassCount() {
+        playerPassCount++;
     }
 
 
