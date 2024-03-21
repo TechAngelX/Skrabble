@@ -9,7 +9,7 @@ public class Player {
     protected final int TWO_PASS_COUNTS_IN_SUCCESSION = 2; // More than two passes in a row meets criteria to trigger endGame()
     protected  int playerPassCount = 0;
 
-    protected int score = 0;
+    protected int score;
 
     protected List<Tile> tileRack;
     private TileBag tileBag;
@@ -22,13 +22,20 @@ public class Player {
 
 
     //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
-    protected void intializePlayerTileRack() {
+
+
+    protected String intializePlayerTileRack() {
+        StringBuilder cleanTileRackBuilder = new StringBuilder();
         for (int i = 0; i < 7; i++) {
             Tile tile = tileBag.getRandomTile();
             if (tile != null) {
+                cleanTileRackBuilder.append(tile.getTileLetter()).append(tile.getTileValue());
                 tileRack.add(tile);
             }
         }
+
+        String cleanTileRackPrinter = cleanTileRackBuilder.toString();
+        return cleanTileRackPrinter;
     }
 
     /**
@@ -74,7 +81,8 @@ public class Player {
             System.out.println("Tile '" + letter + "' removed from your rack.");
         }
 
-
+// SCORING - (Work in progress)
+// =============================
     public static int getPointsSwitchCase(char letter) {
         int score = 0;
         switch (letter) {
@@ -131,7 +139,7 @@ public class Player {
             case 'Q':
                 score = 12;
             default:
-                score = 0; // Handle unexpected characters
+                score = 0; // Handle unexpected characters (although there should never be any tiles with a score of '0').
         }
         return score;
     }
@@ -139,9 +147,10 @@ public class Player {
 
 
 
-
+// printPlayerTileRack() : Builds the nice brackets [ ] around the first and second character. A for loop iterates though
+// the string (first and second character together), then places brackets around them.
     public void printPlayerTileRack(String playerTiles, boolean gameType) {
-        StringBuilder tempRackBuilder = new StringBuilder(); // Placeholder for tile representation
+        StringBuilder tempRackBuilder = new StringBuilder();
         for (Tile tile : tileRack) {
             tempRackBuilder.append("[").append(tile.getTileLetter()).append(tile.getTileValue()).append("] ");
         }
@@ -150,8 +159,21 @@ public class Player {
 
         // Ternary Syntactic Sugar. If bool gameType is true, prints OPEN GAME. Implement in the subclasses.
         System.out.print(gameType ? "OPEN GAME: " + playerTiles + tempRack : playerTiles + tempRack);
-        System.out.println(); // Add a newline for readability
+        System.out.println(""); // Maybe add a blank line for readability
     }
+
+// cleanTileRack() : Helper file which just cleanly builds only the ntile rack - 7 tiles surrounded by ice brackets [ ]
+// around the first and second character. No 'OPEN GAME:' foprmatting applied..
+
+
+    public String cleanTileRack() {
+        StringBuilder cleanTileRackPrinter = new StringBuilder();
+        for (Tile tile : tileRack) {
+            cleanTileRackPrinter.append("[").append(tile.getTileLetter()).append(tile.getTileValue()).append("] ");
+        }
+        return cleanTileRackPrinter.toString(); // Returns just the formatted string
+    }
+
 
 
 

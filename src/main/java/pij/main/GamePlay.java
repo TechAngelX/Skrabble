@@ -7,9 +7,10 @@ public class GamePlay {
     public TileBag tileBag;
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
+    private boolean isGameTypeOpen = false;
     Scanner scanner = new Scanner(System.in);
     String[][] board;
-    private BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
+    private final BoardInit boardInstance; // Declared instance, to be able to access boardsize dimensions, and other Boardinit methods and constants.
 
     public GamePlay(BoardInit boardInstance) throws IOException {
         this.boardInstance = boardInstance;
@@ -23,28 +24,30 @@ public class GamePlay {
 
     // gameInPlay() This is the 'meat and veg' of the game, where main game logic takes place.
     // =======================================================================================
-    public void gameInPlay() throws IOException { // TODO - Also create a 'gameIsFinished' method.
+    public void gameInPlay() throws IOException {
+        isGameTypeOpen = hasUserSelectedOpenGame(); // logic to always return human tiles/computer tiles if user chose open or closed.
         this.board = boardInstance.board;
-        boolean isOpenGame = isOpenGame();
         while (true) {
-            if (isOpenGame) { //i.e., if this choice is open...
+            if (isGameTypeOpen) {
                 openGameShowTiles();
-            } else closedGameShowTiles();
+            } else {
+                closedGameShowTiles();
+            }
 
     // Human player's turn
     // -------------------
-            humansTurn(humanPlayer);
-
+        humansTurn(humanPlayer);
             if (isEndGameCriteriaMet()) {
                 break;
-            }
+            } else {
 
     // Computer player's turn (similar logic)
     // ---------------------------------------
-//            computersTurn(humanPlayer);
 
+        computersTurn(computerPlayer);
             if (isEndGameCriteriaMet()) {
-                break;
+                    break;
+                }
             }
 
         }
@@ -63,10 +66,13 @@ public class GamePlay {
         humanPlayer.printPlayerTileRack("Your Tiles:\t", false);
     }
 
-
-    // isOpenGame(): Prompts the user to choose either an open or closed game type,
-    // validates their input, and returns true for an open game, false for a closed game.
-    public boolean isOpenGame() throws IOException {
+    /**
+     hasUserSelectedOpenGame() : Prompts the user to choose between an open or closed game type and validates their input.
+     Returns true if the user chooses an open game, false if they choose a closed game.
+     @return true if the user selects an open game, false if they select a closed game.
+     @throws IOException if there are issues with input/output operations.
+     */
+        public boolean hasUserSelectedOpenGame() throws IOException {
         boolean isOpenGame = false;
 
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
@@ -93,6 +99,14 @@ public class GamePlay {
 
         return isOpenGame;
     }
+
+
+
+    // ishumanTurn() Fundamentally the heart of the game's logic. This method
+    //
+    private final boolean isHumanTurn = true;
+
+
 
     /**
      * humansTurn() : Handles the human player's turn during gameplay.
@@ -144,7 +158,7 @@ public class GamePlay {
                 col++;
             } else {
                 // Handle invalid direction within the loop (more robust) - but commented out for now
-                // return;
+                 return;
             }
 
             // Remove tile from player's rack (assuming removeTile method exists)
@@ -157,6 +171,43 @@ public class GamePlay {
         System.out.println("Word placed (without validation).");
         // Update game state (e.g., check for game end)
     }
+
+
+
+
+
+
+
+
+    public void computersTurn(ComputerPlayer computerPlayer) throws IOException {
+        // 1. Check if the computer can pass (no valid moves)
+        if (!computerPlayer.hasValidMoves(board, boardInstance.boardSize)) {
+            System.out.println("Computer passes its turn.");
+            computerPlayer.playerPassCount++;
+            return;
+        }
+
+        // 2. Call the computer's AI to choose the best move
+        Move bestMove = computerPlayer.chooseMove(board, boardInstance.boardSize);
+
+        // 3. Place the word on the board based on the chosen move
+        String word = bestMove.getWord();
+        String direction = bestMove.getDirection();
+        placeComputerTile(word, direction);
+
+        // 4. Update computer's score
+        computerPlayer.setScore(computerPlayer.getScore() + computerPlayer.calculateScore(word));
+
+        System.out.println("Computer placed: " + word + ", " + direction);
+        // 5. Draw new tiles for the computer (assuming drawTiles method exists)
+        computerPlayer.drawTiles(tileBag);
+    }
+
+
+
+
+
+
 
 
 // ENDING THE GAME

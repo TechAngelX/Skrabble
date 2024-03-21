@@ -1,5 +1,6 @@
 package pij.main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -7,7 +8,6 @@ public class HumanPlayer extends Player {
     private String word;
     private String direction;
     private final WordValidator wordValidator;
-
     public HumanPlayer(TileBag tileBag) {
         super(tileBag);
         this.wordValidator = new WordValidator(this);
@@ -40,6 +40,8 @@ public class HumanPlayer extends Player {
                     "\n\nIn the word, upper-case letters are standard tiles and lower-case letters are wildcards." +
                     "\nEntering \",\" passes the turn.\n>> ");
 
+
+
             if (!scanner.hasNextLine()) {
                 break;
             }
@@ -59,18 +61,24 @@ public class HumanPlayer extends Player {
 
             setDirection(direction);
 
-            if (!wordValidator.areCoordinatesValid(direction)) {
-                System.out.println("Illegal Word Format");
-                continue;
-            }
             if (wordValidator.isWordInDictionary(word)) {
-                return word + "," + direction;
+                // Word is valid in the dictionary, check for tile rack next
+                if (wordValidator.isWordInTileRack(word,direction)) {
+
+
+                } else {
+                    System.out.println("INVALID TILE: HUMAN");
+//                    printMyileRackHelper("With tiles "+ printMyileRackHelper(""));
+                }
+//                    System.out.println("WANKR ! With the FUCKIN tiles " +             printPlayerTileRackClean("");
+//                    + ", you cannot HP key,e3play word "+word+","+direction);                }
             } else {
                 System.out.println("\"" + word + "\" not in the dictionary. Please try again.");
             }
         }
         return null;
     }
+
 
     /**
      * Checks if the given word is in the player's tile rack.
@@ -80,7 +88,7 @@ public class HumanPlayer extends Player {
      * @throws FileNotFoundException If the word list file is not found.
      */
     public String isWordInTileRack(String word) throws FileNotFoundException {
-        if (wordValidator.isWordInTileRack(word)) {
+        if (wordValidator.isWordInTileRack(word,direction)) {
             return "Word is in tile rack.";
         } else {
             return "Word is NOT in your tile rack.";
@@ -122,15 +130,23 @@ public class HumanPlayer extends Player {
         return super.getScore();
     }
 
+
+    //printPlayerTileRack() : Used EXTERNALLY to print formatted tile rack.
     @Override
     public void printPlayerTileRack(String playerTiles, boolean gameType) {
         super.printPlayerTileRack(playerTiles, gameType);
     }
+    //playerTileRackUnformulated() : Helper method Used Internally to print this humanPlayer tile rack only, with no string formatting.
 
     @Override
     public void setScore(int score) {
         super.setScore(score);
     }
+
+
+
+
+
 
     @Override
     public String toString() {

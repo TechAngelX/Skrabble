@@ -6,48 +6,52 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-    public class WordValidator {
-        private static final String WORD_LIST = "src/resources/wordlist.txt";
-        private final HumanPlayer humanPlayer;
+public class WordValidator {
+        protected  final String WORD_LIST = "src/resources/wordlist.txt";
+        private final Player player;
 
-        public WordValidator(HumanPlayer humanPlayer) {
-            this.humanPlayer = humanPlayer;
+        public WordValidator(Player player) {
+            this.player = player;
 
         }
 
-        // enterWordAndDirection() : Prompts the human player for their word/move, and calls various methods to validate if the
-        // word is in dictionary, in their tilerack, and if in correct "word,square" format.
 
 
-        // isWordInDictionary() : Self-explanatory. Checks the first part of string (before comma ',')  is in wordlist.txt.
-        public boolean isWordInDictionary(String word) throws FileNotFoundException {
-            try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine().trim();
-                    if (line.equalsIgnoreCase(word)) {
-                        return true;
-                    }
+
+
+
+    // isWordInDictionary() : Checks the first part of string (before comma ',')  is in wordlist.txt.
+
+    public boolean isWordInDictionary(String word) throws FileNotFoundException {
+        try (Scanner scanner = new Scanner(new File(WORD_LIST))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.equalsIgnoreCase(word)) {
+                    return true;
                 }
             }
-            return false;
         }
+        return false;
+    }
 
 
-        // isWordInTileRack() : Iterates through the letter of each user-entered word and checks if a match. Ignores blanks [_].
-        public boolean isWordInTileRack(String word) {
+
+
+    // isWordInTileRack() : Iterates through the letter of each user-entered word and checks if a match. Ignores blanks [_].
+        public boolean isWordInTileRack(String word, String direction) {
         Map<Character, Integer> tileCounts = new HashMap<>();
         boolean wildcardPresent = false; // Track if wildcard is present
 
         // Count the number of each letter tile in the tile rack
-        for (Tile tile : humanPlayer.tileRack) {
+        for (Tile tile : player.tileRack) {
             char firstTileLetter = tile.getTileLetter();
             if (firstTileLetter == '_') {
                 wildcardPresent = true;
             } else {
                 tileCounts.put(firstTileLetter, tileCounts.getOrDefault(firstTileLetter, 0) + 1);
             }
-        }
 
+        }
         // Convert the word to uppercase for consistency
         word = word.toUpperCase();
 
@@ -65,11 +69,12 @@ import java.util.Scanner;
                 return false;
             }
         }
-
         // If the loop completes, the word can be formed from the tiles
-        System.out.println("Yeah, " + word + " appears in the tile rack.");
+            System.out.println("You have placed word: '"+word+"' at position "+direction.toUpperCase()+".");
         return true;
     }
+
+
 
         // isDirectionValid() : Checks second part of the string (e.g., H4), and determines if user entered a digit or character.            if (Character.isDigit(firstChar)) {
         public boolean areCoordinatesValid(String direction) {
@@ -93,17 +98,13 @@ import java.util.Scanner;
             // If none of the conditions are met, return false
             return false;
         }
-
-
 }
 
 
-
-
-// Implement additional checks for valid placement here
+//  TODO Implement additional checks for valid placement here
 //  - Check if the first tile placement is on an empty space or a star (center square)
 //  - Verify if adjacent tiles on the board match the corresponding letters in the placed word
-//      (both horizontally and vertically)
+//  - (both horizontally and vertically)
 
 
 
