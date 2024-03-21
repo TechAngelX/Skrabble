@@ -248,6 +248,8 @@ public class BoardInit {
         String word = twoParts[0].trim();
         String direction = twoParts[1].trim();
 
+
+
         // Split the word into characters and put them into an array. - e.g., d,o,G
         String[] wordAsArray = word.split("");
 

@@ -1,5 +1,6 @@
 package pij.main;
 
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -156,12 +157,14 @@ public class GamePlay {
     public void humansTurn(HumanPlayer humanPlayer) throws IOException {
 
 
-        humanPlayerLastMove = humanPlayer.enterWordAndDirection(scanner);
+        humanPlayerLastMove = humanPlayer.enterWordAndDirection(scanner, this);
         if (humanPlayerLastMove == null) {
             System.out.println("Human player passed the turn.");
         }
-        if (!humanPlayerLastMove.equals("PASS")) { // Check if the move is not a pass
+        if (!humanPlayerLastMove.equals("humanPassFlagged")) { // Check if the move is not a pass
             // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
+            System.out.println("You ALSO IN GAMEINIT CLASS, have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
+
             boardInstance.placeWordOnBoard(humanPlayer);
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 //            humanPlayer.getScore();
@@ -180,7 +183,6 @@ public class GamePlay {
 // ======================
       public void computersTurn(ComputerPlayer computerPlayer) throws IOException {
         System.out.println("OK Computer. It's the Computer's turn!");
-        System.out.println("Some more computer logic here.");
 
 //        // 1. Check if the computer can pass (no valid moves)
 ////        if (!computerPlayer.hasValidMoves(board, boardInstance.boardSize)) {

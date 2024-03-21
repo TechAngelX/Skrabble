@@ -1,19 +1,21 @@
 package pij.main;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
-    private String word = ""; private String direction;
+    private final String word = "";
+    private String direction;
     private final WordValidator wordValidator;
+
     public HumanPlayer(TileBag tileBag) throws FileNotFoundException {
         super(tileBag);
         this.wordValidator = new WordValidator();
     }
 
 
-    /** enterWordAndDirection() : Prompts the human player for their move and validates the input in "word,square" format.
+    /**
+     * enterWordAndDirection() : Prompts the human player for their move and validates the input in "word,square" format.
      * Example: "DOG,K6" for downward (vertical) move or "DOG 6K" for rightward (horizontal) move.
      * Upper-case letters are formed from standard tiles, while lower-case letters are formed from blank tiles.
      * If the player is stuck, they can press "," to pass.
@@ -22,7 +24,7 @@ public class HumanPlayer extends Player {
      * @return The validated move in the format "word,direction".
      * @throws FileNotFoundException If the word list file is not found.
      */
-    public String enterWordAndDirection(Scanner scanner) throws FileNotFoundException {
+    public String enterWordAndDirection(Scanner scanner, Gameplay gamePlay) throws FileNotFoundException {
         while (true) {
             System.out.print("Enter your move in the format: 'word,square' (without the quotes) or enter ',' to pass: ");
             String input = scanner.nextLine().trim();
@@ -45,7 +47,7 @@ public class HumanPlayer extends Player {
                 if (wordValidator.isWordInTileRack(word, direction, this)) {
                     setDirection(direction);
                     System.out.println("Valid move: " + word + " at position " + direction.toUpperCase());
-                    System.out.println("You have placed word: '" + word + "' at position " + direction.toUpperCase() + ".");
+                    System.out.println("You have  HUMANPLAYER placed word: '" + word + "' at position " + direction.toUpperCase() + ".");
                     return word + "," + direction;
                 } else {
                     System.out.println("You don't have the tiles to form the word: " + word);
@@ -74,7 +76,7 @@ public class HumanPlayer extends Player {
      * @throws FileNotFoundException If the word list file is not found.
      */
     public String isWordInTileRack(String word) throws FileNotFoundException {
-        if (wordValidator.isWordInTileRack(word,direction,this)) {
+        if (wordValidator.isWordInTileRack(word, direction, this)) {
             return "Word is in tile rack.";
         } else {
             return "Word is NOT in your tile rack.";
@@ -128,10 +130,6 @@ public class HumanPlayer extends Player {
     public void setScore(int score) {
         super.setScore(score);
     }
-
-
-
-
 
 
     @Override
