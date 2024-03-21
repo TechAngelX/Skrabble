@@ -9,7 +9,7 @@ public class GamePlay {
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
     private boolean isGameTypeOpen = false;
-    private String humanPlayerLastMove;
+    private String humanPlayerLastMove = "";
     Scanner scanner = new Scanner(System.in);
 
 
@@ -37,16 +37,16 @@ public class GamePlay {
     public void gameInPlay() throws IOException {
         isGameTypeOpen = hasUserSelectedOpenGame(); // logic to always return human tiles/computer tiles if user chose open or closed.
         this.board = boardInstance.board;
-        while (true) {
-            if (isGameTypeOpen) {
-                openGameShowTiles();
-            } else {
-                closedGameShowTiles();
-            }
+        if (isGameTypeOpen) {
+            openGameShowTiles();
+        } else {
+            closedGameShowTiles();
+        }
 
+        while (true) {
             // Human player's turn
             // -------------------
-            if (humanPlayerLastMove.equals("humanPassFlagged")) {
+            if (humanPlayerLastMove != null && humanPlayerLastMove.equals("humanPassFlagged")) {
                 humanPlayer.playerPassCount++;
                 humanPlayer.getPlayerPassCount(humanPlayer); // Just a test print to see if value is 1, after human presses comma.
                 computersTurn(computerPlayer);
@@ -55,20 +55,21 @@ public class GamePlay {
                 if (isEndGameCriteriaMet()) { // If so, break out and instigate game ending.
                     break;
                 }
+                // Prompt for word and direction only if it's not a pass
+                humansTurn(humanPlayer);
+            }
+
+            // Computer player's turn (similar logic)
+            // ---------------------------------------
+            computersTurn(computerPlayer);
+
+            // Check end game criteria after each player's turn
+            if (isEndGameCriteriaMet()) {
+                break;
             }
         }
-
-        // Computer player's turn (similar logic)
-        // ---------------------------------------
-
-        computersTurn(computerPlayer);
-
-//            if (isEndGameCriteriaMet()) {
-//                    break;
-//                }
-
-
     }
+
 
 
 

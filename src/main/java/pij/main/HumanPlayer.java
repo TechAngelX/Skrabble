@@ -28,7 +28,6 @@ public class HumanPlayer extends Player {
             String input = scanner.nextLine().trim();
 
             if (input.equals(",")) {
-                System.out.println("Passed move. Over to Computer");
                 setPlayerPassCount(); // A flag to count that the player passed on a move.
                 return "humanPassFlagged";
             }
