@@ -135,13 +135,15 @@ public class GamePlay {
     public void humansTurn(HumanPlayer humanPlayer) throws IOException {
         humanPlayer.enterWordAndDirection(scanner);
     // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
+        boardInstance.placeWordOnBoard(humanPlayer);
+
         moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
                 System.out.println(boardInstance.toString());
+
                 computersTurn(computerPlayer);
 
 
 
-        // boardInstance.setElement(2,2,"(-Z)");
         humanPlayer.getScore();
 
 //        boardInstance.placeWordOnBoard(this, humanPlayer);

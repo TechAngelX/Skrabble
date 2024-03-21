@@ -234,9 +234,9 @@ public class BoardInit {
 
 
 
-    // placeWordOnBoard() : Responsible for taking input from a  player (a word and its direction),
+    // placeWordOnBoard() : Responsible for taking input the (validated) input from a player (a word and its direction),
     // parsing it, and placing the word onto the current instances' game board accordingly.
-    public void placeWordOnBoard(GamePlay gamePlay, Player player) throws IOException {
+    public void placeWordOnBoard(Player player) throws IOException {
         String wordAndDirection = player.enterWordAndDirection();
         if (wordAndDirection == null) {
             // Handles passing turn, for example, if user enters ',' - nothing to be placed on board.
@@ -248,27 +248,28 @@ public class BoardInit {
         String word = twoParts[0].trim();
         String direction = twoParts[1].trim();
 
-        // Split the word into characters and puts them into an array. - e.g., d,o,G
+        // Split the word into characters and put them into an array. - e.g., d,o,G
         String[] wordAsArray = word.split("");
 
         // Variables to track row and column based on direction e.g., 4C is row 4, and C is column C.
         int row = 0;
         int col = 0;
 
-        // TODO Logic based on direction - need to work on
+        // Logic based on direction
         if (direction.equalsIgnoreCase("vertical")) {
+            // Randomly select a starting column within the valid range
+            col = (int) (Math.random() * (currentGameBoardSize - wordAsArray.length));
         } else if (direction.equalsIgnoreCase("horizontal")) {
-            // Update col for each letter, row stays the same
-            col++; // Initial offset for horizontal placement (we can adjust if needed)
+            // Randomly select a starting row within the valid range
+            row = (int) (Math.random() * (currentGameBoardSize - wordAsArray.length));
         } else {
             // Handle invalid direction (possibly throw exception or display error)
             return;
         }
 
         // Loop through each character and update the board
-        for (int i = 0; i < wordAsArray.length; i++) {
-            String letter = wordAsArray[i];
-            setElement(row, col, letter); // Update board using setElement() method
+        for (String letter : wordAsArray) {
+            setElement(row, col, letter); // Update the board using setElement() method
             if (direction.equalsIgnoreCase("vertical")) {
                 row++;
             } else {
