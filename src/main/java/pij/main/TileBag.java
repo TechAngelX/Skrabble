@@ -5,6 +5,7 @@ import java.util.*;
 public class TileBag {
     protected List<Tile> tilesInBag;
 
+    // TilesInBag () - The overall list of tiles available to be drawn bby humans and computer - 8 x A1s etc.
     public TileBag() {
         tilesInBag = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -116,8 +117,6 @@ public class TileBag {
         return tilesInBag.remove(index);
     }
 
+    // TODO - a RemoveOneTIile Method ?
+
 }
-
-
-
-
