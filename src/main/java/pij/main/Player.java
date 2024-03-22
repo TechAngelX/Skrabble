@@ -1,9 +1,7 @@
 package pij.main;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Player {
     protected final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
@@ -14,11 +12,13 @@ public class Player {
     protected String direction;
     protected int score;
 
+    protected  String playerLastMove;
+
     protected List<Tile> tileRack;
     private TileBag tileBag;
     public Player(TileBag tileBag) {
         this.tileBag = tileBag;
-        this.tileRack = new ArrayList<>(); // Initialize the player's tileRack
+        this.tileRack = new ArrayList<>(); // Initialize the game's tileRack
     }
 
       //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
@@ -178,5 +178,8 @@ public class Player {
     protected void setPlayerPassCount(int playerPassCount) { this.playerPassCount = playerPassCount;
     }
 
+    public String playerLastMove(Player player) {
+        return playerLastMove;
+    }
 }
 

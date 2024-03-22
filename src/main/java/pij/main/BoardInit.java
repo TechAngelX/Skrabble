@@ -37,61 +37,11 @@ public class BoardInit {
         }
         this.board = new String[boardSize][boardSize];
 
-        String line;
+        String lineReader;
 
         int i = 0; // Initialize row index
 
-        while ((line = reader.readLine()) != null) {
-            if (i >= boardSize) {
-                // Handle potential extra lines in the file (e.g., log warning or throw an exception)
-                break;
-            }
-
-
-
-
-
-            String[] elementsFromTextFile = line.split("");
-
-            int j = 0; // Initialize column index
-            int columnIndex = 0; // Additional column index for handling enclosed characters
-
-            while (j < elementsFromTextFile.length) {
-                StringBuilder currentElement = new StringBuilder();
-
-                if (elementsFromTextFile[j].equals("{")) {
-                    // Handle curly braces
-                    currentElement.append("{");
-                    j++; // Move to the next character after '{'
-
-                    while (!elementsFromTextFile[j].equals("}")) {
-                        currentElement.append(elementsFromTextFile[j]);
-                        j++;
-                    }
-
-                    currentElement.append("}");
-                } else if (elementsFromTextFile[j].equals("(")) {
-                    // Handle parentheses
-                    currentElement.append("(");
-                    j++; // Move to the next character after '('
-
-                    while (!elementsFromTextFile[j].equals(")")) {
-                        currentElement.append(elementsFromTextFile[j]);
-                        j++;
-                    }
-
-                    currentElement.append(")");
-                } else {
-                    // Handle regular characters without curly braces or parentheses
-                    currentElement.append(elementsFromTextFile[j]);
-                }
-                // Store only the first three characters
-                board[i][columnIndex] = currentElement.substring(0, Math.min(3, currentElement.length()));
-
-                columnIndex++; // Move to the next column index
-                j++; // Move to the next character
-            }
-            i++; // Move to the next row
+        while ((lineReader = reader.readLine()) != null) {
         }
         reader.close();
     }
@@ -102,8 +52,6 @@ public class BoardInit {
         System.out.println("============ S k r a B B K l e ============");
         System.out.println("============                   ============");
     }
-
-
 
     // isCustomBoard() : Prompts the user to load a custom board, or use the default board.
     // Sets flag (true/false) which will determine whether the createTheBoard() method loads a custom or default board.
@@ -220,8 +168,39 @@ public class BoardInit {
         gameConfig.gameInPlay(); // Jump to GamePlay class, gameInPlay() method.
     }
 
+    //=======================
+    // WORKINNG UPDATE FRON HERE
+    //=======================
 
-    /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
+
+    // placeWordOnBoard() : Responsible for taking input the (validated) input from aplayer (a word and its direction),
+    // parsing it, and placing the word onto the current instances' game board accordingly.
+    public void placeTilesOnBoard(Player player, Map<String, Integer> tileRack) throws IOException {
+        String word = player.getWord(); // Get the word from the player
+        String direction = player.getDirection(); // Get the direction from the player
+
+        player.setWord(word);
+        player.setDirection(direction);
+
+        // Place tiles from tileRack on the board
+        for (Map.Entry<String, Integer> entry : tileRack.entrySet()) {
+            String tile = entry.getKey();
+            int row = Integer.parseInt(direction.substring(1));
+            String col = direction.substring(0, 1);
+
+            // Split the direction into its components (row and column)
+            if (Character.isDigit(direction.charAt(0))) {
+                // Place horizontally
+                placeTileHorizontally(tile, row, col);
+            } else {
+                // Place vertically
+                placeTileVertically(tile, row, col);
+            }
+        }
+    }
+
+
+    //  setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.
     public String setElement(int row, String col, String value) {
         if (isValidIndex(row, col) && board != null) {
             int colIndex = col.charAt(0) - 'a'; // Convert column letter to index
@@ -232,51 +211,31 @@ public class BoardInit {
         }
     }
 
+    private void placeTileHorizontally(String tile, int row, String col) {
+        // Extract letter and number from the tile
+        String letter = tile.substring(0, 1);
+        int score = Integer.parseInt(tile.substring(1));
 
-
-
-
-    // placeWordOnBoard() : Responsible for taking input the (validated) input from aplayer (a word and its direction),
-    // parsing it, and placing the word onto the current instances' game board accordingly.
-    public void placeWordOnBoard(Player player) throws IOException {
-        String word = player.getWord(); // Get the word from the player
-        String direction = player.getDirection(); // Get the direction from the player
-
-        // Split the direction into its components (row and column)
-        int row;
-        String col;
-        if (Character.isDigit(direction.charAt(0))) {
-            row = Integer.parseInt(direction); // If the first character is a digit, set it as the row
-            col = direction.substring(1); // The column is the rest of the string
-        } else {
-            col = direction.substring(0, direction.length() - 1); // The column is the first character
-            row = Integer.parseInt(direction.substring(direction.length() - 1)); // The row is the last character
+        // Place the letter on the board horizontally
+        for (int i = 0; i < letter.length(); i++) {
+            String currentLetter = letter.substring(i, i + 1);
+            setElement(row, col, currentLetter); // Place the letter on the board
+            col = String.valueOf((char) (col.charAt(0) + 1)); // Move to the next column
         }
-
-        // Place the word on the board based on the row, column, and direction
-        if (direction.endsWith("H")) {
-            // If the direction ends with 'H', it's horizontal
-            for (int i = 0; i < word.length(); i++) {
-                char letter = word.charAt(i);
-                board[row - 1][col.charAt(0) - 'a' + i] = String.valueOf(letter);
-            }
-        } else if (direction.endsWith("V")) {
-            // If the direction ends with 'V', it's vertical
-            for (int i = 0; i < word.length(); i++) {
-                char letter = word.charAt(i);
-                board[row - 1 + i][col.charAt(0) - 'a'] = String.valueOf(letter);
-            }
-
-
-        // Display the updated board
-        System.out.println("board fat " + board.toString());
-        }
-
-
     }
 
 
+    private void placeTileVertically(String tile, int row, String col) {
+        // Extract letter and number from the tile
+        String letter = tile.substring(0, 1);
+        int score = Integer.parseInt(tile.substring(1));
 
+        // Place the letter on the board vertically
+        for (int i = 0; i < letter.length(); i++) {
+            String currentLetter = letter.substring(i, i + 1);
+            setElement(row + i, col, currentLetter); // Place the letter on the board
+        }
+    }
 
 
     // The setRow() method utilizes System.arraycopy() to copy characters from the 'values' array (word letter characters extracted from the input string)
@@ -312,20 +271,22 @@ public class BoardInit {
 
         return builder.toString();
     }
+
     private void printColumnHeaders(StringBuilder builder) {
         builder.append("      "); // Add an extra space to align with elements
         for (int i = 0; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i );
+            char columnHeader = (char) ('a' + i);
             builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
 
         }
         builder.append("\n");
     }
+
     private void printBoardContent(StringBuilder builder) {
         for (int i = 1; i < board.length; i++) {
             builder.append(String.format("%-5d", i + 1)); // Print row number
             for (int j = 1; j < board[i].length; j++) {
-                builder.append(String.format("%-4s", board[i-1][j-1])); // Adjust the formatting
+                builder.append(String.format("%-4s", board[i - 1][j - 1])); // Adjust the formatting
             }
             builder.append(String.format("%-5d\n", i + 1)); // Print row number at the end of the row
         }
@@ -354,8 +315,6 @@ public class BoardInit {
             return false;
         }
     }
-
-
 
 
     /**

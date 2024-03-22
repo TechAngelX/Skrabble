@@ -3,7 +3,6 @@ package pij.main;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class GamePlay {
     public TileBag tileBag;
@@ -11,10 +10,8 @@ public class GamePlay {
     public HumanPlayer humanPlayer;
     public ComputerPlayer computerPlayer;
     private boolean isGameTypeOpen = false;
-    private String humanPlayerLastMove = "";
+    private String playerLastMove = "";
     Scanner scanner = new Scanner(System.in);
-
-
 
 
     String[][] board;
@@ -48,7 +45,7 @@ public class GamePlay {
         while (true) {
             // Human player's turn
             // -------------------
-            if (humanPlayerLastMove != null && humanPlayerLastMove.equals("humanPassFlagged")) {
+            if (computerPlayer.playerLastMove(humanPlayer) != null && computerPlayer.playerLastMove(humanPlayer).equals("humanPassFlagged")) {
                 humanPlayer.playerPassCount++;
                 humanPlayer.getPlayerPassCount(humanPlayer); // Just a test print to see if value is 1, after human presses comma.
                 computersTurn(computerPlayer);
@@ -73,13 +70,6 @@ public class GamePlay {
     }
 
 
-
-
-
-
-
-
-
     // openGameShowTiles() : Explicitly prints OPEN GAME: and computers tiles, as well as human tiles,
     // based on if user presses 'O'.
     public void openGameShowTiles() throws IOException {
@@ -94,12 +84,13 @@ public class GamePlay {
     }
 
     /**
-     hasUserSelectedOpenGame() : Prompts the user to choose between an open or closed game type and validates their input.
-     Returns true if the user chooses an open game, false if they choose a closed game.
-     @return true if the user selects an open game, false if they select a closed game.
-     @throws IOException if there are issues with input/output operations.
+     * hasUserSelectedOpenGame() : Prompts the user to choose between an open or closed game type and validates their input.
+     * Returns true if the user chooses an open game, false if they choose a closed game.
+     *
+     * @return true if the user selects an open game, false if they select a closed game.
+     * @throws IOException if there are issues with input/output operations.
      */
-        public boolean hasUserSelectedOpenGame() throws IOException {
+    public boolean hasUserSelectedOpenGame() throws IOException {
         boolean isOpenGame = false;
 
         System.out.println("\nDo you want to play an _o_pen or _c_losed game?");
@@ -135,7 +126,6 @@ public class GamePlay {
     }
 
 
-
     private final boolean isHumanTurn = true;
 
 
@@ -155,46 +145,40 @@ public class GamePlay {
      * @param humanPlayer The HumanPlayer object representing the current player.
      * @throws IOException If there are issues with user input during the turn.
      */
-   public void humansTurn(HumanPlayer humanPlayer) throws IOException {
+    public void humansTurn(HumanPlayer humanPlayer) throws IOException {
 
 
-        humanPlayerLastMove = humanPlayer.enterWordAndDirection(scanner);
-        if (humanPlayerLastMove == null) {
+        playerLastMove = humanPlayer.enterWordAndDirection(scanner);
+        if (playerLastMove == null) {
             System.out.println("Human player passed the turn."); // test print
         }
-        if (!humanPlayerLastMove.equals("humanPassFlagged")) { // Check if the move is not a pass
+        if (!playerLastMove.equals("humanPassFlagged")) { // Check if the move is not a pass
             // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
             System.out.println("You have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
-            boardInstance.setElement(2,"b","W");
+            boardInstance.setElement(2, "b", "W");
 
-            boardInstance.placeWordOnBoard(humanPlayer);
+            System.out.println("sdfeswfde");
+
+            System.out.println(boardInstance.toString());
+
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 
-            
-            boardInstance.placeWordOnBoard(humanPlayer);
+
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 //            humanPlayer.getScore();
 
-            System.out.println(boardInstance.toString());
-        }
-//        boardInstance.placeWordOnBoard(this, humanPlayer);
-//        Remove used tiles from player's rack - huumanPlayer.removeFromTileRack(tiles used in the word);
-//        Update player's score
-//        Draw new tiles for the player -  humanPlayer.drawTiles(tileBag);
-//        humanPlayer.printPlayerTileRack("Your Tiles:\t\t\t", true);
         }
 
+    }
 
-// COMPUTER TURN GAME LOGIC
+
+    // COMPUTER TURN GAME LOGIC
 // ======================
-      public void computersTurn(ComputerPlayer computerPlayer) throws IOException {
-        System.out.println("OK Computer. It's the Computer's turn!");
+    public void computersTurn(ComputerPlayer computerPlayer) throws IOException {
+//          playerLastMove = computerPlayer.enterWordAndDirection(scanner);
+        isEndGameCriteriaMet(); // Just implementng this as i haven't cxompleted the full AI yet.
 
-          // Just to bit of fun to add atmosphere to the AI. set maxTime to 0 (secondds) to turn effect off.
-          computerPlayer.randomAIWaitTime(5);
-
-
-
+//  TODO - THoughts of actions to do for compiter logicL
 //        // 1. Check if the computer can pass (no valid moves)
 ////        if (!computerPlayer.hasValidMoves(board, boardInstance.boardSize)) {
 //            System.out.println("Computer passes its turn.");
@@ -221,6 +205,7 @@ public class GamePlay {
 
 // ENDING THE GAME
 // ===============
+
     /**
      * isEndGameCriteriaMet() : Determines if the game has reached its end state. (This method is Unfinished / Work In Progress).
      * =====================================================================================
@@ -244,7 +229,8 @@ public class GamePlay {
         return false;
     }
 
-    /** endGame( Ends the game and displays the final scores and winner.
+    /**
+     * endGame( Ends the game and displays the final scores and winner.
      * =====================================================================================
      * Sets the scores for both human and computer players.Displays the scores, and announces the winner.
      * If scores are equalt, it announces a draw.  (Unfinished / WOrk In Progress).
@@ -271,7 +257,7 @@ public class GamePlay {
             } else {
                 winner = computerPlayer.toString();
             }
-                System.out.println("`\nThe " + winner + " wins!");
+            System.out.println("`\nThe " + winner + " wins!");
             System.out.println("Thanks for playing SkraBBKle\n====================+++====");
         }
     }
