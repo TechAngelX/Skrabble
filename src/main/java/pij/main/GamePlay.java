@@ -157,11 +157,7 @@ public class GamePlay {
             System.out.println("You have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
             boardInstance.setElement(2, "b", "W");
 //            boardInstance.placeTilesOnBoard(humanPlayer);
-            humanPlayer.printTileRackNoFormatting();
-
             System.out.println(boardInstance.toString());
-
-            moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 
 
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
@@ -262,9 +258,5 @@ public class GamePlay {
         }
     }
 
-    /**
-     * Helper Methods: Not for game play usage, but to assist with code writing/debugging.
-     * _________________________________________________________________________________
-     */
-//   tileBag.remainingTilesInBag();; // Helper method to see how many tiles in tileBag remaining. Not for game use.
+
 }

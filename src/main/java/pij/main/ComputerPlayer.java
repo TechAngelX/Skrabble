@@ -23,9 +23,10 @@ public class ComputerPlayer extends Player {
         while (true) {
             System.out.println(""); // Blank space
             System.out.println("OK Computer. It's the Computer's turn!");
-            // Just to bit of fun to add atmosphere to the AI. set maxTime to 0 (secondds) to turn effect off.
+            System.out.print("thinking ...");
 
-            randomAIWaitTime(5);
+            // Just to bit of fun to add atmosphere to the AI. set maxTime to 0 (secondds) to turn effect off.
+        // randomAIWaitTime(5);
 
         }}
 
