@@ -25,6 +25,7 @@ public class HumanPlayer extends Player {
      */
     public String enterWordAndDirection(Scanner scanner) throws FileNotFoundException {
         while (true) {
+            System.out.println(""); // Blank space
             System.out.print("____________________________________________________________________________________________________\n" +
                     "Enter your move in the format: 'word,square' (without the quotes). EXAMPLE: for a suitable tile rack\n" +
                     "and board configuration, downward move could be \"DOG,f4\" and a rightward move could be 'DOG,4f'.\n" +

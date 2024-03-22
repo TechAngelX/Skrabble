@@ -21,27 +21,37 @@ public class ComputerPlayer extends Player {
         this.direction = direction;
     }
 
-    //// randomAIWaitTime() Generates  a random wait time between 0 and 4 seconds
+    // randomAIWaitTime() : Generates a random wait time between 0 and 'x' seconds, to simulate the AI thinkinn...
+    // User can set the time when calling the method.
     protected void randomAIWaitTime(int maxTime) {
         Random random = new Random();
-        int min = 0;
+        int min = 2;
         int max = 4;
-
-        int randNum = random.nextInt(maxTime - min + 1) + min;
         System.out.print("thinking ...");
 
-        for (int i = 0; i < randNum; i++) {
-            System.out.print(" ...");
+        int randNum = random.nextInt(maxTime - min + 1) + min;
 
+        for (int i = 0; i < randNum; i++) {
+            blinkThreeDots(); // Calls a separate method for blinking three dots
             try {
-                TimeUnit.MILLISECONDS.sleep(500);
-                System.out.print("\b\b\b\b\b\b\b\b\b\b");
                 TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    // Method to blink three dots consecutively
+    private void blinkThreeDots() {
+        System.out.print("...");
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+            System.out.print("\b\b\b");
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }}
 
 }
 

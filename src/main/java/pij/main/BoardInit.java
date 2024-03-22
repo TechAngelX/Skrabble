@@ -224,13 +224,15 @@ public class BoardInit {
     /** setElement(): Method for overwriting elements (tiles) onto the board, on x or y axis.*/
     public String setElement(int row, String col, String value) {
         if (isValidIndex(row, col) && board != null) {
-            board[row][col] = value; // Update the board element with the value
-            return value; // (Optional) return the updated value
-
+            int colIndex = col.charAt(0) - 'a'; // Convert column letter to index
+            board[row - 2][colIndex] = value; // Update the board element with the value
+            return value; // Return the updated value
         } else {
-            return null; // (Optional) return null for invalid index or null board
+            return null; // Return null for invalid index or null board
         }
     }
+
+
 
 
 
@@ -312,8 +314,8 @@ public class BoardInit {
     }
     private void printColumnHeaders(StringBuilder builder) {
         builder.append("      "); // Add an extra space to align with elements
-        for (int i = 1; i < board[0].length; i++) {
-            char columnHeader = (char) ('a' + i -1);
+        for (int i = 0; i < board[0].length; i++) {
+            char columnHeader = (char) ('a' + i );
             builder.append(String.format("%-4s", columnHeader)); // Adjust the formatting
 
         }

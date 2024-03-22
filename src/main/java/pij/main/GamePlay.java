@@ -165,9 +165,9 @@ public class GamePlay {
         if (!humanPlayerLastMove.equals("humanPassFlagged")) { // Check if the move is not a pass
             // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
             System.out.println("You have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
+            boardInstance.setElement(2,"b","W");
 
             boardInstance.placeWordOnBoard(humanPlayer);
-            boardInstance.setElement(2,"B","W");
             moveValidator.isWithinBoard(humanPlayer.getWord(), humanPlayer.getDirection(), boardInstance.board);
 
             
@@ -191,7 +191,7 @@ public class GamePlay {
         System.out.println("OK Computer. It's the Computer's turn!");
 
           // Just to bit of fun to add atmosphere to the AI. set maxTime to 0 (secondds) to turn effect off.
-          computerPlayer.randomAIWaitTime(4);
+          computerPlayer.randomAIWaitTime(5);
 
 
 
