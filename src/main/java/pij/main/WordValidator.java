@@ -75,7 +75,7 @@ public class WordValidator {
                 wildcardPresent = false; // Consume the wildcard
             } else {
                 // If the letter is not available and there are no wildcard tiles, return false
-                System.out.println("Sorry. You only have "+player.cleanTileRack()+"in your rack, so ypu cannot make the word '"+word+"'.");
+                System.out.println("Sorry. You only have "+player.printTileRackWithBrackets()+"in your rack, so ypu cannot make the word '"+word+"'.");
                 return false;
             }
         }

@@ -5,59 +5,61 @@ import java.util.List;
 
 public class Player {
     protected final int INITIAL_NUMBER_OF_PLAYER_TILES = 7;
-    protected final int PLAYER_RACK_IS_EMPTY= 0;
+    protected final int PLAYER_RACK_IS_EMPTY = 0;
     protected final int TWO_PASS_COUNTS_IN_SUCCESSION = 2; // More than two passes in a row meets criteria to trigger endGame()
-    protected  int playerPassCount = 0;
+    protected int playerPassCount = 0;
     protected String word;
     protected String direction;
     protected int score;
 
-    protected  String playerLastMove;
+    protected String playerLastMove;
 
     protected List<Tile> tileRack;
     private TileBag tileBag;
+
     public Player(TileBag tileBag) {
         this.tileBag = tileBag;
         this.tileRack = new ArrayList<>(); // Initialize the game's tileRack
     }
 
-      //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
+    //Initializes a rack of 7 random tiles (from the tileBag) for the human or computer player. Only to be used once.
 
     protected String intializePlayerTileRack() {
-        StringBuilder cleanTileRackBuilder = new StringBuilder();
+        StringBuilder tileRackBuilder = new StringBuilder();
         for (int i = 0; i < 7; i++) {
             Tile tile = tileBag.getRandomTile();
             if (tile != null) {
-                cleanTileRackBuilder.append(tile.getTileLetter()).append(tile.getTileValue());
+                tileRackBuilder.append(tile.getTileLetter()).append(tile.getTileValue());
                 tileRack.add(tile);
             }
         }
 
-        String cleanTileRackPrinter = cleanTileRackBuilder.toString();
-        return cleanTileRackPrinter;
+        String tTileRackPrinter = tileRackBuilder.toString();
+        return null;
     }
-            public void removeTile(String letter) {
-            // Find the index of the tile to remove
-            int index = -1;
-            for (int i = 0; i < tileRack.size(); i++) {
-                if (tileRack.get(i).getTileLetter() == letter.charAt(0)) {
-                    index = i;
-                    break;
-                }
+
+    public void removeTile(String letter) {
+        // Find the index of the tile to remove
+        int index = -1;
+        for (int i = 0; i < tileRack.size(); i++) {
+            if (tileRack.get(i).getTileLetter() == letter.charAt(0)) {
+                index = i;
+                break;
             }
-
-            if (index == -1) {
-                System.out.println("Tile '" + letter + "' not found in your rack.");
-                return;
-            }
-
-            // Remove the tile at the index from the tile rack
-            tileRack.remove(index);
-
-            System.out.println("Tile '" + letter + "' removed from your rack.");
         }
 
-// SCORING - (Work in progress)
+        if (index == -1) {
+            System.out.println("Tile '" + letter + "' not found in your rack.");
+            return;
+        }
+
+        // Remove the tile at the index from the tile rack
+        tileRack.remove(index);
+
+        System.out.println("Tile '" + letter + "' removed from your rack.");
+    }
+
+    // SCORING - (Work in progress)
 // =============================
     public static int getPointsSwitchCase(char letter) {
         int score = 0;
@@ -119,16 +121,18 @@ public class Player {
         }
         return score;
     }
+
     public List<Tile> getTileRack() {
         return tileRack;
     }
+
     /**
      * printPlayerTileRack() :  Prints the player's tile rack to screen..
      *
      * @param playerTiles The name of the player whose tiles will be printed.
-     * @param gameType A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
-     *
-     * If game is Open Type, it prints OPEN GAME and user tiles.
+     * @param gameType    A boolean flag indicating the type of game being played.`true` for an open game, `false` for a closed game.
+     *                    <p>
+     *                    If game is Open Type, it prints OPEN GAME and user tiles.
      */
 
 // printPlayerTileRack() : Builds the nice brackets [ ] around the first and second character. A for loop iterates though
@@ -150,36 +154,67 @@ public class Player {
 // around the first and second character. No 'OPEN GAME:' foprmatting applied..
 
 
-    public String cleanTileRack() {
-        StringBuilder cleanTileRackPrinter = new StringBuilder();
-        for (Tile tile : tileRack) {
-            cleanTileRackPrinter.append("[").append(tile.getTileLetter()).append(tile.getTileValue()).append("] ");
-        }
-        return cleanTileRackPrinter.toString(); // Returns just the formatted string
+    // Getters and Setters - Typically, there would be two usages each of these.
+//--------------------
+    protected String getWord() {
+        return word;
     }
 
-// Getters and Setters - Typically, there would be two usages each of these.
-//--------------------
-    protected String getWord() { return word;
+    protected void setWord(String word) {
+        this.word = word;
     }
-    protected void setWord(String word) { this.word = word;
+
+    protected String getDirection() {
+        return direction;
     }
-    protected String getDirection() { return direction;
+
+    protected void setDirection(String direction) {
+        this.direction = direction;
     }
-    protected void setDirection(String direction) { this.direction = direction;
+
+    protected int getScore() {
+        return score;
     }
-    protected int getScore() { return score;
+
+    protected void setScore(int score) {
+        this.score = score;
+
+
     }
-    protected void setScore(int score) { this.score = score;
+
+    // setPlayerPassCount() / PlayerPassCount() : To keep track of how many times a user passed on a move.
+    protected int getPlayerPassCount(Player player) {
+        return playerPassCount;
     }
-// setPlayerPassCount() / PlayerPassCount() : To keep track of how many times a user passed on a move.
-    protected int getPlayerPassCount(Player player) { return playerPassCount;
-    }
-    protected void setPlayerPassCount(int playerPassCount) { this.playerPassCount = playerPassCount;
+
+    protected void setPlayerPassCount(int playerPassCount) {
+        this.playerPassCount = playerPassCount;
     }
 
     public String playerLastMove(Player player) {
         return playerLastMove;
     }
+
+    // A couple of formatted and unformatted helper methods for printing player's tile rack.
+    //-------------------------------------------------------------------------------------
+    public String printTileRackWithBrackets() {
+        StringBuilder formattedTileRack = new StringBuilder();
+        for (Tile tile : tileRack) {
+            formattedTileRack.append("[").append(tile.getTileLetter()).append(tile.getTileValue()).append("] ");
+        }
+        return formattedTileRack.toString();
+    }
+
+    // A clean view of the player's tile rack without formatting.
+    public void printTileRackNoFormatting() {
+        for (Tile tile : tileRack) {
+            System.out.print(tile.getTileLetter() + "" + tile.getTileValue() + " ");
+        }
+        System.out.println(); // Add a newline for readability
+    }
+
+
 }
+
+
 

@@ -1,13 +1,11 @@
 package pij.main;
 
 /**
- * This class represents a tile in the game available not the player's tileRack..
- * Tiles here are arranged inRepresents a tile in the game.
+ * This class represents a basic blueprint of a single tile. It has a letter, and a value.
  */
 public class Tile {
     private char tileLetter;
     private int tileValue;
-
 
     /**
      * Constructs a tile with the specified letter and value.

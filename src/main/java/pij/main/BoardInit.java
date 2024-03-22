@@ -18,13 +18,14 @@ public class BoardInit {
     protected final int MAX_BOARD_SIZE = 26;
     protected int currentGameBoardSize; // Gets board size depending on first line (integer) read from loaded custom board.
     private GamePlay gameConfig;
+    private BoardInit boardInitInstance;
     protected String[][] board;
 
 
     // BoardInit() - Constructor to Initialize board, loads data into 2D array, formats and prints initial board.
     public BoardInit() throws IOException {
         this.gameConfig = new GamePlay(this);
-
+        this.boardInitInstance = boardInitInstance;
         String filePath = DEFAULT_BOARD_FILE_PATH;
 
         BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_BOARD_FILE_PATH));
@@ -212,7 +213,6 @@ public class BoardInit {
     }
 
     private void placeTileHorizontally(String tile, int row, String col) {
-        // Extract letter and number from the tile
         String letter = tile.substring(0, 1);
         int score = Integer.parseInt(tile.substring(1));
 

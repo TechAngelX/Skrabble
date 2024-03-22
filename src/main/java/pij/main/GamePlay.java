@@ -156,8 +156,8 @@ public class GamePlay {
             // Passes board instance parameter, so that word (length) and direction (co-ordinates) can be checked against board size.
             System.out.println("You have placed word: '" + humanPlayer.getWord() + "' at position " + humanPlayer.getDirection().toUpperCase() + ".");
             boardInstance.setElement(2, "b", "W");
-
-            System.out.println("sdfeswfde");
+//            boardInstance.placeTilesOnBoard(humanPlayer);
+            humanPlayer.printTileRackNoFormatting();
 
             System.out.println(boardInstance.toString());
 
@@ -243,7 +243,7 @@ public class GamePlay {
         System.out.println("\nGame Over!");
         System.out.println(humanPlayer.toString() + " scored " + humanPlayer.getScore() + " points.");
         System.out.println(computerPlayer.toString() + " scored " + computerPlayer.getScore() + " points.");
-
+//        BoardInit.placeTilesOnBoard
         int humanScore = humanPlayer.getScore();
         int computerScore = computerPlayer.getScore();
 
