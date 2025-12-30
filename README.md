@@ -1,7 +1,7 @@
 # SkraBBKle
 
 ## Overview
-A text-based Java board game inspired by Scrabble, originally developed as a coursework assignment for my MSc in Computer Science. Designed to demonstrate core Object-Oriented Programming (OOP) principles—such as encapsulation, polymorphism, and inheritance—this project features a configurable board size (S x S) and a functional Computer opponent.
+A text-based Java board game inspired by Scrabble, originally developed as a coursework assignment for my MSc in Computer Science. Designed to demonstrate core Object-Oriented Programming (OOP) principles—such as encapsulation, polymorphism, and inheritance—this project features a configurable board size (S x S) and a functional Computer opponent. Not quite finished yet. Very much a work-in-progress and nostalgic look at my past work...
 
 ## Example Output
 Below is an example of the game log and board state during a match. The board dynamically updates to show tiles, multipliers, and score tracking.
