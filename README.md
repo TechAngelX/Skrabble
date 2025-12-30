@@ -48,8 +48,9 @@ The goal is to populate the board with a grid of tiles to form words from a pre-
 
 ## How to Run
 1.  **Clone the repository.**
-2.  **Compile the Java files** (Java 17 required).
-3.  **Run the Main class:** `pij.main.Main`
+2.  **Compile the Java files:** `javac -d bin src/main/java/pij/main/*.java`
+3.  **Run the Main class:** `java -cp bin:src/main/resources pij.main.Main`
+
 
 ## Controls
 * **Loading:** Choose between a default board or load a custom board file.
