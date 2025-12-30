@@ -1,3 +1,4 @@
+NOTE: THIS REPOSITORY HAS NOW BEE ARCHIVED.
 # SkraBBKle
 
 ## Overview
